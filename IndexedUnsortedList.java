@@ -1,3 +1,5 @@
+import java.util.*;
+
 /**
  *  Interface for an Iterable, Indexed, Unsorted List ADT.
  *  Iterators and ListIterators provided by the list are required
@@ -6,12 +8,10 @@
  *  Note: "Unsorted" only means that it is not inherently maintained
  *  in a sorted order. It may or may not be sorted.
  *
- * @author CPSC 221
+ * @author CS 221
  *
  * @param <E> - class of objects stored in the list 
  */
-import java.util.*;
-
 public interface IndexedUnsortedList<E> extends Iterable<E>
 {
     /**  
