@@ -13,7 +13,7 @@ import java.util.NoSuchElementException;
  * 
  * @author mvail, mhthomas, amussell (lambdas), lsevigny (iterator decorator)
  */
-// Temp Comment
+
 public class ListTester {
 	//possible lists that could be tested
 	private static enum ListToUse {
