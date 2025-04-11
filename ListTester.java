@@ -182,11 +182,11 @@ public class ListTester {
 			
 		//1-element to empty list
 			// Scenario: 12
-
+		testEmptyList(A_removeFirst_emptyList, "A_removeFirst_emptyList");
 			// Scenario: 13
 
 			// Scenario: 14
-
+		testEmptyList(A_removeA_emptyList, "A_removeA_emptyList");
 			// Scenario: 15
 
 			// Scenario: 44
@@ -376,6 +376,13 @@ public class ListTester {
 	/** Scenario #12: [A] -> removeFirst() -> []
 	 * @return [] after removeFirst()
 	 */
+	private IndexedUnsortedList<Integer> A_removeFirst_emptyList() {
+		IndexedUnsortedList<Integer> list = emptyList_addToFrontA_A();
+		list.removeFirst();
+		return list;
+	}
+
+	private Scenario<Integer> A_removeFirst_emptyList = () -> A_removeFirst_emptyList();
 
 	/** Scenario #13: [A] -> removeLast() -> [] 
 	 * @return [] after removeLast()
@@ -383,7 +390,15 @@ public class ListTester {
 
 	/** Scenario #14: [A] -> remove(A) -> []
 	 * @return [] after remove(A)
+	 * 
 	 */
+	private IndexedUnsortedList<Integer> A_removeA_emptyList() {
+		IndexedUnsortedList<Integer> list = emptyList_addToFrontA_A();
+		list.remove(ELEMENT_A);
+		return list;
+	}
+
+	private Scenario<Integer> A_removeA_emptyList = () -> A_removeA_emptyList();
 
 	/** Scenario #15: [A] -> remove(0) -> [] 
 	 * @return [] after remove(0)
@@ -701,8 +716,10 @@ public class ListTester {
 		try {
 			printTest(scenarioName + "_testAddToFront", testAddToFront(scenario.build(), ELEMENT_X, Result.NoException));
 			printTest(scenarioName + "_testAddToRear", testAddToRear(scenario.build(), ELEMENT_X, Result.NoException));
-			printTest(scenarioName + "_testAddAfterA" + testAddAfter(scenario.build(), ELEMENT_A, ELEMENT_X, Result.NoException));
-			printTest(scenarioName + "_testAddAfterB" + testAddAfter(scenario.build(), ELEMENT_B, ELEMENT_X, Result.NoException));
+			
+			printTest(scenarioName + "_testAddAfterA", testAddAfter(scenario.build(), ELEMENT_A, ELEMENT_X, Result.NoException));
+			printTest(scenarioName + "_testAddAfterB", testAddAfter(scenario.build(), ELEMENT_B, ELEMENT_X, Result.NoException));
+
 			printTest(scenarioName + "_testAddAfterX", testAddAfter(scenario.build(), ELEMENT_X, ELEMENT_Z, Result.NoSuchElement));
 			printTest(scenarioName + "_testAdd", testAdd(scenario.build(), ELEMENT_X, Result.NoException));
 			printTest(scenarioName + "_testAddAtIndexNeg1", testAddAtIndex(scenario.build(), -1, ELEMENT_X, Result.IndexOutOfBounds));
