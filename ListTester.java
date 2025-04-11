@@ -444,6 +444,7 @@ public class ListTester {
 	list.removeLast();
 	return list;
 	}
+	private Scenario<Integer> A_removeLastB_A = () -> A_removeLastB_A();
 	 
 	/** Scenario #27: [A,B] -> remove(A) -> [B]
 	 * @return [B] after remove(A)
