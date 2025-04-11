@@ -213,7 +213,7 @@ public class ListTester {
 			// Scenario: 25
 
 			// Scenario: 26
-		testSingleElementList(A_removeLastB_A, "A_removeLastB_A", LISTA, STRING_A);
+		testSingleElementList(A_removeLastB_A, "A_removeLastB_A", LIST_A, STRING_A);
 			// Scenario: 27
 
 			// Scenario: 28
@@ -377,6 +377,7 @@ public class ListTester {
 	list.add(0, ELEMENT_B);
 	return list;
 	}
+	private Scenario<Integer> A_addB_BA = () -> A_addB_BA();
 	/** Scenario #12: [A] -> removeFirst() -> []
 	 * @return [] after removeFirst()
 	 */
