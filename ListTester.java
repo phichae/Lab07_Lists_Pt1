@@ -733,7 +733,9 @@ public class ListTester {
 		try {
 			printTest(scenarioName + "_testAddToFront", testAddToFront(scenario.build(), ELEMENT_X, Result.NoException));
 			printTest(scenarioName + "_testAddToRear", testAddToRear(scenario.build(), ELEMENT_X, Result.NoException));
-			
+			//TODO: more logic for this?
+			printTest(scenarioName + "_testAddAfter" + contentsString.charAt(0), testAddAfter(scenario.build(), contents[0], ELEMENT_X, Result.NoException));
+
 			printTest(scenarioName + "_testAddAfterA", testAddAfter(scenario.build(), ELEMENT_A, ELEMENT_X, Result.NoException));
 			printTest(scenarioName + "_testAddAfterB", testAddAfter(scenario.build(), ELEMENT_B, ELEMENT_X, Result.NoException));
 
