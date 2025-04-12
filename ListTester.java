@@ -199,7 +199,7 @@ public class ListTester {
 		testTwoElementList(A_addToRearB_AB, "A_addToRearB_AB", LIST_AB, STRING_AB);
 
 			// Scenario: 10
-
+		testTwoElementList(A_addB_BA, "A_addB_BA", LIST_BA, STRING_BA);
 			
 		//1-element to changed 1-element via set()
 			// Scenario: 16
@@ -213,7 +213,7 @@ public class ListTester {
 			// Scenario: 25
 
 			// Scenario: 26
-
+		testSingleElementList(A_removeLastB_A, "A_removeLast_B_A", LIST_A, STRING_A);
 			// Scenario: 27
 
 			// Scenario: 28
@@ -369,9 +369,17 @@ public class ListTester {
 		return list;
 	}
 	private Scenario<Integer> A_addToRearB_AB = () -> A_addToRearB_AB();
+	
 	/** Scenario #10: [A] -> add(0,B) -> [B,A]
 	 * @return [B,A] after add(0,B)
 	 */
+
+	 private IndexedUnsortedList<Integer> A_addB_BA() {
+		IndexedUnsortedList<Integer> list = emptyList_addToFrontA_A();
+		list.add(0, ELEMENT_B);
+		return list;
+		}
+		private Scenario<Integer> A_addB_BA = () -> A_addB_BA();
 
 	/** Scenario #12: [A] -> removeFirst() -> []
 	 * @return [] after removeFirst()
@@ -433,11 +441,20 @@ public class ListTester {
 	/** Scenario #26: [A,B] -> removeLast() -> [A]
 	 * @return [A] after removeLast()
 	 */
+	private IndexedUnsortedList<Integer> A_removeLastB_A() {
+		IndexedUnsortedList<Integer> list = emptyList_addToFrontA_A();
+		list.addToRear(ELEMENT_B);
+		list.removeLast();
+		return list;
+		}
+		private Scenario<Integer> A_removeLastB_A = () -> A_removeLastB_A();
+	
 
 	 
 	/** Scenario #27: [A,B] -> remove(A) -> [B]
 	 * @return [B] after remove(A)
 	 */
+	
 
 	 
 	/** Scenario #28: [A,B] -> remove(B) -> [A]
@@ -735,10 +752,13 @@ public class ListTester {
 			printTest(scenarioName + "_testRemove1", testRemoveIndex(scenario.build(), 1, contents[1], Result.MatchingValue)); 
 			printTest(scenarioName + "_testRemoveNeg1", testRemoveIndex(scenario.build(), -1, null, Result.IndexOutOfBounds)); 
 			printTest(scenarioName + "_testRemove2", testRemoveIndex(scenario.build(), 2, null, Result.IndexOutOfBounds)); 
+			
+
 			printTest(scenarioName + "_testSet(-1,X)", testSet(scenario.build(), -1, ELEMENT_X, Result.IndexOutOfBounds)); 
 			printTest(scenarioName + "_testSetNeg1", testSet(scenario.build(), -1, ELEMENT_X, Result.IndexOutOfBounds));
 			printTest(scenarioName + "_testSet0", testSet(scenario.build(), 0, ELEMENT_X, Result.NoException));
-			printTest(scenarioName + "_testSet1", testSet(scenario.build(), 1, ELEMENT_X, Result.IndexOutOfBounds));
+			printTest(scenarioName + "_testSet1", testSet(scenario.build(), 1, ELEMENT_X, Result.NoException));
+			printTest(scenarioName + "_testSet2", testSet(scenario.build(), 2, ELEMENT_X, Result.IndexOutOfBounds));
 
 			printTest(scenarioName + "_testGetNeg1", testGet(scenario.build(), -1, null, Result.IndexOutOfBounds));
 			printTest(scenarioName + "_testGet0", testGet(scenario.build(), 0, contents[0], Result.MatchingValue));
