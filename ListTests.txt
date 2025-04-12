@@ -93,6 +93,7 @@ Initial Test Plan for an IndexedUnsortedList
     toString() returns "[A]"
 6) [A] -> addToFront(B) -> [B,A]
   Tests:
+// Tests 1-7
     addToFront(X) throws no Exceptions
     addToRear(X) throws no Exceptions
     addAfter(X, B) throws no Exceptions
@@ -100,6 +101,7 @@ Initial Test Plan for an IndexedUnsortedList
     addAfter(X, Z) throws NoSuchElementException
     add(X) throws no Exception
     add(-1, X) throws IndexOutOfBoundsException
+// Tests 8-15
     add(0, X) throws no Exception
     add(1, X) throws no Exception
     add(2, X) throws no Exception
@@ -108,6 +110,7 @@ Initial Test Plan for an IndexedUnsortedList
     removeLast() returns A
     remove(A) returns A
     remove(B) returns B
+// Tests 16-23 
     remove(X) throws NoSuchElementException
     remove(-1) throws IndexOutOfBoundsException
     remove(0) returns B
@@ -116,6 +119,7 @@ Initial Test Plan for an IndexedUnsortedList
     set(-1, X) throws IndexOutOfBoundsException
     set(0, X) throws no Exception
     set(1, X) throws no Exception
+// Tests 24-31
     set(2, X) throws IndexOutOfBoundsException
     get(-1) throws IndexOutOfBoundsException
     get(0) returns B
@@ -124,6 +128,7 @@ Initial Test Plan for an IndexedUnsortedList
     indexOf(A) returns 1
     indexOf(B) returns 0
     indexOf(X) returns -1
+// Tests 32-38
     first() returns B
     last() returns A
     contains(A) returns true
@@ -132,6 +137,7 @@ Initial Test Plan for an IndexedUnsortedList
     isEmpty() returns false
     size() returns 2
     toString() returns "[B, A]"
+
 7) [A] -> addToRear(B) -> [A,B]
   Tests:
     addToFront(X) throws no Exceptions
