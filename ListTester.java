@@ -735,7 +735,6 @@ public class ListTester {
 			printTest(scenarioName + "_testAddToFront", testAddToFront(scenario.build(), ELEMENT_X, Result.NoException));
 			printTest(scenarioName + "_testAddToRear", testAddToRear(scenario.build(), ELEMENT_X, Result.NoException));
       
-			//TODO: more logic for this?
 			printTest(scenarioName + "_testAddAfter" + contentsString.charAt(0), testAddAfter(scenario.build(), contents[0], ELEMENT_X, Result.NoException));
 
 			printTest(scenarioName + "_testAddAfterA", testAddAfter(scenario.build(), ELEMENT_A, ELEMENT_X, Result.NoException));
@@ -753,7 +752,7 @@ public class ListTester {
 			printTest(scenarioName + "_testRemove" + contentsString.charAt(1), testRemoveElement(scenario.build(), ELEMENT_B, Result.MatchingValue));
 			printTest(scenarioName + "_testRemoveX", testRemoveElement(scenario.build(), ELEMENT_X, Result.NoSuchElement));
 			printTest(scenarioName + "_testRemove" + contentsString.charAt(0), testRemoveElement(scenario.build(), ELEMENT_A, Result.MatchingValue));
-			printTest(scenarioName + "_testRemoveB" + contentsString.charAt(1), testRemoveElement(scenario.build(), ELEMENT_B, Result.MatchingValue));
+			printTest(scenarioName + "_testRemove" + contentsString.charAt(1), testRemoveElement(scenario.build(), ELEMENT_B, Result.MatchingValue));
 			printTest(scenarioName + "_testRemoveNeg1", testRemoveIndex(scenario.build(), -1, null, Result.IndexOutOfBounds));
 			printTest(scenarioName + "_testRemove0", testRemoveIndex(scenario.build(), 0, contents[0], Result.MatchingValue)); 
 			printTest(scenarioName + "_testRemove1", testRemoveIndex(scenario.build(), 1, contents[1], Result.MatchingValue)); 
