@@ -395,8 +395,10 @@ Initial Test Plan for an IndexedUnsortedList
     isEmpty() returns true
     size() returns 0
     toString returns "[]"
+
 17) [A,B] -> addToFront(C) -> [C,A,B]
   Tests:
+// 1 - 8
     addToFront(X) throws no Exceptions
     addToRear(X) throws no Exceptions
     addAfter(X, C) throws no Exceptions
@@ -405,6 +407,8 @@ Initial Test Plan for an IndexedUnsortedList
     addAfter(X, Z) throws NoSuchElementException
     add(X) throws no Exception
     add(-1, X) throws IndexOutOfBoundsException
+
+// 9 - 18
     add(0, X) throws no Exception
     add(1, X) throws no Exception
     add(2, X) throws no Exception
@@ -414,6 +418,8 @@ Initial Test Plan for an IndexedUnsortedList
     removeLast() returns B
     remove(A) returns A
     remove(B) returns B
+
+// 19 - 27
     remove(C) returns C
     remove(X) throws NoSuchElementException
     remove(-1) throws IndexOutOfBoundsException
@@ -422,6 +428,8 @@ Initial Test Plan for an IndexedUnsortedList
     remove(2) returns B
     remove(3) throws IndexOutOfBoundsException
     set(-1, X) throws IndexOutOfBoundsException
+
+// 28 - 37
     set(0, X) throws no Exception
     set(1, X) throws no Exception
     set(2, X) throws no Exception
@@ -431,6 +439,8 @@ Initial Test Plan for an IndexedUnsortedList
     get(1) returns A
     get(2) returns B
     get(3) throws IndexOutOfBoundsException
+
+// 38 - 46
     indexOf(C) returns 0
     indexOf(A) returns 1
     indexOf(B) returns 2
@@ -439,11 +449,14 @@ Initial Test Plan for an IndexedUnsortedList
     last() returns B
     contains(A) returns true
     contains(B) returns true
+
+// 47 - 52
     contains(C) returns true
     contains(X) returns false
     isEmpty() returns false
     size() returns 3
     toString() returns "[C, A, B]"
+
 20) [A,B] -> addAfter(C,B) -> [A,B,C]
   Tests:
     addToFront(X) throws no Exceptions
