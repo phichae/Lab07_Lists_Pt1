@@ -125,16 +125,29 @@ public class IUArrayList<E> implements IndexedUnsortedList<E> {
 
 	@Override
 	public void set(int index, E element) {
-		// TODO 
+		// TODO MD
+		if(index < 0 || index >= size()) {
+			throw new IndexOutOfBoundsException();
+		}
+		if(modCount = array.length) {
+			expandCapacity();
+		}
+	        for(int i = modCount; i >= (index); i--) {
+	            array[i+1] = array[i];
+	        }
+		array[index] = element;
 		modCount++; // DO NOT REMOVE ME
 	}
 
 	@Override
 	public E get(int index) {
-		// TODO 
-		return null;
+		// TODO MD
+		if(index < 0 || index >= size()) {
+			throw new IndexOutOfBoundsException();
+		}
+		return array[index];
 	}
-
+	
 	@Override
 	public int indexOf(E element) {
 		int index = NOT_FOUND;
