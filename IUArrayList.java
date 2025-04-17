@@ -83,6 +83,7 @@ public class IUArrayList<E> implements IndexedUnsortedList<E> {
 
 	@Override
 	public E remove(E element) {
+		//TODO @watermelon2718 move this into a support method haha
 		int index = indexOf(element);
 		if (index == NOT_FOUND) {
 			throw new NoSuchElementException();
