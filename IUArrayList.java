@@ -154,14 +154,12 @@ public class IUArrayList<E> implements IndexedUnsortedList<E> {
 
 	@Override
 	public E first() {
-		// TODO 
-		return null;
+		return array[0];
 	}
 
 	@Override
-	public E last() {
-		// TODO 
-		return null;
+	public E last() { 
+		return array[rear-1];
 	}
 
 	@Override
