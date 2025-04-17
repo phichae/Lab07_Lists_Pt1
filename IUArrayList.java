@@ -69,16 +69,16 @@ public class IUArrayList<E> implements IndexedUnsortedList<E> {
 
 	@Override
 	public E removeFirst() {
-		// TODO 
+		// TODO @watermelon2718
 		modCount++; // DO NOT REMOVE ME
-		return null;
+		return remove(0);
 	}
 
 	@Override
 	public E removeLast() {
-		// TODO 
+		// TODO @watermelon2718
 		modCount++; // DO NOT REMOVE ME
-		return null;
+		return remove(rear - 1); //TODO - is this correct?
 	}
 
 	@Override
@@ -103,9 +103,22 @@ public class IUArrayList<E> implements IndexedUnsortedList<E> {
 
 	@Override
 	public E remove(int index) {
-		// TODO 
+		// TODO @watermelon2718
+		if (index == NOT_FOUND) {
+			throw new NoSuchElementException();
+		}
+		
+		E retVal = array[index];
+		
+		rear--;
+		//shift elements
+		for (int i = index; i < rear; i++) {
+			array[i] = array[i+1];
+		}
+		array[rear] = null;
+
 		modCount++; // DO NOT REMOVE ME
-		return null;
+		return retVal;
 	}
 
 	@Override
