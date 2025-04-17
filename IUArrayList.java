@@ -14,6 +14,7 @@ public class IUArrayList<E> implements IndexedUnsortedList<E> {
 	private E[] array;
 	private int rear;
 	private int modCount; // DO NOT REMOVE ME
+	private int count;
 	
 	/** Creates an empty list with default initial capacity */
 	public IUArrayList() {
@@ -167,22 +168,28 @@ public class IUArrayList<E> implements IndexedUnsortedList<E> {
 		return (indexOf(target) != NOT_FOUND);
 	}
 
-	@Override
+	// @Override
 	public boolean isEmpty() {
-		// TODO 
-		return false;
+		return size() == 0; 
 	}
 
-	@Override
+	// @Override
 	public int size() {
-		// TODO 
-		return 0;
+		return count;
 	}
 
 	@Override
 	public String toString() {
 		String result = "[";
-		// TODO
+		int index = this.rear;
+
+		for (int i = 0; i < size(); i++) {
+			if (i > 0 ) {
+				result += ", ";
+			}
+			result += array[index];
+			index--;   // not entirely sure this works
+		}
 		return result + "]";
 	}
 
