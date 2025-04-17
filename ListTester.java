@@ -906,7 +906,7 @@ public class ListTester {
 			printTest(scenarioName + "_testContains" + contentsString.charAt(2), testContains(scenario.build(), contents[2], Result.True));
 			printTest(scenarioName + "_testContainsX", testContains(scenario.build(), ELEMENT_X, Result.False));
 			printTest(scenarioName + "_testIsEmpty", testIsEmpty(scenario.build(), Result.False));
-			printTest(scenarioName + "_testSize", testSize(scenario.build(), 2));
+			printTest(scenarioName + "_testSize", testSize(scenario.build(), 3));
 			printTest(scenarioName + "_testToString", testToString(scenario.build(), Result.ValidString));
 			
 			// IndexedUnsortedList
