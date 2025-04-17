@@ -9,8 +9,6 @@ import java.util.*;
  *  in a sorted order. It may or may not be sorted.
  *
  * @author CS 221
- *
- * @param <E> - class of objects stored in the list 
  */
 public interface IndexedUnsortedList<E> extends Iterable<E>
 {
@@ -49,7 +47,7 @@ public interface IndexedUnsortedList<E> extends Iterable<E>
      * 
      * @param index   the index into the array to which the element is to be inserted.
      * @param element the element to be inserted into the array
-     * @throws IndexOutOfBoundsException if the index is out of range (index < 0 || index > size)
+     * @throws IndexOutOfBoundsException if the index is out of range (index &lt; 0 || index &gt; size)
      */
     public void add(int index, E element);
 
@@ -83,7 +81,7 @@ public interface IndexedUnsortedList<E> extends Iterable<E>
      *
      * @param index the index of the element to be retrieved
      * @return the element at the given index
-     * @throws IndexOutOfBoundsException if the index is out of range (index < 0 || index >= size)
+     * @throws IndexOutOfBoundsException if the index is out of range (index &lt; 0 || index &gt;= size)
      */
     public E remove(int index); 
         
@@ -92,7 +90,7 @@ public interface IndexedUnsortedList<E> extends Iterable<E>
      *
      * @param index   the index into the array to which the element is to be set
      * @param element the element to be set into the list
-     * @throws IndexOutOfBoundsException if the index is out of range (index < 0 || index >= size)
+     * @throws IndexOutOfBoundsException if the index is out of range (index &lt; 0 || index &gt;= size)
      */
     public void set(int index, E element);
 
@@ -101,7 +99,7 @@ public interface IndexedUnsortedList<E> extends Iterable<E>
      *
      * @param index  the index to which the reference is to be retrieved from
      * @return the element at the specified index
-     * @throws IndexOutOfBoundsException if the index is out of range (index < 0 || index >= size)
+     * @throws IndexOutOfBoundsException if the index is out of range (index &lt; 0 || index &gt;= size)
      */
     public E get(int index);
 
@@ -178,9 +176,13 @@ public interface IndexedUnsortedList<E> extends Iterable<E>
      * Returns a ListIterator for the elements in this list, with
      * the iterator positioned before the specified index. 
      *
+     * @param startingIndex the index to start at
      * @return a ListIterator over the elements in this list
      *
      * @throws UnsupportedOperationException if not implemented
      */
     public ListIterator<E> listIterator(int startingIndex);
 }
+
+
+//To create the Javadoc files do: javadoc *.java -d docs
