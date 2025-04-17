@@ -155,11 +155,13 @@ public class IUArrayList<E> implements IndexedUnsortedList<E> {
 
 	@Override
 	public E first() {
+		if (size() == 0) { throw new NoSuchElementException("List is empty"); }
 		return array[0];
 	}
 
 	@Override
 	public E last() { 
+		if (size() == 0) { throw new NoSuchElementException("List is empty"); }
 		return array[rear-1];
 	}
 
