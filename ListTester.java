@@ -224,7 +224,7 @@ public class ListTester {
 
 			// Scenario: 28
 
-		testTwoElementList(AB_removeB_A, "AB_removeB_A", LIST_A, STRING_A);
+		testSingleElementList(AB_removeB_A, "AB_removeB_A", LIST_A, STRING_A);
 
 			// Scenario: 29
 
