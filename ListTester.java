@@ -892,19 +892,22 @@ public class ListTester {
 			printTest(scenarioName + "_testGet2", testGet(scenario.build(), 2, contents[2], Result.MatchingValue));
 			printTest(scenarioName + "_testGet3", testGet(scenario.build(), 3, null, Result.IndexOutOfBounds));
 
+			// Tests 38- 46
 			printTest(scenarioName + "_testIndexOf" + contentsString.charAt(0), testIndexOf(scenario.build(), contents[0], 0));
 			printTest(scenarioName + "_testIndexOf" + contentsString.charAt(1), testIndexOf(scenario.build(), contents[1], 1));
+			printTest(scenarioName + "_testIndexOf" + contentsString.charAt(2), testIndexOf(scenario.build(), contents[2], 0));
 			printTest(scenarioName + "_testIndexOfX", testIndexOf(scenario.build(), ELEMENT_X, -1));
-
 			printTest(scenarioName + "_testFirst", testFirst(scenario.build(), contents[0], Result.MatchingValue));
-			printTest(scenarioName + "_testLast", testLast(scenario.build(), contents[1], Result.MatchingValue));
+			printTest(scenarioName + "_testLast", testLast(scenario.build(), contents[2], Result.MatchingValue));
 			printTest(scenarioName + "_testContains" + contentsString.charAt(0), testContains(scenario.build(), contents[0], Result.True));
 			printTest(scenarioName + "_testContains" + contentsString.charAt(1), testContains(scenario.build(), contents[1], Result.True));
+
+			// Tests 47 - 52
+			printTest(scenarioName + "_testContains" + contentsString.charAt(2), testContains(scenario.build(), contents[2], Result.True));
 			printTest(scenarioName + "_testContainsX", testContains(scenario.build(), ELEMENT_X, Result.False));
 			printTest(scenarioName + "_testIsEmpty", testIsEmpty(scenario.build(), Result.False));
 			printTest(scenarioName + "_testSize", testSize(scenario.build(), 2));
 			printTest(scenarioName + "_testToString", testToString(scenario.build(), Result.ValidString));
-
 			
 			// IndexedUnsortedList
 
