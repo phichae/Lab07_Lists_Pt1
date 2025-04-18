@@ -130,12 +130,6 @@ public class IUArrayList<E> implements IndexedUnsortedList<E> {
 		if(index < 0 || index >= size()) {
 			throw new IndexOutOfBoundsException();
 		}
-		if(modCount = array.length) {
-			expandCapacity();
-		}
-	        for(int i = modCount; i >= (index); i--) {
-	            array[i+1] = array[i];
-	        }
 		array[index] = element;
 		modCount++; // DO NOT REMOVE ME
 	}
