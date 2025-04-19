@@ -14,6 +14,7 @@ public class IUArrayList<E> implements IndexedUnsortedList<E> {
 	private E[] array;
 	private int rear;
 	private int modCount; // DO NOT REMOVE ME
+	private int count;
 	
 	/** Creates an empty list with default initial capacity */
 	public IUArrayList() {
@@ -94,23 +95,9 @@ public class IUArrayList<E> implements IndexedUnsortedList<E> {
 
 	@Override
 	public E remove(E element) {
-		//TODO @watermelon2718 move this into a support method haha
+		//TODO @watermelon2718
 		int index = indexOf(element);
-		if (index == NOT_FOUND) {
-			throw new NoSuchElementException();
-		}
-		
-		E retVal = array[index];
-		
-		rear--;
-		//shift elements
-		for (int i = index; i < rear; i++) {
-			array[i] = array[i+1];
-		}
-		array[rear] = null;
-
-		modCount++; // DO NOT REMOVE ME
-		return retVal;
+		return remove(index);
 	}
 
 	@Override
@@ -121,6 +108,7 @@ public class IUArrayList<E> implements IndexedUnsortedList<E> {
 		}
 		
 		E retVal = array[index];
+		array[index] = null;
 		
 		rear--;
 		//shift elements
@@ -130,21 +118,29 @@ public class IUArrayList<E> implements IndexedUnsortedList<E> {
 		array[rear] = null;
 
 		modCount++; // DO NOT REMOVE ME
+		count--;
 		return retVal;
 	}
 
 	@Override
 	public void set(int index, E element) {
-		// TODO 
+		// TODO MD
+		if(index < 0 || index >= size()) {
+			throw new IndexOutOfBoundsException();
+		}
+		array[index] = element;
 		modCount++; // DO NOT REMOVE ME
 	}
 
 	@Override
 	public E get(int index) {
-		// TODO 
-		return null;
+		// TODO MD
+		if(index < 0 || index >= size()) {
+			throw new IndexOutOfBoundsException();
+		}
+		return array[index];
 	}
-
+	
 	@Override
 	public int indexOf(E element) {
 		int index = NOT_FOUND;
@@ -165,14 +161,14 @@ public class IUArrayList<E> implements IndexedUnsortedList<E> {
 
 	@Override
 	public E first() {
-		// TODO 
-		return null;
+		if (size() == 0) { throw new NoSuchElementException("List is empty"); }
+		return array[0];
 	}
 
 	@Override
-	public E last() {
-		// TODO 
-		return null;
+	public E last() { 
+		if (size() == 0) { throw new NoSuchElementException("List is empty"); }
+		return array[rear-1];
 	}
 
 	@Override
@@ -180,22 +176,28 @@ public class IUArrayList<E> implements IndexedUnsortedList<E> {
 		return (indexOf(target) != NOT_FOUND);
 	}
 
-	@Override
+	// @Override
 	public boolean isEmpty() {
-		// TODO 
-		return false;
+		return size() == 0; 
 	}
 
-	@Override
+	// @Override
 	public int size() {
-		// TODO 
-		return 0;
+		return count;
 	}
 
 	@Override
 	public String toString() {
 		String result = "[";
-		// TODO
+		int index = this.rear;
+
+		for (int i = 0; i < size(); i++) {
+			if (i > 0 ) {
+				result += ", ";
+			}
+			result += array[index];
+			index--;   // not entirely sure this works
+		}
 		return result + "]";
 	}
 

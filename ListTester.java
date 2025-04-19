@@ -178,6 +178,8 @@ public class ListTester {
 			// Scenario: 04
 
 			// Scenario: 05
+		testSingleElementList(emptyList_addAtIndex0_A, "emptyList_addAtIndex0_A", LIST_A, STRING_A);
+		
 
 			
 		//1-element to empty list
@@ -222,7 +224,7 @@ public class ListTester {
 
 			// Scenario: 28
 
-		testTwoElementList(AB_removeB_A, "AB_removeB_A", LIST_A, STRING_A);
+		testSingleElementList(AB_removeB_A, "AB_removeB_A", LIST_A, STRING_A);
 
 			// Scenario: 29
 
@@ -355,6 +357,12 @@ public class ListTester {
 	/** Scenario #05: [] -> add(0, A) -> [A] 
 	 * @return [A] after add(0, A)
 	 */
+	private IndexedUnsortedList<Integer> emptyList_addAtIndex0_A() {
+		IndexedUnsortedList<Integer> list = newList();
+		list.add(0, ELEMENT_A);
+		return list;
+	}
+	private Scenario<Integer> emptyList_addAtIndex0_A = () -> emptyList_addAtIndex0_A();
 
 	/** Scenario #06: [A] -> addToFront(B) -> [B,A] 
 	 * @return [B,A] after addToFront(B)
@@ -854,6 +862,16 @@ public class ListTester {
 		System.out.printf("\nSCENARIO: %s\n\n", scenarioName);
 		try {
 			//TODO: pasted from testTwoElementList
+
+			// 19 - 27
+			// remove(C) returns C
+			// remove(X) throws NoSuchElementException
+			// remove(-1) throws IndexOutOfBoundsException
+			// remove(0) returns C
+			// remove(1) returns A
+			// remove(2) returns B
+			// remove(3) throws IndexOutOfBoundsException
+			// set(-1, X) throws IndexOutOfBoundsException
 			printTest(scenarioName + "_testAddToFront", testAddToFront(scenario.build(), ELEMENT_X, Result.NoException));
 			printTest(scenarioName + "_testAddToRear", testAddToRear(scenario.build(), ELEMENT_X, Result.NoException));
       
@@ -872,13 +890,17 @@ public class ListTester {
 			printTest(scenarioName + "_testRemoveLast", testRemoveLast(scenario.build(), contents[1], Result.MatchingValue));
 			printTest(scenarioName + "_testRemove" + contentsString.charAt(0), testRemoveElement(scenario.build(), ELEMENT_A, Result.MatchingValue));
 			printTest(scenarioName + "_testRemove" + contentsString.charAt(1), testRemoveElement(scenario.build(), ELEMENT_B, Result.MatchingValue));
-			printTest(scenarioName + "_testRemoveX", testRemoveElement(scenario.build(), ELEMENT_X, Result.NoSuchElement));
 			printTest(scenarioName + "_testRemove" + contentsString.charAt(0), testRemoveElement(scenario.build(), ELEMENT_A, Result.MatchingValue));
 			printTest(scenarioName + "_testRemove" + contentsString.charAt(1), testRemoveElement(scenario.build(), ELEMENT_B, Result.MatchingValue));
+			
+			// 19 - 27
+			printTest(scenarioName + "_testRemoveC", testRemoveElement(scenario.build(), ELEMENT_C, Result.MatchingValue));
+			printTest(scenarioName + "_testRemoveX", testRemoveElement(scenario.build(), ELEMENT_X, Result.NoSuchElement));
 			printTest(scenarioName + "_testRemoveNeg1", testRemoveIndex(scenario.build(), -1, null, Result.IndexOutOfBounds));
 			printTest(scenarioName + "_testRemove0", testRemoveIndex(scenario.build(), 0, contents[0], Result.MatchingValue)); 
 			printTest(scenarioName + "_testRemove1", testRemoveIndex(scenario.build(), 1, contents[1], Result.MatchingValue)); 
-			printTest(scenarioName + "_testRemove2", testRemoveIndex(scenario.build(), 2, null, Result.IndexOutOfBounds)); 
+			printTest(scenarioName + "_testRemove2", testRemoveIndex(scenario.build(), 2, contents[2], Result.MatchingValue)); 
+			printTest(scenarioName + "_testRemove3", testRemoveIndex(scenario.build(), 3, null, Result.IndexOutOfBounds)); 
 			printTest(scenarioName + "_testSetNeg1", testSet(scenario.build(), -1, ELEMENT_X, Result.IndexOutOfBounds));
 
 			//28 - 37
@@ -906,7 +928,7 @@ public class ListTester {
 			printTest(scenarioName + "_testContains" + contentsString.charAt(2), testContains(scenario.build(), contents[2], Result.True));
 			printTest(scenarioName + "_testContainsX", testContains(scenario.build(), ELEMENT_X, Result.False));
 			printTest(scenarioName + "_testIsEmpty", testIsEmpty(scenario.build(), Result.False));
-			printTest(scenarioName + "_testSize", testSize(scenario.build(), 2));
+			printTest(scenarioName + "_testSize", testSize(scenario.build(), 3));
 			printTest(scenarioName + "_testToString", testToString(scenario.build(), Result.ValidString));
 			
 			// IndexedUnsortedList
