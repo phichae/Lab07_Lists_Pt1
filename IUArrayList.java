@@ -85,23 +85,9 @@ public class IUArrayList<E> implements IndexedUnsortedList<E> {
 
 	@Override
 	public E remove(E element) {
-		//TODO @watermelon2718 move this into a support method haha
+		//TODO @watermelon2718
 		int index = indexOf(element);
-		if (index == NOT_FOUND) {
-			throw new NoSuchElementException();
-		}
-		
-		E retVal = array[index];
-		
-		rear--;
-		//shift elements
-		for (int i = index; i < rear; i++) {
-			array[i] = array[i+1];
-		}
-		array[rear] = null;
-
-		modCount++; // DO NOT REMOVE ME
-		return retVal;
+		return remove(index);
 	}
 
 	@Override
@@ -112,6 +98,7 @@ public class IUArrayList<E> implements IndexedUnsortedList<E> {
 		}
 		
 		E retVal = array[index];
+		array[index] = null;
 		
 		rear--;
 		//shift elements
@@ -121,6 +108,7 @@ public class IUArrayList<E> implements IndexedUnsortedList<E> {
 		array[rear] = null;
 
 		modCount++; // DO NOT REMOVE ME
+		count--;
 		return retVal;
 	}
 
