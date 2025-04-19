@@ -39,15 +39,25 @@ public class IUArrayList<E> implements IndexedUnsortedList<E> {
 
 	@Override
 	public void addToFront(E element) {
-		// TODO 
-		// another temp comment
+		if (array.length() == this.size()) {
+			expandCapacity();
+		} 
+		for (int i = rear; i > 0; i-- ) {
+			array[i] = array[i - 1];
+		}
+		array[0] = element;
+		rear++;
 		modCount++; // DO NOT REMOVE ME
 		
 	}
 
 	@Override
 	public void addToRear(E element) {
-		// TODO 
+		if (array.length() == this.size()) {
+			expandCapacity();
+		} 
+		array[rear] = element;
+		rear++;
 		modCount++; // DO NOT REMOVE ME
 	}
 
