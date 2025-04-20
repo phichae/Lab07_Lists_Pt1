@@ -176,7 +176,7 @@ public class ListTester {
 			// Scenario: 03
 		testSingleElementList(emptyList_addToRearA_A, "emptyList_addToRearA_A", LIST_A, STRING_A);
 			// Scenario: 04
-
+		testSingleElementList(emptyList_add_A, "emptyList_addA_A", LIST_A, STRING_A)
 			// Scenario: 05
 		testSingleElementList(emptyList_addAtIndex0_A, "emptyList_addAtIndex0_A", LIST_A, STRING_A);
 		
@@ -863,15 +863,6 @@ public class ListTester {
 		try {
 			//TODO: pasted from testTwoElementList
 
-			// 19 - 27
-			// remove(C) returns C
-			// remove(X) throws NoSuchElementException
-			// remove(-1) throws IndexOutOfBoundsException
-			// remove(0) returns C
-			// remove(1) returns A
-			// remove(2) returns B
-			// remove(3) throws IndexOutOfBoundsException
-			// set(-1, X) throws IndexOutOfBoundsException
 			printTest(scenarioName + "_testAddToFront", testAddToFront(scenario.build(), ELEMENT_X, Result.NoException));
 			printTest(scenarioName + "_testAddToRear", testAddToRear(scenario.build(), ELEMENT_X, Result.NoException));
       
