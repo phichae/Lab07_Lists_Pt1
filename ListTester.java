@@ -22,6 +22,7 @@ public class ListTester {
 	// TODO: THIS IS WHERE YOU CHOOSE WHICH LIST TO TEST
 	private final static ListToUse LIST_TO_USE = ListToUse.goodList;
 
+
 	// possible results expected in tests
 	private enum Result {
 		IndexOutOfBounds, IllegalState, NoSuchElement, 
@@ -309,9 +310,9 @@ public class ListTester {
 		case badList:
 			listToUse = new BadList<Integer>();
 			break;
-		// case arrayList:
-		// 	listToUse = new IUArrayList<Integer>();
-		// 	break;
+		case arrayList:
+			listToUse = new IUArrayList<Integer>();
+			break;
 		// case singleLinkedList:
 		// 	listToUse = new IUSingleLinkedList<Integer>();
 		// 	break;
@@ -459,7 +460,6 @@ public class ListTester {
 	/** Scenario #20: [A,B] -> addAfter(C,B) -> [A,B,C] 
 	 * @return [A,B,C] after addAfter(C,B)
 	 */
-	//TODO: naming?
 
 	private IndexedUnsortedList<Integer> AB_addAFterCB_ABC() {
 		IndexedUnsortedList<Integer> list = A_addToRearB_AB();
@@ -922,7 +922,7 @@ public class ListTester {
 			// Tests 38- 46
 			printTest(scenarioName + "_testIndexOf" + contentsString.charAt(0), testIndexOf(scenario.build(), contents[0], 0));
 			printTest(scenarioName + "_testIndexOf" + contentsString.charAt(1), testIndexOf(scenario.build(), contents[1], 1));
-			printTest(scenarioName + "_testIndexOf" + contentsString.charAt(2), testIndexOf(scenario.build(), contents[2], 0));
+			printTest(scenarioName + "_testIndexOf" + contentsString.charAt(2), testIndexOf(scenario.build(), contents[2], 2));
 			printTest(scenarioName + "_testIndexOfX", testIndexOf(scenario.build(), ELEMENT_X, -1));
 			printTest(scenarioName + "_testFirst", testFirst(scenario.build(), contents[0], Result.MatchingValue));
 			printTest(scenarioName + "_testLast", testLast(scenario.build(), contents[2], Result.MatchingValue));
