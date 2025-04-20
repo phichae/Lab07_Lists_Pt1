@@ -187,7 +187,7 @@ public class ListTester {
 			// Scenario: 12
 		testEmptyList(A_removeFirst_emptyList, "A_removeFirst_emptyList");
 			// Scenario: 13
-
+		testEmptyList(A_removeLast_emptyList, "A_removeLast_emptyList");
 			// Scenario: 14
 		testEmptyList(A_removeA_emptyList, "A_removeA_emptyList");
 			// Scenario: 15
@@ -415,6 +415,13 @@ public class ListTester {
 	/** Scenario #13: [A] -> removeLast() -> [] 
 	 * @return [] after removeLast()
 	 */
+	private IndexedUnsortedList<Integer> A_removeLast_emptyList() {
+		IndexedUnsortedList<Integer> list = emptyList_addToFrontA_A();
+		list.removeLast();
+		return list;
+	}
+	private Scenario<Integer> A_removeLast_emptyList = () -> A_removeLast_emptyList();
+
 
 	/** Scenario #14: [A] -> remove(A) -> []
 	 * @return [] after remove(A)
@@ -461,12 +468,12 @@ public class ListTester {
 	 * @return [A,B,C] after addAfter(C,B)
 	 */
 
-	private IndexedUnsortedList<Integer> AB_addAFterCB_ABC() {
+	private IndexedUnsortedList<Integer> AB_addAfterCB_ABC() {
 		IndexedUnsortedList<Integer> list = A_addToRearB_AB();
 		list.addAfter(ELEMENT_C, ELEMENT_B);
 		return list;
 	}
-	private Scenario<Integer> AB_addAfterCB_ABC = () -> AB_addAFterCB_ABC();
+	private Scenario<Integer> AB_addAfterCB_ABC = () -> AB_addAfterCB_ABC();
 
 
 	 
