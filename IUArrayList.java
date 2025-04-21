@@ -49,7 +49,6 @@ public class IUArrayList<E> implements IndexedUnsortedList<E> {
 		rear++;
 		count++;
 		modCount++; // DO NOT REMOVE ME
-		
 	}
 
 	@Override
@@ -65,19 +64,36 @@ public class IUArrayList<E> implements IndexedUnsortedList<E> {
 
 	@Override
 	public void add(E element) {
-		// TODO 
+		// TODO MD
+		if (array.length == this.size()) {
+			expandCapacity();
+		} 
+		array[rear] = element;
+		rear++;
+		count++;
 		modCount++; // DO NOT REMOVE ME
 	}
 
 	@Override
 	public void addAfter(E element, E target) {
-		// TODO 
+		// TODO MD
+		
 		modCount++; // DO NOT REMOVE ME
 	}
 
 	@Override
 	public void add(int index, E element) {
-		// TODO 
+		// TODO MD
+		if(index < 0 || index >= size()) {
+ 			throw new IndexOutOfBoundsException();
+ 		}
+ 		if(size() = array.length) {
+ 			expandCapacity();
+ 		}
+ 	        for(int i = size(); i >= (index); i--) {
+ 	            array[i+1] = array[i];
+ 	        }
+ 		array[index] = element;
 		modCount++; // DO NOT REMOVE ME
 	}
 
