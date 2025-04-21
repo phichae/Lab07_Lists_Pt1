@@ -66,62 +66,95 @@ public class IUArrayList<E> implements IndexedUnsortedList<E> {
 	@Override
 	public void add(E element) {
 		// TODO 
+		if (size() == array.length) {
+			expandCapacity();
+		}
+		array[rear] = element;
+		rear++;
+		count++;
 		modCount++; // DO NOT REMOVE ME
 	}
 
 	@Override
 	public void addAfter(E element, E target) {
 		// TODO 
+		int targetIndex = indexOf(target);
+		if (targetIndex == NOT_FOUND) { throw new NoSuchElementException(); }
+		if (size() == array.length) {
+			expandCapacity();
+		}
+		for(int i = size(); i > (targetIndex); i--) {
+			array[i+1] = array[i];
+		}
+		array[targetIndex+1] = element;
+		rear++;
+		count++;
 		modCount++; // DO NOT REMOVE ME
 	}
 
 	@Override
 	public void add(int index, E element) {
 		// TODO 
+		if (index < 0 || index > size()) { throw new IndexOutOfBoundsException(); }
+		if (size() == array.length) {
+			expandCapacity();
+		}
+		for(int i = size(); i >= (index); i--) {
+			array[i+1] = array[i];
+		}
+		array[index] = element;
+		rear++;
+		count++;
 		modCount++; // DO NOT REMOVE ME
 	}
 
 	@Override
 	public E removeFirst() {
 		// TODO @watermelon2718
+		if (size() == 0) {
+			throw new NoSuchElementException();
+		}
 		modCount++; // DO NOT REMOVE ME
-		return remove(0);
+		return remove(array[0]);
 	}
 
 	@Override
 	public E removeLast() {
 		// TODO @watermelon2718
+		if (size() == 0) {
+			throw new NoSuchElementException();
+		}
 		modCount++; // DO NOT REMOVE ME
-		return remove(rear - 1); //TODO - is this correct?
+		return remove(array[rear-1]);
 	}
 
 	@Override
 	public E remove(E element) {
 		//TODO @watermelon2718
+		// int index = indexOf(element);
+		// return remove(index);
 		int index = indexOf(element);
-		return remove(index);
+		if (index == NOT_FOUND) {
+			throw new NoSuchElementException();
+		}
+		E temp = array[index];
+		array[index] = null;
+
+		for (int i = index; i < rear; i++) {
+			array[i] = array[i+1];
+		}
+		rear--;
+		array[rear] = null;
+		count--;
+		modCount++;
+		return temp;
 	}
 
 	@Override
 	public E remove(int index) {
 		// TODO @watermelon2718
-		if (index == NOT_FOUND) {
-			throw new NoSuchElementException();
-		}
-		
-		E retVal = array[index];
-		array[index] = null;
-		
-		rear--;
-		//shift elements
-		for (int i = index; i < rear; i++) {
-			array[i] = array[i+1];
-		}
-		array[rear] = null;
-
-		modCount++; // DO NOT REMOVE ME
-		count--;
-		return retVal;
+		if (index < 0 || index >= size()) { throw new IndexOutOfBoundsException(); }
+		return remove(array[index]);
 	}
 
 	@Override
@@ -191,7 +224,7 @@ public class IUArrayList<E> implements IndexedUnsortedList<E> {
 	@Override
 	public String toString() {
 		String result = "[";
-		int index = this.rear;
+		int index = this.rear-1;
 
 		for (int i = 0; i < size(); i++) {
 			if (i > 0 ) {
