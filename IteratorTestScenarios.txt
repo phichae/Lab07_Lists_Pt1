@@ -1,0 +1,61 @@
+ADDITIONAL LIST TESTING SCENARIOS AND TEST CASES FOR IndexedUnsortedList ADT
+
+Including Iterator remove() method scenarios:
+
+44) [A] -> iterator, next(), remove() -> []
+45) [A,B] -> iterator, next(), remove() -> [B]
+46) [A,B] -> iterator, next(), next(), remove() -> [A]
+47) [A,B] -> iterator, next(), remove(), next(), remove() -> []
+48) [A,B,C] -> iterator, next(), remove() -> [B,C]
+49) [A,B,C] -> iterator, next(), next(), remove() -> [A,C]
+50) [A,B,C] -> iterator, next(), next(), next(), remove() -> [A,B]
+51) [A,B,C] -> iterator, next(), remove(), next(), remove() -> [C]
+52) [A,B,C] -> iterator, next(), remove(), next(), next(), remove() -> [B]
+53) [A,B,C] -> iterator, next(), next(), remove(), next(), remove() -> [A]
+54) [A,B,C] -> iterator, next(), remove(), next(), remove(), next(), remove() -> []
+
+...
+
+Iterator Test Cases:
+
+[] Test Cases (empty list)
+	iterator() throws no Exception
+	iterator(), hasNext() returns false
+	iterator(), next() throws NoSuchElementException
+	iterator(), remove() throws IllegalStateException
+
+[A] Test Cases (single element list)
+	iterator() throws no Exception
+	iterator(), hasNext() returns true
+	iterator(), next() returns A
+	iterator(), remove() throws IllegalStateException
+	iterator(), next(), hasNext() returns false
+	iterator(), next(), next() returns NoSuchElementException
+	iterator(), next(), remove() throws no Exxception
+	
+[A,B] Test Cases (two element list)
+	iterator() throws no Exception
+	iterator(), hasNext() returns true
+	iterator(), next() returns A
+	iterator(), remove() throws IllegalStateException
+	iterator(), next(), hasNext() returns true
+	iterator(), next(), next() returns B
+	iterator(), next(), remove() throws no Exxception
+	iterator(), next(), next(), hasNext() returns false
+	iterator(), next(), next(), next() throws NoSuchElementException
+	iterator(), next(), next(), remove() throws no Exxception
+	
+[A,B,C] Test Cases (three element list)
+	iterator() throws no Exception
+	iterator(), hasNext() returns true
+	iterator(), next() returns A
+	iterator(), remove() throws IllegalStateException
+	iterator(), next(), hasNext() returns true
+	iterator(), next(), next() returns B
+	iterator(), next(), remove() throws no Exxception
+	iterator(), next(), next(), hasNext() returns true
+	iterator(), next(), next(), next() returns C
+	iterator(), next(), next(), remove() throws no Exxception
+	iterator(), next(), next(), next(), hasNext() returns false
+	iterator(), next(), next(), next(), next() throws NoSuchElementException
+	iterator(), next(), next(), next(), remove() throws no Exxception
