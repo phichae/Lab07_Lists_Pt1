@@ -49,7 +49,6 @@ public class IUArrayList<E> implements IndexedUnsortedList<E> {
 		rear++;
 		count++;
 		modCount++; // DO NOT REMOVE ME
-		
 	}
 
 	@Override
@@ -66,9 +65,9 @@ public class IUArrayList<E> implements IndexedUnsortedList<E> {
 	@Override
 	public void add(E element) {
 		// TODO 
-		if (size() == array.length) {
+		if (array.length == this.size()) {
 			expandCapacity();
-		}
+		} 
 		array[rear] = element;
 		rear++;
 		count++;
