@@ -36,18 +36,29 @@ public class IUSingleLinkedList<E> implements IndexedUnsortedList<E> {
 	@Override
 	public void add(E element) {
 		// TODO 
+		// add to front ig?
 		
 	}
 
 	@Override
 	public void addAfter(E element, E target) {
 		// TODO 
+		// indexOf for the target element
+		// feed into master add
 		
 	}
 
 	@Override
 	public void add(int index, E element) {
-		// TODO 
+		// TODO @watermelon2718
+		//the master class
+
+		// get element E(0) at the desired index
+		// assign my node's E(1) next to the next of E
+		//THEN assign E(0)'s next to my node E(1)
+		//count ++
+		// modCount ++ (maybe?)
+
 		
 	}
 
