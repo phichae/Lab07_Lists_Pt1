@@ -53,14 +53,18 @@ public class IUSingleLinkedList<E> implements IndexedUnsortedList<E> {
 
 	@Override
 	public E removeFirst() {
-		// TODO 
-		return null;
+		if (isEmpty()) {
+			throw new NoSuchElementException();
+		}
+		return remove(front.getElement());
 	}
 
 	@Override
 	public E removeLast() {
-		// TODO 
-		return null;
+		if (isEmpty()) {
+			throw new NoSuchElementException();
+		}
+		return remove(rear.getElement());
 	}
 
 	@Override
@@ -77,13 +81,21 @@ public class IUSingleLinkedList<E> implements IndexedUnsortedList<E> {
 		if (current == null) {
 			throw new NoSuchElementException();
 		}
-		return removeElement(previous, current);		
+		return removeElement(previous, current);	
 	}
 
 	@Override
 	public E remove(int index) {
-		// TODO 
-		return null;
+		if (isEmpty()) { throw new NoSuchElementException(); }
+		if(index < 0 || index >= size()) { throw new IndexOutOfBoundsException(); }
+
+		LinearNode<E> current = front, previous = null;
+
+		for(int i = 0; i < index; i++) {
+			previous = current;
+			current = current.getNext();
+		}
+		return removeElement(previous, current);
 	}
 
 	@Override
