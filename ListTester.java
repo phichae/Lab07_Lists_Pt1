@@ -218,7 +218,7 @@ public class ListTester {
 
 			// Scenario: 26
 
-		testSingleElementList(AB_removeLastB_A, "A_removeLast_B_A", LIST_A, STRING_A);
+		testSingleElementList(AB_removeLast_A, "AB_removeLast_A", LIST_A, STRING_A);
 
 			// Scenario: 27
 
@@ -496,13 +496,13 @@ public class ListTester {
 	/** Scenario #26: [A,B] -> removeLast() -> [A]
 	 * @return [A] after removeLast()
 	 */
-	private IndexedUnsortedList<Integer> AB_removeLastB_A() {
+	private IndexedUnsortedList<Integer> AB_removeLast_A() {
 		IndexedUnsortedList<Integer> list = emptyList_addToFrontA_A();
 		list.addToRear(ELEMENT_B);
 		list.removeLast();
 		return list;
 	}
-	private Scenario<Integer> AB_removeLastB_A = () -> AB_removeLastB_A();
+	private Scenario<Integer> AB_removeLast_A = () -> AB_removeLast_A();
 	
 	 
 	/** Scenario #27: [A,B] -> remove(A) -> [B]
