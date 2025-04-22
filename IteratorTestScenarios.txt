@@ -34,11 +34,13 @@ Iterator Test Cases:
 	iterator(), next(), remove() throws no Exxception
 	
 [A,B] Test Cases (two element list)
+// 1-5
 	iterator() throws no Exception
 	iterator(), hasNext() returns true
 	iterator(), next() returns A
 	iterator(), remove() throws IllegalStateException
 	iterator(), next(), hasNext() returns true
+// 6 - 10
 	iterator(), next(), next() returns B
 	iterator(), next(), remove() throws no Exxception
 	iterator(), next(), next(), hasNext() returns false
@@ -46,15 +48,18 @@ Iterator Test Cases:
 	iterator(), next(), next(), remove() throws no Exxception
 	
 [A,B,C] Test Cases (three element list)
+//1-4
 	iterator() throws no Exception
 	iterator(), hasNext() returns true
 	iterator(), next() returns A
 	iterator(), remove() throws IllegalStateException
+// 5-9
 	iterator(), next(), hasNext() returns true
 	iterator(), next(), next() returns B
 	iterator(), next(), remove() throws no Exxception
 	iterator(), next(), next(), hasNext() returns true
 	iterator(), next(), next(), next() returns C
+// 10 - 13
 	iterator(), next(), next(), remove() throws no Exxception
 	iterator(), next(), next(), next(), hasNext() returns false
 	iterator(), next(), next(), next(), next() throws NoSuchElementException
