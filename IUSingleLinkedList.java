@@ -24,30 +24,81 @@ public class IUSingleLinkedList<E> implements IndexedUnsortedList<E> {
 	@Override
 	public void addToFront(E element) {
 		// TODO 
-		
+		add(0, element);
+		front.setElement(element);
 	}
 
 	@Override
 	public void addToRear(E element) {
 		// TODO 
-		
+		add(element);
 	}
 
 	@Override
 	public void add(E element) {
 		// TODO 
+		// add to rear
+
+		//rear.setnext = new rear
+		// rear = new rear
+		add((count-1), element);
+
+		//TODO: how do I grab the node for the new element? maybe happens in the add method
+		// rear.setNext(element);
+		rear.setElement(element);
 		
 	}
 
 	@Override
 	public void addAfter(E element, E target) {
+		if (!this.contains(target)) {throw new NoSuchElementException(); }
 		// TODO 
+		//indexOf for the target element
+		// feed into master add
+		add(indexOf(target), element);
 		
 	}
 
 	@Override
 	public void add(int index, E element) {
+		if (index < 0 || index > (count - 1)) {throw new IndexOutOfBoundsException(); }
 		// TODO 
+		// the master class
+
+		//new LinearNode w/ the element we're adding
+		LinearNode<E> node = new LinearNode<E>(element);
+		//get element E(0) at desired index
+		// front.getNext() till we get to the element?
+		LinearNode<E> current = front, previous = null;
+
+		for(int i = 0; i < index; i++) {
+			previous = current;
+			current = current.getNext();
+		}
+	
+		node.setNext(current);
+		previous.setNext(node);
+
+		// LinearNode<E> nodeToReplace = front;
+		// LinearNode<E> previousNode = null;
+
+		// while (nodeToReplace.getElement() != get(index)) {
+		// 	previousNode = nodeToReplace;
+		// 	nodeToReplace = nodeToReplace.getNext();
+		// }
+		// assign my node (E1)'s next to the next of E
+		// node.setNext(nodeToReplace);
+
+		// // THEN assign E(0)'s next to my node (E1)
+		// previousNode.setNext(node);
+
+		// //TODO
+		// get((indexOf((E)nodeToReplace.getElement())) - 1);
+
+		// count++
+		count++;
+		// modCount ++ (maybe??)
+		modCount++;
 		
 	}
 

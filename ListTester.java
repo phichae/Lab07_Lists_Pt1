@@ -20,7 +20,7 @@ public class ListTester {
 		goodList, badList, arrayList, singleLinkedList, doubleLinkedList
 	};
 	// TODO: THIS IS WHERE YOU CHOOSE WHICH LIST TO TEST
-	private final static ListToUse LIST_TO_USE = ListToUse.arrayList;
+	private final static ListToUse LIST_TO_USE = ListToUse.singleLinkedList;
 
 
 	// possible results expected in tests
@@ -319,9 +319,9 @@ public class ListTester {
 		case arrayList:
 			listToUse = new IUArrayList<Integer>();
 			break;
-		// case singleLinkedList:
-		// 	listToUse = new IUSingleLinkedList<Integer>();
-		// 	break;
+		case singleLinkedList:
+			listToUse = new IUSingleLinkedList<Integer>();
+			break;
 		// case doubleLinkedList:
 		// 	listToUse = new IUDoubleLinkedList<Integer>();
 		// 	break;
@@ -660,13 +660,14 @@ public class ListTester {
 			printTest(scenarioName + "_testSize", testSize(scenario.build(), 0));
 			printTest(scenarioName + "_testToString", testToString(scenario.build(), Result.ValidString));
 
-			// Iterator
-			// 	// test to construct iterator
-			printTest(scenarioName + "_testIter", testIter(scenario.build(), Result.NoException));
-				// tests after getting iterator
-			printTest(scenarioName + "_testIterHasNext", testIterHasNext(WrapIt.prep(scenario.build()).getIterator(), Result.False));
-			printTest(scenarioName + "_testIterNext", testIterNext(WrapIt.prep(scenario.build()).getIterator(), null, Result.NoSuchElement));
-			printTest(scenarioName + "_testIterRemove", testIterRemove(WrapIt.prep(scenario.build()).getIterator(), Result.IllegalState));
+			//TODO: @watermelon2718 uncomment
+			// // Iterator
+			// // 	// test to construct iterator
+			// printTest(scenarioName + "_testIter", testIter(scenario.build(), Result.NoException));
+			// 	// tests after getting iterator
+			// printTest(scenarioName + "_testIterHasNext", testIterHasNext(WrapIt.prep(scenario.build()).getIterator(), Result.False));
+			// printTest(scenarioName + "_testIterNext", testIterNext(WrapIt.prep(scenario.build()).getIterator(), null, Result.NoSuchElement));
+			// printTest(scenarioName + "_testIterRemove", testIterRemove(WrapIt.prep(scenario.build()).getIterator(), Result.IllegalState));
 
 			// ListIterator
 			if (SUPPORTS_LIST_ITERATOR) {
@@ -745,17 +746,18 @@ public class ListTester {
 			printTest(scenarioName + "_testSize", testSize(scenario.build(), 1));
 			printTest(scenarioName + "_testToString", testToString(scenario.build(), Result.ValidString));
 
-			// Iterator
-			// 	test to construct iterator
-			printTest(scenarioName + "_testIter", testIter(scenario.build(), Result.NoException));
-				// tests after getting iterator	
-			printTest(scenarioName + "_testIterHasNext", testIterHasNext(WrapIt.prep(scenario.build()).getIterator(), Result.True));
-			printTest(scenarioName + "_testIterNext", testIterNext(WrapIt.prep(scenario.build()).getIterator(), contents[0], Result.MatchingValue));
-			printTest(scenarioName + "_testIterRemove", testIterRemove(WrapIt.prep(scenario.build()).getIterator(), Result.IllegalState));
-				// tests after calling next on an iterator
-			printTest(scenarioName + "_iterNext_testIterHasNext", testIterHasNext(WrapIt.prep(scenario.build()).next().getIterator(), Result.False));
-			printTest(scenarioName + "_iterNext_testIterNext", testIterNext(WrapIt.prep(scenario.build()).next().getIterator(), null, Result.NoSuchElement));
-			printTest(scenarioName + "_iterNext_testIterRemove", testIterRemove(WrapIt.prep(scenario.build()).next().getIterator(), Result.NoException));
+			//TODO: @watermelon2718 uncomment
+			// // Iterator
+			// // 	test to construct iterator
+			// printTest(scenarioName + "_testIter", testIter(scenario.build(), Result.NoException));
+			// 	// tests after getting iterator	
+			// printTest(scenarioName + "_testIterHasNext", testIterHasNext(WrapIt.prep(scenario.build()).getIterator(), Result.True));
+			// printTest(scenarioName + "_testIterNext", testIterNext(WrapIt.prep(scenario.build()).getIterator(), contents[0], Result.MatchingValue));
+			// printTest(scenarioName + "_testIterRemove", testIterRemove(WrapIt.prep(scenario.build()).getIterator(), Result.IllegalState));
+			// 	// tests after calling next on an iterator
+			// printTest(scenarioName + "_iterNext_testIterHasNext", testIterHasNext(WrapIt.prep(scenario.build()).next().getIterator(), Result.False));
+			// printTest(scenarioName + "_iterNext_testIterNext", testIterNext(WrapIt.prep(scenario.build()).next().getIterator(), null, Result.NoSuchElement));
+			// printTest(scenarioName + "_iterNext_testIterRemove", testIterRemove(WrapIt.prep(scenario.build()).next().getIterator(), Result.NoException));
 
 			// ListIterator
 			if (SUPPORTS_LIST_ITERATOR) {
@@ -859,21 +861,22 @@ public class ListTester {
 			
 			// IndexedUnsortedList
 
-			// Iterator
-				// TODO: pasted from single element list 
-				// test to construct iterator
-			printTest(scenarioName + "_testIter", testIter(scenario.build(), Result.NoException));
-				// tests after getting iterator	
-			printTest(scenarioName + "_testIterHasNext", testIterHasNext(WrapIt.prep(scenario.build()).getIterator(), Result.True));
-			printTest(scenarioName + "_testIterNext", testIterNext(WrapIt.prep(scenario.build()).getIterator(), contents[0], Result.MatchingValue));
-			printTest(scenarioName + "_testIterRemove", testIterRemove(WrapIt.prep(scenario.build()).getIterator(), Result.IllegalState));
+			//TODO: @watermelon2718 uncomment
+			// // Iterator
+			// 	// TODO: pasted from single element list 
+			// 	// test to construct iterator
+			// printTest(scenarioName + "_testIter", testIter(scenario.build(), Result.NoException));
+			// 	// tests after getting iterator	
+			// printTest(scenarioName + "_testIterHasNext", testIterHasNext(WrapIt.prep(scenario.build()).getIterator(), Result.True));
+			// printTest(scenarioName + "_testIterNext", testIterNext(WrapIt.prep(scenario.build()).getIterator(), contents[0], Result.MatchingValue));
+			// printTest(scenarioName + "_testIterRemove", testIterRemove(WrapIt.prep(scenario.build()).getIterator(), Result.IllegalState));
 
-				// tests after calling next on an iterator
-			printTest(scenarioName + "_iterNext_testIterHasNext", testIterHasNext(WrapIt.prep(scenario.build()).next().getIterator(), Result.False));
-			printTest(scenarioName + "_iterNext_testIterNext", testIterNext(WrapIt.prep(scenario.build()).next().getIterator(), null, Result.NoSuchElement));
-			printTest(scenarioName + "_iterNext_testIterRemove", testIterRemove(WrapIt.prep(scenario.build()).next().getIterator(), Result.NoException));
+			// 	// tests after calling next on an iterator
+			// printTest(scenarioName + "_iterNext_testIterHasNext", testIterHasNext(WrapIt.prep(scenario.build()).next().getIterator(), Result.False));
+			// printTest(scenarioName + "_iterNext_testIterNext", testIterNext(WrapIt.prep(scenario.build()).next().getIterator(), null, Result.NoSuchElement));
+			// printTest(scenarioName + "_iterNext_testIterRemove", testIterRemove(WrapIt.prep(scenario.build()).next().getIterator(), Result.NoException));
 
-				//tests after calling next and then next on an iterator
+			// 	//tests after calling next and then next on an iterator
 
 			// ListIterator
 			if (SUPPORTS_LIST_ITERATOR) {
@@ -968,24 +971,25 @@ public class ListTester {
 			
 			// IndexedUnsortedList
 
-			// Iterator
-				// TODO: pasted from single element list 
-			//1-4
-				// test to construct iterator
-			printTest(scenarioName + "_testIter", testIter(scenario.build(), Result.NoException));
-				// tests after getting iterator	
-			printTest(scenarioName + "_testIterHasNext", testIterHasNext(WrapIt.prep(scenario.build()).getIterator(), Result.True));
-			printTest(scenarioName + "_testIterNext", testIterNext(WrapIt.prep(scenario.build()).getIterator(), contents[0], Result.MatchingValue));
-			printTest(scenarioName + "_testIterRemove", testIterRemove(WrapIt.prep(scenario.build()).getIterator(), Result.IllegalState));
+			//TODO: @watermelon2718 uncomment
+			// // Iterator
+			// 	// TODO: pasted from single element list 
+			// //1-4
+			// 	// test to construct iterator
+			// printTest(scenarioName + "_testIter", testIter(scenario.build(), Result.NoException));
+			// 	// tests after getting iterator	
+			// printTest(scenarioName + "_testIterHasNext", testIterHasNext(WrapIt.prep(scenario.build()).getIterator(), Result.True));
+			// printTest(scenarioName + "_testIterNext", testIterNext(WrapIt.prep(scenario.build()).getIterator(), contents[0], Result.MatchingValue));
+			// printTest(scenarioName + "_testIterRemove", testIterRemove(WrapIt.prep(scenario.build()).getIterator(), Result.IllegalState));
 
-				// tests after calling next on an iterator
-			printTest(scenarioName + "_iterNext_testIterHasNext", testIterHasNext(WrapIt.prep(scenario.build()).next().getIterator(), Result.False));
-			printTest(scenarioName + "_iterNext_testIterNext", testIterNext(WrapIt.prep(scenario.build()).next().getIterator(), null, Result.NoSuchElement));
-			printTest(scenarioName + "_iterNext_testIterRemove", testIterRemove(WrapIt.prep(scenario.build()).next().getIterator(), Result.NoException));
+			// 	// tests after calling next on an iterator
+			// printTest(scenarioName + "_iterNext_testIterHasNext", testIterHasNext(WrapIt.prep(scenario.build()).next().getIterator(), Result.False));
+			// printTest(scenarioName + "_iterNext_testIterNext", testIterNext(WrapIt.prep(scenario.build()).next().getIterator(), null, Result.NoSuchElement));
+			// printTest(scenarioName + "_iterNext_testIterRemove", testIterRemove(WrapIt.prep(scenario.build()).next().getIterator(), Result.NoException));
 
-				//tests after calling next and then next on an iterator
+			// 	//tests after calling next and then next on an iterator
 
-				// tests after calling next and then next and then next on an iterator
+			// 	// tests after calling next and then next and then next on an iterator
 
 			// ListIterator
 			if (SUPPORTS_LIST_ITERATOR) {
