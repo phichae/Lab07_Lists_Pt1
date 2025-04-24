@@ -181,20 +181,29 @@ public class IUSingleLinkedList<E> implements IndexedUnsortedList<E> {
 
 	@Override
 	public boolean isEmpty() {
-		// TODO 
-		return false;
+		// TODO MD
+		return size() == 0;
 	}
 
 	@Override
 	public int size() {
-		// TODO 
-		return 0;
+		// TODO MD
+		return count;
 	}
 
 	@Override
 	public String toString() {
-		// TODO
-		return "";
+		// TODO MD
+		E current = head;
+		string result;
+		for (int i = 0; i < count; i++) {
+			if (i > 0) {
+        			result += ", ";
+            		}
+			result += current.data;
+			current = current.next;
+		}
+		return result;
 	}
 
 	private E removeElement(LinearNode<E> previous, LinearNode<E> current) {
