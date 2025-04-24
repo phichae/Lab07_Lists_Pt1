@@ -163,7 +163,7 @@ public class IUSingleLinkedList<E> implements IndexedUnsortedList<E> {
 
 	@Override
 	public int indexOf(E element) {
-		// TODO 
+		//TODO
 		return 0;
 	}
 
