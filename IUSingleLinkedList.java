@@ -25,7 +25,6 @@ public class IUSingleLinkedList<E> implements IndexedUnsortedList<E> {
 	public void addToFront(E element) {
 		// TODO 
 		add(0, element);
-		front.setElement(element);
 	}
 
 	@Override
@@ -37,69 +36,51 @@ public class IUSingleLinkedList<E> implements IndexedUnsortedList<E> {
 	@Override
 	public void add(E element) {
 		// TODO 
-		// add to rear
+		LinearNode<E> newNode = new LinearNode<E>(element);
+		if (front == null) {
+			front = newNode;
+		}
 
-		//rear.setnext = new rear
-		// rear = new rear
-		add((count-1), element);
-
-		//TODO: how do I grab the node for the new element? maybe happens in the add method
-		// rear.setNext(element);
-		rear.setElement(element);
-		
+		LinearNode<E> current = front;
+		while(current != null) {
+			current = current.getNext();
+		}
+		current = newNode;
+		count++;
+		modCount++;
 	}
 
 	@Override
 	public void addAfter(E element, E target) {
-		if (!this.contains(target)) {throw new NoSuchElementException(); }
+		if (!this.contains(target)) { throw new NoSuchElementException(); }
 		// TODO 
 		//indexOf for the target element
 		// feed into master add
-		add(indexOf(target), element);
+		add(indexOf(target)+1, element);
 		
 	}
 
 	@Override
 	public void add(int index, E element) {
-		if (index < 0 || index > (count - 1)) {throw new IndexOutOfBoundsException(); }
-		// TODO 
-		// the master class
-
-		//new LinearNode w/ the element we're adding
-		LinearNode<E> node = new LinearNode<E>(element);
+		if (index < 0 || index >= size()) {throw new IndexOutOfBoundsException(); }
+		// TODO
+		LinearNode<E> newNode = new LinearNode<E>(element); 
+		if (index == 0) {
+			newNode.setNext(front);
+			front = newNode;
+		}
 		//get element E(0) at desired index
 		// front.getNext() till we get to the element?
-		LinearNode<E> current = front, previous = null;
+		LinearNode<E> current = front;
 
-		for(int i = 0; i < index; i++) {
-			previous = current;
+		for(int i = 0; i < index-1 && current != null; i++) {
 			current = current.getNext();
 		}
-	
-		node.setNext(current);
-		previous.setNext(node);
 
-		// LinearNode<E> nodeToReplace = front;
-		// LinearNode<E> previousNode = null;
-
-		// while (nodeToReplace.getElement() != get(index)) {
-		// 	previousNode = nodeToReplace;
-		// 	nodeToReplace = nodeToReplace.getNext();
-		// }
-		// assign my node (E1)'s next to the next of E
-		// node.setNext(nodeToReplace);
-
-		// // THEN assign E(0)'s next to my node (E1)
-		// previousNode.setNext(node);
-
-		// //TODO
-		// get((indexOf((E)nodeToReplace.getElement())) - 1);
-
-		// count++
+		newNode.setNext(current.getNext());
+		current.setNext(newNode);
 		count++;
-		// modCount ++ (maybe??)
 		modCount++;
-		
 	}
 
 	@Override
@@ -194,15 +175,16 @@ public class IUSingleLinkedList<E> implements IndexedUnsortedList<E> {
 	@Override
 	public String toString() {
 		// TODO MD
-		E current = head;
-		string result;
+		LinearNode<E> current = front;
+		String result = "[";
 		for (int i = 0; i < count; i++) {
 			if (i > 0) {
         			result += ", ";
             		}
-			result += current.data;
-			current = current.next;
+			result += current.getElement();
+			current = current.getNext();
 		}
+		result += "]";
 		return result;
 	}
 

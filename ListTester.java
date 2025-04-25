@@ -463,7 +463,7 @@ public class ListTester {
 		list.set(0, ELEMENT_B);
 		return list;
 	}
-	private Scenario<Integer> A_set0B_B = () -> A_add0B_B();
+	private Scenario<Integer> A_set0B_B = () -> A_set0B_B();
  
 	/** Scenario #17: [A,B] -> addToFront(C) -> [C,A,B] 
 	 * @return [C,A,B] after addToFront(C)
@@ -492,12 +492,12 @@ public class ListTester {
 	/** Scenario #23: [A,B] -> add(1,C) -> [A,C,B] 
 	 * @return [A,C,B] after add(1,C)
 	 */
-	private IndexedUnsortedList<Integer> AB_add1C_ACB() {
+	private IndexedUnsortedList<Integer> AB_addAtIndex1C_ACB() {
 		IndexedUnsortedList<Integer> list = A_addToRearB_AB();
-		list.add(1,C);
+		list.add(1,ELEMENT_C);
 		return list;
 	}
-	private Scenario<Integer> AB_add1C_ACB = () -> AB_add1C_ACB();
+	private Scenario<Integer> AB_add1C_ACB = () -> AB_addAtIndex1C_ACB();
 
 	/** Scenario #25: [A,B] -> removeFirst() -> [B]
 	 * @return [B] after removeFirst()
