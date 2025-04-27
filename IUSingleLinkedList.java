@@ -62,8 +62,7 @@ public class IUSingleLinkedList<E> implements IndexedUnsortedList<E> {
 
 	@Override
 	public void add(int index, E element) {
-		//TODO: @watermelon2718 should it be index > size?
-		if (index < 0 || index > size()) {throw new IndexOutOfBoundsException(); }
+		if (index < 0 || index >= size()) {throw new IndexOutOfBoundsException(); }
 		// TODO
 		LinearNode<E> newNode = new LinearNode<E>(element); 
 		if (index == 0) {
@@ -86,15 +85,12 @@ public class IUSingleLinkedList<E> implements IndexedUnsortedList<E> {
 
 	@Override
 	public E removeFirst() {
-		return remove(0);
-
-		// return remove(front.getElement());
+		return remove(front.getElement());
 	}
 
 	@Override
 	public E removeLast() {
-		return remove(count - 1);
-		// return remove(rear.getElement());
+		return remove(rear.getElement());
 	}
 
 	@Override
@@ -117,12 +113,7 @@ public class IUSingleLinkedList<E> implements IndexedUnsortedList<E> {
 	@Override
 	public E remove(int index) {
 		if (isEmpty()) { throw new NoSuchElementException(); }
-
-		//TODO: @watermelon2718 - should it be index > size?
-		if(index < 0 || index > size()) { throw new IndexOutOfBoundsException(); }
-		
-
-
+		if(index < 0 || index >= size()) { throw new IndexOutOfBoundsException(); }
 
 		LinearNode<E> current = front, previous = null;
 
@@ -153,29 +144,19 @@ public class IUSingleLinkedList<E> implements IndexedUnsortedList<E> {
 
 	@Override
 	public E first() {
-		if (isEmpty()) {
-            throw new NoSuchElementException();
-        }
-        return front.getElement();
+		// TODO 
+		return null;
 	}
 
 	@Override
 	public E last() {
-		if (isEmpty()) {
-            throw new NoSuchElementException();
-        }
-        return rear.getElement();
+		// TODO 
+		return null;
 	}
 
 	@Override
 	public boolean contains(E target) {
-		LinearNode<E> current = front;
-		while (current != null) {
-    		if (current.getElement().equals(target)) {
-        		return true;
-    		}
-    		current = current.getNext();
-		}
+		// TODO 
 		return false;
 	}
 
@@ -248,40 +229,19 @@ public class IUSingleLinkedList<E> implements IndexedUnsortedList<E> {
 
 		@Override
 		public boolean hasNext() {
-			if (next == null) {
-				return false;
-			} else {
-				return true;
-			}
-
+			// TODO 
+			return false;
 		}
 
 		@Override
 		public E next() {
-			if (iterModCount != modCount) {
-				throw new ConcurrentModificationException();
-			}
-			if (!(hasNext())) {
-				throw new NoSuchElementException();
-			}
-			previous = current;
-			current = next;
-			next = next.getNext();
-			return next.getElement();
+			// TODO 
+			return null;
 		}
 		
 		@Override
 		public void remove() {
-			if (iterModCount != modCount) {
-				throw new ConcurrentModificationException();
-			}
-			if (isEmpty()) {
-				throw new NoSuchElementException();
-			}
-			previous = next;
-			current = previous.getNext();
-			count--;
-			iterModCount++;
+			// TODO
 		}
 	}
 
