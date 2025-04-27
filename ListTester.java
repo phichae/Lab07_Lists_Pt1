@@ -1094,8 +1094,13 @@ public class ListTester {
 				//tests after calling next and then next on an iterator
 			printTest(scenarioName + "_iterNextNext_testIterHasNext", testIterHasNext(WrapIt.prep(scenario.build()).next().next().getIterator(), Result.True));
 			printTest(scenarioName + "_iterNextNext_testIterNext", testIterNext(WrapIt.prep(scenario.build()).next().next().getIterator(), ELEMENT_C, Result.MatchingValue));
+			printTest(scenarioName + "_iterNextNext_testIterRemove", testIterRemove(WrapIt.prep(scenario.build()).next().next().getIterator(), Result.NoException));
+
 
 				// tests after calling next and then next and then next on an iterator
+				printTest(scenarioName + "_iterNextNextNext_testIterHasNext", testIterHasNext(WrapIt.prep(scenario.build()).next().next().next().getIterator(), Result.False));
+				printTest(scenarioName + "_iterNextNextNext_testIterNext", testIterNext(WrapIt.prep(scenario.build()).next().next().next().next().getIterator(), ELEMENT_X, Result.NoSuchElement));
+				printTest(scenarioName + "_iterNextNextNext_testIterRemove", testIterRemove(WrapIt.prep(scenario.build()).next().next().next().getIterator(), Result.NoException));
 
 			// ListIterator
 			if (SUPPORTS_LIST_ITERATOR) {
