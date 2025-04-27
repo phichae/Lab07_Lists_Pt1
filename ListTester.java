@@ -272,10 +272,11 @@ public class ListTester {
 			// Scenario: 39
 		testTwoElementList(ABC_removeAtIndex1_AC, "ABC_removeAtIndex1", LIST_AC, STRING_AC);
 			// Scenario: 48
-
+		testTwoElementList(ABC_iteratorNextRemove_BC, "ABC_iteratorNextRemove_BC", LIST_BC, STRING_BC);
 			// Scenario: 49
-
+		testTwoElementList(ABC_iteratorNextNextRemove_AC, "ABC_iteratorNextNextRemove_AC", LIST_AC, STRING_AC);
 			// Scenario: 50
+		testTwoElementList(ABC_iteratorNextNextNextRemove_AB, "ABC_iteratorNextNextNextRemove_AB", LIST_AB, STRING_AB);
 
 			
 		//3-element to changed 3-element via set()
