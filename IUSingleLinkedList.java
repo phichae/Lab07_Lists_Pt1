@@ -112,8 +112,15 @@ public class IUSingleLinkedList<E> implements IndexedUnsortedList<E> {
 
 	@Override
 	public E remove(int index) {
+		if(index < 0 || index > size()) { throw new IndexOutOfBoundsException(); }
 		if (isEmpty()) { throw new NoSuchElementException(); }
+<<<<<<< Updated upstream
 		if(index < 0 || index >= size()) { throw new IndexOutOfBoundsException(); }
+=======
+
+		//TODO: @watermelon2718 - should it be index > size?
+
+>>>>>>> Stashed changes
 
 		LinearNode<E> current = front, previous = null;
 
