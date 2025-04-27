@@ -258,7 +258,7 @@ public class IUSingleLinkedList<E> implements IndexedUnsortedList<E> {
 			previous = current;
 			current = next;
 			next = next.getNext();
-			return next;
+			return next.getElement();
 		}
 		
 		@Override
@@ -271,7 +271,7 @@ public class IUSingleLinkedList<E> implements IndexedUnsortedList<E> {
 			}
 			previous = next;
 			current = previous.getNext();
-			size--;
+			count--;
 			iterModCount++;
 		}
 	}

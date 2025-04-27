@@ -579,7 +579,7 @@ public class ListTester {
 	 */
 	private IndexedUnsortedList<Integer> ABC_removeC_AB() {
 		IndexedUnsortedList<Integer> list = AB_addAfterCB_ABC();
-		list.removeElement(2);
+		list.remove(2);
 		return list;
 	}
 	private Scenario<Integer> ABC_removeC_AB = () -> ABC_removeC_AB();
