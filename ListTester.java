@@ -272,10 +272,11 @@ public class ListTester {
 			// Scenario: 39
 		testTwoElementList(ABC_removeAtIndex1_AC, "ABC_removeAtIndex1", LIST_AC, STRING_AC);
 			// Scenario: 48
-
+		testTwoElementList(ABC_iteratorNextRemove_BC, "ABC_iteratorNextRemove_BC", LIST_BC, STRING_BC);
 			// Scenario: 49
-
+		testTwoElementList(ABC_iteratorNextNextRemove_AC, "ABC_iteratorNextNextRemove_AC", LIST_AC, STRING_AC);
 			// Scenario: 50
+		testTwoElementList(ABC_iteratorNextNextNextRemove_AB, "ABC_iteratorNextNextNextRemove_AB", LIST_AB, STRING_AB);
 
 			
 		//3-element to changed 3-element via set()
@@ -620,21 +621,49 @@ public class ListTester {
 	/** Scenario #47: [A,B] -> iterator, next(), remove(), next(), remove() -> []
 	 * @return [] after iterator, next(), remove(), next(), remove()
 	 */
-
 	 
 	/** Scenario #48: [A,B,C] -> iterator, next(), remove() -> [B,C]
 	 * @return [B,C] after iterator, next(), remove()
 	 */
+	private IndexedUnsortedList<Integer> ABC_iteratorNextRemove_BC() {
+		IndexedUnsortedList<Integer> list =AB_addAfterCB_ABC();
+		Iterator<Integer> iterator = list.listIterator();
+		iterator.next();
+		iterator.remove();
+		return list;
+	}
+	private Scenario<Integer> ABC_iteratorNextRemove_BC = () -> ABC_iteratorNextRemove_BC();
+
 
 	 
 	/** Scenario #49: [A,B,C] -> iterator, next(), next(), remove() -> [A,C]
 	 * @return [A,C] after iterator, next(), next(), remove()
 	 */
+	private IndexedUnsortedList<Integer> ABC_iteratorNextNextRemove_AC() {
+		IndexedUnsortedList<Integer> list = AB_addAfterCB_ABC();
+		Iterator<Integer> iterator = list.listIterator();
+		iterator.next();
+		iterator.next();
+		iterator.remove();
+		return list;
+	}
+	private Scenario<Integer> ABC_iteratorNextNextRemove_AC = () -> ABC_iteratorNextNextRemove_AC();
+
 
 	 
 	/** Scenario #50: [A,B,C] -> iterator, next(), next(), next(), remove() -> [A,B]
 	 * @return [A,B] after iterator, next(), next(), next(), remove()
 	 */
+	private IndexedUnsortedList<Integer> ABC_iteratorNextNextNextRemove_AB() {
+		IndexedUnsortedList<Integer> list = AB_addAfterCB_ABC();
+		Iterator<Integer> iterator = list.listIterator();
+		iterator.next();
+		iterator.next();
+		iterator.next();
+		iterator.remove();
+		return list;
+	}
+	private Scenario<Integer> ABC_iteratorNextNextNextRemove_AB = () -> ABC_iteratorNextNextNextRemove_AB();
 
 	 
 	/** Scenario #51: [A,B,C] -> iterator, next(), remove(), next(), remove() -> [C]
