@@ -493,12 +493,12 @@ public class ListTester {
 	/** Scenario #23: [A,B] -> add(1,C) -> [A,C,B] 
 	 * @return [A,C,B] after add(1,C)
 	 */
-	private IndexedUnsortedList<Integer> AB_addAtIndex1C_ACB() {
+	private IndexedUnsortedList<Integer> AB_addAtIndex1_ACB() {
 		IndexedUnsortedList<Integer> list = A_addToRearB_AB();
 		list.add(1,ELEMENT_C);
 		return list;
 	}
-	private Scenario<Integer> AB_add1C_ACB = () -> AB_addAtIndex1C_ACB();
+	private Scenario<Integer> AB_add1C_ACB = () -> AB_addAtIndex1_ACB();
 
 	/** Scenario #25: [A,B] -> removeFirst() -> [B]
 	 * @return [B] after removeFirst()
