@@ -252,15 +252,18 @@ public class ListTester {
 
 		//3-element to empty list
 			// Scenario: 54
+		testEmptyList(ABC_iteratorNextRemoveNextRemoveNextRemove_emptyList, "ABC_iteratorNextRemoveNextRemoveNextRemove_emptyList");
 
 			
 		//3-element to 1-element
 			// Scenario: 51
+		testSingleElementList(ABC_iteratorNextRemoveNextRemove_C, "ABC_iteratorNextRemoveNextRemove_C", LIST_C, STRING_C);
 
 			// Scenario: 52
+		testSingleElementList(ABC_iteratorNextRemoveNextNextRemove_B, "ABC_iteratorNextRemoveNextNextRemove_B", LIST_B, STRING_B);
 
 			// Scenario: 53
-
+		testSingleElementList(ABC_iteratorNextNextRemoveNextRemove_A, "ABC_iteratorNextNextRemoveNextRemove_A", LIST_A, STRING_A);
 			
 		//3-element to 2-element
 			// Scenario: 33
@@ -288,7 +291,7 @@ public class ListTester {
 
 
 		//Iterator concurrency tests
-		// test_IterConcurrency();
+		test_IterConcurrency();
 		if (SUPPORTS_LIST_ITERATOR) {
 			test_ListIterConcurrency();
 		}
@@ -669,21 +672,65 @@ public class ListTester {
 	/** Scenario #51: [A,B,C] -> iterator, next(), remove(), next(), remove() -> [C]
 	 * @return [C] after iterator, next(), remove(), next(), remove()
 	 */
+	private IndexedUnsortedList<Integer> ABC_iteratorNextRemoveNextRemove_C() {
+		IndexedUnsortedList<Integer> list = AB_addAfterCB_ABC();
+		Iterator<Integer> iterator = list.listIterator();
+		iterator.next();
+		iterator.remove();
+		iterator.next();
+		iterator.remove();
+		return list;
+	}
+	private Scenario<Integer> ABC_iteratorNextRemoveNextRemove_C = () -> ABC_iteratorNextRemoveNextRemove_C();
 
 	 
 	/** Scenario #52: [A,B,C] -> iterator, next(), remove(), next(), next(), remove() -> [B]
 	 * @return [B] after iterator, next(), remove(), next(), next(), remove()
 	 */
+	private IndexedUnsortedList<Integer> ABC_iteratorNextRemoveNextNextRemove_B() {
+		IndexedUnsortedList<Integer> list = AB_addAfterCB_ABC();
+		Iterator<Integer> iterator = list.listIterator();
+		iterator.next();
+		iterator.remove();
+		iterator.next();
+		iterator.next();
+		iterator.remove();
+		return list;
+	}
+	Scenario<Integer> ABC_iteratorNextRemoveNextNextRemove_B = () -> ABC_iteratorNextRemoveNextNextRemove_B();
 
 	 
 	/** Scenario #53: [A,B,C] -> iterator, next(), next(), remove(), next(), remove() -> [A]
 	 * @return [A] after iterator, next(), next(), remove(), next(), remove()
 	 */
+	private IndexedUnsortedList<Integer> ABC_iteratorNextNextRemoveNextRemove_A() {
+		IndexedUnsortedList<Integer> list = AB_addAfterCB_ABC();
+		Iterator<Integer> iterator = list.listIterator();
+		iterator.next();
+		iterator.next();
+		iterator.remove();
+		iterator.next();
+		iterator.remove();
+		return list;
+	}
+	Scenario<Integer> ABC_iteratorNextNextRemoveNextRemove_A = () -> ABC_iteratorNextNextRemoveNextRemove_A();
 
 	 
 	/** Scenario #54: [A,B,C] -> iterator, next(), remove(), next(), remove(), next(), remove() -> []
 	 * @return [] after iterator, next(), remove(), next(), remove(), next(), remove()
 	 */
+	private IndexedUnsortedList<Integer> ABC_iteratorNextRemoveNextRemoveNextRemove_emptyList() {
+		IndexedUnsortedList<Integer> list = AB_addAfterCB_ABC();
+		Iterator<Integer> iterator = list.listIterator();
+		iterator.next();
+		iterator.remove();
+		iterator.next();
+		iterator.remove();
+		iterator.next();
+		iterator.remove();
+		return list;
+	}
+	Scenario<Integer> ABC_iteratorNextRemoveNextRemoveNextRemove_emptyList = () -> ABC_iteratorNextRemoveNextRemoveNextRemove_emptyList();
 
 	 
 	/////////////////////////////////
