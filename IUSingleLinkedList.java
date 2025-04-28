@@ -117,9 +117,9 @@ public class IUSingleLinkedList<E> implements IndexedUnsortedList<E> {
 	@Override
 	public E remove(int index) {
 		if (isEmpty()) { throw new NoSuchElementException(); }
-
+		if(index < 0 || index > count) { throw new IndexOutOfBoundsException(); }
 		//TODO: @watermelon2718 - should it be index > size?
-		if(index < 0 || index > size()) { throw new IndexOutOfBoundsException(); }
+		
 		
 
 
