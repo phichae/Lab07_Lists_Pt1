@@ -208,6 +208,7 @@ public class ListTester {
 		testTwoElementList(A_set0B_B, "A_set0B_B", LIST_B, STRING_B);
 		//2-element to empty list
 			// Scenario: 47
+		testEmptyList(AB_iteratorNextRemoveNextRemove_emptyList, "AB_iteratorNextRemoveNextRemove_emptyList");
 
 			
 		//2-element to 1-element
