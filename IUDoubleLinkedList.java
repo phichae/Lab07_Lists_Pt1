@@ -122,5 +122,45 @@ public class IUDoubleLinkedList<E> implements IndexedUnsortedList<E> {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'listIterator'");
     }
-    
+
+
+    private class ArrayOrderedListIterator implements Iterator<E> {
+        private int iterModCount;
+        private int current; // this is the actual index of the next element to be served
+        private int virtualIndex; // this represents what the zero-index value would be...
+        private boolean canRemove;
+
+        private ArrayOrderedListIterator() {
+            iterModCount = modCount;
+            current = front;
+            virtualIndex = 0;
+            canRemove = false;
+        }
+
+        @Override
+        public boolean hasNext() {
+            if (iterModCount != modCount) { throw new ConcurrentModificationException(); } // fail-fast
+            return virtualIndex < count;
+        }
+
+        @Override
+        public E next() {
+            if (!hasNext()) { throw new NoSuchElementException(); }
+            E item = list[current];
+            current = increment(current);
+            virtualIndex++;
+            canRemove = true;
+            return item;
+        }
+
+        public void remove() {
+            if (iterModCount != modCount) { throw new ConcurrentModificationException(); } // fail-fast
+            if (!canRemove) { throw new IllegalStateException(); }
+            current = decrement(current);
+            removeElement(current);
+            iterModCount++;
+            virtualIndex = Math.max(virtualIndex-1, 0);
+            canRemove = false;
+        }    
+    }
 }
