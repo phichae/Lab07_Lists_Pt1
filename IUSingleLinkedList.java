@@ -311,6 +311,10 @@ public class IUSingleLinkedList<E> implements IndexedUnsortedList<E> {
 				previous.setNext(next);
 			}
 			
+			if (next == null) {
+				rear = previous;
+			}
+
 			current = null;
 			count--;
 			iterModCount++;
