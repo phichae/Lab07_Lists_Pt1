@@ -4,6 +4,7 @@
  * @author Java Foundations, mvail
  * @version 4.0
  */
+
 public class LinearNode<E> {
 	private LinearNode<E> next;
 	private E element;
