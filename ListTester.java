@@ -205,7 +205,7 @@ public class ListTester {
 			
 		//1-element to changed 1-element via set()
 			// Scenario: 16
-		testTwoElementList(A_set0B_B, "A_set0B_B", LIST_B, STRING_B);
+		testSingleElementList(A_set0B_B, "A_set0B_B", LIST_B, STRING_B);
 		//2-element to empty list
 			// Scenario: 47
 		testEmptyList(AB_iteratorNextRemoveNextRemove_emptyList, "AB_iteratorNextRemoveNextRemove_emptyList");
@@ -1008,7 +1008,7 @@ public class ListTester {
 			printTest(scenarioName + "_iterNext_testIterNext", testIterNext(WrapIt.prep(scenario.build()).next().getIterator(),contents[1], Result.MatchingValue));
 			// 	//tests after calling next and then next on an iterator
 			
-			printTest(scenarioName + "_iterNextNext_testIterNext", testIterNext(WrapIt.prep(scenario.build()).next().next().getIterator(), null, Result.NoSuchElement));
+			printTest(scenarioName + "_iterNextNext_testIterNext", testIterNext(WrapIt.prep(scenario.build()).next().next().getIterator(), ELEMENT_X, Result.NoSuchElement));
 			printTest(scenarioName + "_iterNextNext_testIterHasNext", testIterHasNext(WrapIt.prep(scenario.build()).next().next().getIterator(), Result.False));
 			printTest(scenarioName + "_iterNextNext_testIterRemove", testIterRemove(WrapIt.prep(scenario.build()).next().next().getIterator(),  Result.NoException));
 			// printTest(scenarioName + "_iterNextNextNext_testIterNext", testIterNext(WrapIt.prep(scenario.build()).next().next().next().getIterator(), ELEMENT_X, Result.NoSuchElement));
@@ -1130,7 +1130,6 @@ public class ListTester {
 			printTest(scenarioName + "_iterNextNextNext_testIterNext", testIterNext(WrapIt.prep(scenario.build()).next().next().next().getIterator(), null, Result.NoSuchElement));
 			printTest(scenarioName + "_iterNextNextNext_testIterHasNext", testIterHasNext(WrapIt.prep(scenario.build()).next().next().next().getIterator(), Result.False));
 			printTest(scenarioName + "_iterNextNextNext_testIterRemove", testIterRemove(WrapIt.prep(scenario.build()).next().next().next().getIterator(),  Result.NoException));
-
 
 			// //1-4
 			// 	// test to construct iterator
