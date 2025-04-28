@@ -307,7 +307,7 @@ public class IUSingleLinkedList<E> implements IndexedUnsortedList<E> {
 
 			if(current == front) {
 				front = next;
-			} else if(previous != null) {
+			} else {
 				previous.setNext(next);
 			}
 			
