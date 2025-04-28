@@ -276,6 +276,9 @@ public class IUSingleLinkedList<E> implements IndexedUnsortedList<E> {
 
 		@Override
 		public boolean hasNext() {
+			if (iterModCount != modCount) {
+				throw new ConcurrentModificationException();
+			}
 			return next != null;
 		}
 
