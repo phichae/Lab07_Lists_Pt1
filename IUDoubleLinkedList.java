@@ -105,6 +105,11 @@ public class IUDoubleLinkedList<E> implements IndexedUnsortedList<E> {
         throw new UnsupportedOperationException("Unimplemented method 'size'");
     }
 
+    public String toString() {
+        //TODO Ellyn-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'toString'");
+    }
+
     @Override
     public Iterator iterator() {
         // TODO Auto-generated method stub
