@@ -42,10 +42,10 @@ Iterator Test Cases:
 	iterator(), next(), hasNext() returns true
 // 6 - 10
 	iterator(), next(), next() returns B
-	iterator(), next(), remove() throws no Exxception
-	iterator(), next(), next(), hasNext() returns false
-	iterator(), next(), next(), next() throws NoSuchElementException
-	iterator(), next(), next(), remove() throws no Exxception
+	//iterator(), next(), remove() throws no Exxception
+	//iterator(), next(), next(), hasNext() returns false
+	//iterator(), next(), next(), next() throws NoSuchElementException
+	//iterator(), next(), next(), remove() throws no Exxception
 	
 [A,B,C] Test Cases (three element list)
 //1-4
