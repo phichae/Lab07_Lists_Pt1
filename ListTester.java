@@ -235,8 +235,9 @@ public class ListTester {
 		testSingleElementList(AB_remove1_A, "AB_remove1_A", LIST_A, STRING_A);
 
 			// Scenario: 45
-
+		testSingleElementList(AB_iteratorNextRemove_B, "AB_iteratorNextRemove_B", LIST_B, STRING_B);
 			// Scenario: 46
+		testSingleElementList(AB_iteratorNextNextRemove_A, "AB_iteratorNextNextRemove_A", LIST_A, STRING_A);
 
 			
 		//2-element to 3-element
