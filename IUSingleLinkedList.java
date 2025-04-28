@@ -86,6 +86,7 @@ public class IUSingleLinkedList<E> implements IndexedUnsortedList<E> {
 
 	@Override
 	public E removeFirst() {
+		if (isEmpty()) { throw new NoSuchElementException(); }
 		return remove(0);
 
 		// return remove(front.getElement());
@@ -93,6 +94,7 @@ public class IUSingleLinkedList<E> implements IndexedUnsortedList<E> {
 
 	@Override
 	public E removeLast() {
+		if (isEmpty()) { throw new NoSuchElementException(); }
 		return remove(count - 1);
 		// return remove(rear.getElement());
 	}
@@ -116,7 +118,7 @@ public class IUSingleLinkedList<E> implements IndexedUnsortedList<E> {
 
 	@Override
 	public E remove(int index) {
-		if (isEmpty()) { throw new NoSuchElementException(); }
+		// if (isEmpty()) { throw new NoSuchElementException(); }
 		if(index < 0 || index >= size()) { throw new IndexOutOfBoundsException(); }
 		//TODO: @watermelon2718 - should it be index > size?
 		
