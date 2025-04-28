@@ -148,7 +148,7 @@ public class IUSingleLinkedList<E> implements IndexedUnsortedList<E> {
 		LinearNode<E> current = front;
 		int i = 0;
 		while(i < index) {
-			current.getNext();
+			current = current.getNext();
 			i++;
 		}
 		current.setElement(element);
@@ -160,7 +160,7 @@ public class IUSingleLinkedList<E> implements IndexedUnsortedList<E> {
 		LinearNode<E> current = front;
 		int i = 0;
 		while(i < index) {
-			current.getNext();
+			current = current.getNext();
 			i++;
 		}
 		return current.getElement();
