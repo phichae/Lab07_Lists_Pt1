@@ -296,7 +296,7 @@ public class IUSingleLinkedList<E> implements IndexedUnsortedList<E> {
 				throw new ConcurrentModificationException();
 			}
 			if (isEmpty()) {
-				throw new NoSuchElementException();
+				throw new IllegalStateException();
 			}
 			previous = next;
 			current = previous.getNext();
