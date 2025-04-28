@@ -610,19 +610,45 @@ public class ListTester {
 	private Scenario<Integer> A_iteratorNextRemove_emptyList = () -> A_iteratorNextRemove_emptyList();
 
 	 
+ 
 	/** Scenario #45: [A,B] -> iterator, next(), remove() -> [B]
 	 * @return [B] after iterator, next(), remove()
 	 */
-
+	private IndexedUnsortedList<Integer> AB_iteratorNextRemove_B() {
+		IndexedUnsortedList<Integer> list = ABC_removeC_AB();
+		Iterator<Integer> iterator = list.listIterator();
+		iterator.next();
+		iterator.remove();
+		return list;
+	}
+	private Scenario<Integer> AB_iteratorNextRemove_B = () -> AB_iteratorNextRemove_B();
 	 
 	/** Scenario #46: [A,B] -> iterator, next(), next(), remove() -> [A]
 	 * @return [A] after iterator, next(), next(), remove()
 	 */
-
+	private IndexedUnsortedList<Integer> AB_iteratorNextNextRemove_A() {
+		IndexedUnsortedList<Integer> list = ABC_removeC_AB();
+		Iterator<Integer> iterator = list.listIterator();
+		iterator.next();
+		iterator.next();
+		iterator.remove();
+		return list;
+	}
+	private Scenario<Integer> AB_iteratorNextNextRemove_A = () -> AB_iteratorNextNextRemove_A();
 	 
 	/** Scenario #47: [A,B] -> iterator, next(), remove(), next(), remove() -> []
 	 * @return [] after iterator, next(), remove(), next(), remove()
 	 */
+	private IndexedUnsortedList<Integer> AB_iteratorNextRemoveNextRemove_emptyList() {
+		IndexedUnsortedList<Integer> list = ABC_removeC_AB();
+		Iterator<Integer> iterator = list.listIterator();
+		iterator.next();
+		iterator.remove();
+		iterator.next();
+		iterator.remove();
+		return list;
+	}
+	private Scenario<Integer> AB_iteratorNextRemoveNextRemove_emptyList= () -> AB_iteratorNextRemoveNextRemove_emptyList();
 	 
 	/** Scenario #48: [A,B,C] -> iterator, next(), remove() -> [B,C]
 	 * @return [B,C] after iterator, next(), remove()
