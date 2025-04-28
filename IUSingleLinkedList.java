@@ -141,13 +141,15 @@ public class IUSingleLinkedList<E> implements IndexedUnsortedList<E> {
 
 	@Override
 	public E get(int index) {
-		// TODO 
+		
 		return null;
 	}
 
 	@Override
 	public int indexOf(E element) {
 		//TODO
+		if(!this.contains(element)) { throw new NoSuchElementException(); }
+		
 		return 0;
 	}
 
