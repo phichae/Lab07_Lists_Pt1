@@ -1,3 +1,4 @@
+
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.ListIterator;
@@ -263,7 +264,7 @@ public class ListTester {
 		testSingleElementList(ABC_iteratorNextRemoveNextNextRemove_B, "ABC_iteratorNextRemoveNextNextRemove_B", LIST_B, STRING_B);
 
 			// Scenario: 53
-		testSingleElementList(ABC_iteratorNextNextRemoveNextRemove_A, "ABC_iteratorNextRemoveNextNextRemove_B", LIST_A, STRING_A);
+		testSingleElementList(ABC_iteratorNextNextRemoveNextRemove_A, "ABC_iteratorNextRemoveNextNextRemove_A", LIST_A, STRING_A);
 
 			
 		//3-element to 2-element
