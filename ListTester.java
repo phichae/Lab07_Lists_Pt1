@@ -604,7 +604,7 @@ public class ListTester {
 	 */
 	private IndexedUnsortedList<Integer> A_iteratorNextRemove_emptyList() {
 		IndexedUnsortedList<Integer> list = emptyList_addA_A();
-		Iterator<Integer> iterator = list.listIterator();
+		Iterator<Integer> iterator = list.iterator();
 		iterator.next();
 		iterator.remove();
 		return list;
@@ -618,7 +618,7 @@ public class ListTester {
 	 */
 	private IndexedUnsortedList<Integer> AB_iteratorNextRemove_B() {
 		IndexedUnsortedList<Integer> list = ABC_removeC_AB();
-		Iterator<Integer> iterator = list.listIterator();
+		Iterator<Integer> iterator = list.iterator();
 		iterator.next();
 		iterator.remove();
 		return list;
@@ -630,7 +630,7 @@ public class ListTester {
 	 */
 	private IndexedUnsortedList<Integer> AB_iteratorNextNextRemove_A() {
 		IndexedUnsortedList<Integer> list = ABC_removeC_AB();
-		Iterator<Integer> iterator = list.listIterator();
+		Iterator<Integer> iterator = list.iterator();
 		iterator.next();
 		iterator.next();
 		iterator.remove();
@@ -643,7 +643,7 @@ public class ListTester {
 	 */
 	private IndexedUnsortedList<Integer> AB_iteratorNextRemoveNextRemove_emptyList() {
 		IndexedUnsortedList<Integer> list = ABC_removeC_AB();
-		Iterator<Integer> iterator = list.listIterator();
+		Iterator<Integer> iterator = list.iterator();
 		iterator.next();
 		iterator.remove();
 		iterator.next();
@@ -657,7 +657,7 @@ public class ListTester {
 	 */
 	private IndexedUnsortedList<Integer> ABC_iteratorNextRemove_BC() {
 		IndexedUnsortedList<Integer> list =AB_addAfterCB_ABC();
-		Iterator<Integer> iterator = list.listIterator();
+		Iterator<Integer> iterator = list.iterator();
 		iterator.next();
 		iterator.remove();
 		return list;
@@ -671,7 +671,7 @@ public class ListTester {
 	 */
 	private IndexedUnsortedList<Integer> ABC_iteratorNextNextRemove_AC() {
 		IndexedUnsortedList<Integer> list = AB_addAfterCB_ABC();
-		Iterator<Integer> iterator = list.listIterator();
+		Iterator<Integer> iterator = list.iterator();
 		iterator.next();
 		iterator.next();
 		iterator.remove();
@@ -686,7 +686,7 @@ public class ListTester {
 	 */
 	private IndexedUnsortedList<Integer> ABC_iteratorNextNextNextRemove_AB() {
 		IndexedUnsortedList<Integer> list = AB_addAfterCB_ABC();
-		Iterator<Integer> iterator = list.listIterator();
+		Iterator<Integer> iterator = list.iterator();
 		iterator.next();
 		iterator.next();
 		iterator.next();
@@ -701,7 +701,7 @@ public class ListTester {
 	 */
 	private IndexedUnsortedList<Integer> ABC_iteratorNextRemoveNextRemove_C() {
 		IndexedUnsortedList<Integer> list = AB_addAfterCB_ABC();
-		Iterator<Integer> iterator = list.listIterator();
+		Iterator<Integer> iterator = list.iterator();
 		iterator.next();
 		iterator.remove();
 		iterator.next();
@@ -715,7 +715,7 @@ public class ListTester {
 	 */
 	private IndexedUnsortedList<Integer> ABC_iteratorNextRemoveNextNextRemove_B() {
 		IndexedUnsortedList<Integer> list = AB_addAfterCB_ABC();
-		Iterator<Integer> iterator = list.listIterator();
+		Iterator<Integer> iterator = list.iterator();
 		iterator.next();
 		iterator.remove();
 		iterator.next();
@@ -730,7 +730,7 @@ public class ListTester {
 	 */
 	private IndexedUnsortedList<Integer> ABC_iteratorNextNextRemoveNextRemove_A() {
 		IndexedUnsortedList<Integer> list = AB_addAfterCB_ABC();
-		Iterator<Integer> iterator = list.listIterator();
+		Iterator<Integer> iterator = list.iterator();
 		iterator.next();
 		iterator.next();
 		iterator.remove();
@@ -745,7 +745,7 @@ public class ListTester {
 	 */
 	private IndexedUnsortedList<Integer> ABC_iteratorNextRemoveNextRemoveNextRemove_emptyList() {
 		IndexedUnsortedList<Integer> list = AB_addAfterCB_ABC();
-		Iterator<Integer> iterator = list.listIterator();
+		Iterator<Integer> iterator = list.iterator();
 		iterator.next();
 		iterator.remove();
 		iterator.next();
