@@ -38,14 +38,11 @@ public class IUSingleLinkedList<E> implements IndexedUnsortedList<E> {
 		// TODO 
 		LinearNode<E> newNode = new LinearNode<E>(element);
 		if (front == null) {
-			front = newNode;
+			front = rear = newNode;
+		} else {
+			rear.setNext(newNode);
+			rear = newNode;
 		}
-
-		LinearNode<E> current = front;
-		while(current != null) {
-			current = current.getNext();
-		}
-		current = newNode;
 		count++;
 		modCount++;
 	}
@@ -69,17 +66,26 @@ public class IUSingleLinkedList<E> implements IndexedUnsortedList<E> {
 		if (index == 0) {
 			newNode.setNext(front);
 			front = newNode;
-		}
+			if (size() == 0) {
+				rear = newNode;
+			}
+		} else {
 		//get element E(0) at desired index
 		// front.getNext() till we get to the element?
-		LinearNode<E> current = front;
+			LinearNode<E> current = front;
 
-		for(int i = 0; i < index-1 && current != null; i++) {
-			current = current.getNext();
+			for(int i = 0; i < index-1 && current != null; i++) {
+				current = current.getNext();
+			}
+			// current = newNode;
+			// newNode.setNext(current.getNext());
+			// current.setNext(newNode);
+			newNode.setNext(current.getNext());
+			current.setNext(newNode);
+
+
 		}
-
-		newNode.setNext(current.getNext());
-		current.setNext(newNode);
+		
 		count++;
 		modCount++;
 	}
