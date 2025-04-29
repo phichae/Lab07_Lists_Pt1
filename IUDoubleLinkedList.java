@@ -1,36 +1,67 @@
 import java.util.Iterator;
 import java.util.ListIterator;
+import java.util.NoSuchElementException;
 
-public class IUDoubleLinkedList<E> implements IndexedUnsortedList<E> {
+public class IUDoubleLinkedList<E> implements IndexedUnsortedList<E> { 
+
+    private int count, modCount;
+    private BidirectionalNode<E> front, rear;
+
+    public IUDoubleLinkedList() {
+        front = rear = null;
+        count = modCount = 0;
+    }
 
     @Override
     public void addToFront(E element) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addToFront'");
+        add(0, element);
     }
 
     @Override
     public void addToRear(E element) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addToRear'");
+        add(element);
     }
 
     @Override
     public void add(E element) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'add'");
+        BidirectionalNode<E> newNode = new BidirectionalNode<>(element);
+        if(front == null) {
+            front = rear = newNode;
+        } else {
+            rear.setNext(newNode);
+            rear = newNode;
+        }
+        count++;
+        modCount++;
     }
 
     @Override
     public void addAfter(E element, E target) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addAfter'");
+        if (!contains(target)) { throw new NoSuchElementException(); }
+        add(indexOf(target)+1, element);
     }
 
     @Override
     public void add(int index, E element) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'add'");
+        BidirectionalNode<E> newNode = new BidirectionalNode<>(element);
+        if (index < 0 || index > size()) { throw new IndexOutOfBoundsException(); }
+        if (index == 0) {
+            newNode.setNext(front);
+            front = newNode;
+            if (isEmpty()) {
+                rear = newNode;
+            }
+        } else {
+            BidirectionalNode<E> current = front;
+            for (int i = 0; i < index-1 && current != null; i++) {
+                current = current.getNext();
+            }
+            newNode.setNext(current.getNext());
+            newNode.setPrevious(current.getPrevious());
+            current.setNext(newNode);
+        }
+        count++;
+        modCount++;
     }
 
     @Override
@@ -95,14 +126,12 @@ public class IUDoubleLinkedList<E> implements IndexedUnsortedList<E> {
 
     @Override
     public boolean isEmpty() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'isEmpty'");
+        return count == 0;
     }
 
     @Override
     public int size() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'size'");
+        return count;
     }
 
     public String toString() {
