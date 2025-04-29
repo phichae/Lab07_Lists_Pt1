@@ -329,9 +329,9 @@ public class ListTester {
 		case singleLinkedList:
 			listToUse = new IUSingleLinkedList<Integer>();
 			break;
-		// case doubleLinkedList:
-		// 	listToUse = new IUDoubleLinkedList<Integer>();
-		// 	break;
+		case doubleLinkedList:
+			listToUse = new IUDoubleLinkedList<Integer>();
+			break;
 		default:
 			listToUse = null;
 		}
@@ -803,6 +803,7 @@ public class ListTester {
 			printTest(scenarioName + "_testIterRemove", testIterRemove(WrapIt.prep(scenario.build()).getIterator(), Result.IllegalState));
 
 			// ListIterator
+			//@watermelon2718 TODO: uncomment
 			if (SUPPORTS_LIST_ITERATOR) {
 				// printTest(scenarioName + "_testListIter", testListIter(scenario.build(), Result.NoException));
 				// printTest(scenarioName + "_testListIterNextIndex", testListIterNextIndex(WrapIt.prep(scenario.build(), true).getListIterator(), 0, Result.MatchingValue));
@@ -893,6 +894,7 @@ public class ListTester {
 			printTest(scenarioName + "_iterNext_testIterRemove", testIterRemove(WrapIt.prep(scenario.build()).next().getIterator(), Result.NoException));
 
 			// ListIterator
+				//@watermelon2718 TODO: uncomment
 			if (SUPPORTS_LIST_ITERATOR) {
 				// printTest(scenarioName + "_testListIter", testListIter(scenario.build(), Result.NoException));
 				// printTest(scenarioName + "_testListIterNextIndex", testListIterNextIndex(WrapIt.prep(scenario.build(), true).getListIterator(), 0, Result.MatchingValue));
