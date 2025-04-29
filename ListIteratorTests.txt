@@ -35,6 +35,7 @@ ListIterator Tests:
 60) [A,B,C] -> list-iterator(1),next(),remove() -> [A,C]
 //TWO ELEMENT LIST:
     ListIterator Tests:
+//Tests [A,C] - 1-15
     listIterator() throws no Exception
     listIterator(), nextIndex() returns 0
     listIterator(), previousIndex() returns -1
@@ -51,6 +52,8 @@ ListIterator Tests:
     listIterator(2), hasNext() returns false
     listIterator(0), previous() throws NoSuchElementException
     listIterator(1), previous() returns A
+
+//Tests [A,C] 16 - 30
     listIterator(2), previous() returns C
     listIterator(0), next() returns A
     listIterator(1), next() returns C
@@ -67,6 +70,8 @@ ListIterator Tests:
     listIterator(0), set(X) throws IllegalStateException
     listIterator(0), remove() throws IllegalStateException
     listIterator(0), next(), set(X) throws no Exception
+
+//Tests [A,C] 31 - 38
     listIterator(1), next(), set(X) throws no Exception
     listIterator(0), next(), remove() throws no Exception
     listIterator(1), next(), remove() throws no Exception
@@ -74,6 +79,7 @@ ListIterator Tests:
     listIterator(2), previous(), set(X) throws no Exception
     listIterator(1), previous(), remove() throws no Exception
     listIterator(2), previous(), remove() throws no Exception
+
 61) [A,B,C] -> list-iterator(2),next(),remove() -> [A,B]
 62) [A,B,C] -> list-iterator(0),next(),remove(),next(),remove() -> [C]
 63) [A,B,C] -> list-iterator(0),next(),remove(),next(),next(),remove() -> [B]
@@ -126,6 +132,7 @@ previous(),remove() -> []
 87) [A,B] -> list-iterator(0),next(),add(C) -> [A,C,B]
 //THREE ELEMENT LIST
     ListIterator Tests:
+//Tests [A,C,B] 1-7
     listIterator() throws no Exception
     listIterator(), nextIndex() returns 0
     listIterator(), previousIndex() returns -1
@@ -133,6 +140,8 @@ previous(),remove() -> []
     listIterator(0) throws no Exception
     listIterator(1) throws no Exception
     listIterator(2) throws no Exception
+
+//Tests [A,C,B] 8 - 23
     listIterator(3) throws no Exception
     listIterator(4) throws IndexOutOfBoundsException
     listIterator(0), hasPrevious() returns false
@@ -149,6 +158,8 @@ previous(),remove() -> []
     listIterator(3), previous() returns B
     listIterator(0), next() returns A
     listIterator(1), next() returns C
+
+// Tests [A,C,B] 24 - 39
     listIterator(2), next() returns B
     listIterator(3), next() throws NoSuchElementException
     listIterator(0), add(X) throws no Exception
@@ -165,6 +176,8 @@ previous(),remove() -> []
     listIterator(3), previousIndex() returns 2
     listIterator(0), set(X) throws IllegalStateException
     listIterator(0), remove() throws IllegalStateException
+
+//Tests [A,C,B] 40 - 52
     listIterator(0), next(), set(X) throws no Exception
     listIterator(1), next(), set(X) throws no Exception
     listIterator(2), next(), set(X) throws no Exception
