@@ -183,6 +183,7 @@ public class IUDoubleLinkedList<E> implements IndexedUnsortedList<E> {
 
 //TODO: Pasted from WK 13 demo @watermelon2718
 
+//Iterator - TODO: merge w/ ListIterator
     private class ListIterator implements Iterator<E> {
         private BidirectionalNode<E> previous;
 		private BidirectionalNode<E> current;
@@ -265,5 +266,144 @@ public class IUDoubleLinkedList<E> implements IndexedUnsortedList<E> {
         public void add(){
 
         }
+    }
+
+    //TODO: ListIterator logic
+        private class ArrayCursor {
+            private int virtualNextIndex;
+    
+            public ArrayCursor(int nextVirtualIndex) {
+                if (nextVirtualIndex < 0 || nextVirtualIndex > count ) {throw new IndexOutOfBoundsException() ; }
+                virtualNextIndex = nextVirtualIndex;
+            }
+    
+            public int getVirtualNextIndex() {
+                return virtualNextIndex;
+            }
+    
+            public int getVirtualPreviousIndex() {
+                return virtualNextIndex - 1;
+            }
+    
+            public int getNextIndex() {
+                return getActualIndexFromVirtual(getVirtualNextIndex());
+            }
+    
+            public int getPreviousIndex() {
+                return getActualIndexFromVirtual(getVirtualPreviousIndex()); //if you like eating your own dog food
+            }
+    
+            public void rightShift() {
+                if (getVirtualNextIndex() == count) return;
+                virtualNextIndex++;
+            }
+    
+            public void leftShift() {
+                if (getVirtualPreviousIndex() == -1) return;
+                virtualNextIndex--;
+            }
+    
+            private int getActualIndexFromVirtual(int virtualIndex) {
+                return (front + virtualIndex) % list.length; // cuz what if we have 100 elements, front = 98, virtualIndex = 4 ... INDEX OUT OF BOUNDS EXCEPTIONS!!!
+            }
+    
+        }
+    
+        private enum ListIteratorState{ PREVIOUS, NEXT, NEITHER }
+    
+        private class ArrayOrderedListListIterator implements ListIterator<E> {
+    
+            private ArrayCursor cursor;
+            private ListIteratorState state;
+            private int listIterModCount;
+    
+            public ArrayOrderedListListIterator() {
+                this(0);
+            }
+    
+            
+            public ArrayOrderedListListIterator(int index) {
+                cursor = new ArrayCursor(index);
+                state = ListIteratorState.NEITHER;
+                listIterModCount = modCount;
+            }
+    
+    
+            @Override
+            public boolean hasNext() {
+                if (listIterModCount != modCount) { throw new ConcurrentModificationException(); } // fail-fast
+                return cursor.getVirtualNextIndex() < count;
+    
+            }
+    
+            @Override
+            public E next() {
+                if (!hasNext()) {throw new NoSuchElementException(); }
+                E item = list[cursor.getNextIndex()];
+                cursor.rightShift();
+                state = ListIteratorState.NEXT;
+                return item;
+    
+            }
+    
+            @Override
+            public boolean hasPrevious() {
+                if (listIterModCount != modCount) { throw new ConcurrentModificationException(); } // fail-fast
+                return cursor.getVirtualPreviousIndex() > -1;
+            }
+    
+            @Override
+            public E previous() {
+                if (!hasPrevious()) {throw new NoSuchElementException(); }
+                E item = list[cursor.getPreviousIndex()];
+                cursor.leftShift();
+                state = ListIteratorState.PREVIOUS;
+                return item;
+            }
+    
+            @Override
+            public int nextIndex() {
+                if (listIterModCount != modCount) { throw new ConcurrentModificationException(); } // fail-fast
+                return cursor.getVirtualNextIndex();
+            }
+    
+            @Override
+            public int previousIndex() {
+                if (listIterModCount != modCount) { throw new ConcurrentModificationException(); } // fail-fast
+                return cursor.getVirtualPreviousIndex();
+            }
+    
+            @Override
+            public void remove() {
+                if (listIterModCount != modCount) { throw new ConcurrentModificationException(); } // fail-fast
+                switch(state){
+                    case NEXT:
+                        removeElement(cursor.getPreviousIndex());
+                        cursor.leftShift(); 
+                        break;
+                    case PREVIOUS:
+                        removeElement(cursor.getNextIndex());
+                        break;
+                    default:
+                        throw new IllegalStateException();
+                }
+                state = ListIteratorState.NEITHER;
+                listIterModCount++;
+    
+    
+            }
+    
+            //So this is actually the implementation XD
+            @Override
+            public void set(E e) {
+                throw new UnsupportedOperationException("Unimplemented method 'set'");
+            }
+    
+            @Override
+            public void add(E e) {
+                throw new UnsupportedOperationException("Unimplemented method 'add'");
+            }
+
+
     }
 }
