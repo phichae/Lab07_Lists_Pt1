@@ -126,7 +126,7 @@ public class IUDoubleLinkedList<E> implements IndexedUnsortedList<E> {
     @Override
     public boolean contains(E target) {
         if (isEmpty()) {
-            throw new NoSuchElementException();
+            return false;
         }
         BidirectionalNode<E> current = front;
 		while (current != null) {
