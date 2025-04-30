@@ -159,16 +159,15 @@ public class IUDoubleLinkedList<E> implements IndexedUnsortedList<E> {
 
 //TODO: Pasted from WK 13 demo
 
-    private class ArrayOrderedListIterator implements Iterator<E> {
+    private class ListIterator implements Iterator<E> {
         private int iterModCount;
         private int current; // this is the actual index of the next element to be served
-        private int virtualIndex; // this represents what the zero-index value would be...
+        // private int virtualIndex; // this represents what the zero-index value would be...
         private boolean canRemove;
 
-        private ArrayOrderedListIterator() {
+        private ListIterator() {
             iterModCount = modCount;
-            current = front;
-            virtualIndex = 0;
+            current = 0;
             canRemove = false;
         }
 
@@ -197,5 +196,13 @@ public class IUDoubleLinkedList<E> implements IndexedUnsortedList<E> {
             virtualIndex = Math.max(virtualIndex-1, 0);
             canRemove = false;
         }    
+
+        public void set() {
+
+        }
+
+        public void add(){
+
+        }
     }
 }
