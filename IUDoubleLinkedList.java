@@ -182,8 +182,9 @@ public class IUDoubleLinkedList<E> implements IndexedUnsortedList<E> {
 
 //TODO: Pasted from WK 13 demo @watermelon2718
 
+// --------------------------- ITERATOR -------------------------------------------//
 //Iterator - TODO: merge w/ ListIterator
-    private class ListIterator implements Iterator<E> {
+    private class IteratorTemp implements Iterator<E> {
         private BidirectionalNode<E> previous;
 		private BidirectionalNode<E> current;
 		private BidirectionalNode<E> next;
@@ -268,11 +269,13 @@ public class IUDoubleLinkedList<E> implements IndexedUnsortedList<E> {
         }
     }
 
+    // --------------------------- LIST ITERATOR -------------------------------------------//
+
     //TODO: ListIterator logic
-        private class ArrayCursor {
+        private class ListCursor {
             private int virtualNextIndex;
     
-            public ArrayCursor(int nextVirtualIndex) {
+            public ListCursor(int nextVirtualIndex) {
                 if (nextVirtualIndex < 0 || nextVirtualIndex > count ) {throw new IndexOutOfBoundsException() ; }
                 virtualNextIndex = nextVirtualIndex;
             }
@@ -311,24 +314,32 @@ public class IUDoubleLinkedList<E> implements IndexedUnsortedList<E> {
     
         private enum ListIteratorState{ PREVIOUS, NEXT, NEITHER }
     
-        private class ArrayOrderedListListIterator implements ListIterator<E> {
+        private class ListIterator implements ListIterator<E> {
+            private BidirectionalNode<E> previous;
+            private BidirectionalNode<E> current;
+            private BidirectionalNode<E> next;
     
-            private ArrayCursor cursor;
+            private int currentIndex; // this is the actual index of the next element to be served
+            // private int virtualIndex; // this represents what the zero-index value would be...
+            // private boolean canRemove; //don't need bc state
+
+            private ListCursor cursor;
             private ListIteratorState state;
             private int listIterModCount;
     
-            public ArrayOrderedListListIterator() {
+            public ListIterator() {
                 this(0);
             }
     
             
-            public ArrayOrderedListListIterator(int index) {
-                cursor = new ArrayCursor(index);
+            public ListIterator(int index) {
+                cursor = new ListCursor(index);
                 state = ListIteratorState.NEITHER;
                 listIterModCount = modCount;
             }
     
     
+            //TODO
             @Override
             public boolean hasNext() {
                 if (listIterModCount != modCount) { throw new ConcurrentModificationException(); } // fail-fast
@@ -339,13 +350,14 @@ public class IUDoubleLinkedList<E> implements IndexedUnsortedList<E> {
             @Override
             public E next() {
                 if (!hasNext()) {throw new NoSuchElementException(); }
-                E item = list[cursor.getNextIndex()];
+                E item = get(cursor.getNextIndex()); // currentIndex + 1?
                 cursor.rightShift();
                 state = ListIteratorState.NEXT;
                 return item;
     
             }
     
+            //TODO
             @Override
             public boolean hasPrevious() {
                 if (listIterModCount != modCount) { throw new ConcurrentModificationException(); } // fail-fast
@@ -355,7 +367,7 @@ public class IUDoubleLinkedList<E> implements IndexedUnsortedList<E> {
             @Override
             public E previous() {
                 if (!hasPrevious()) {throw new NoSuchElementException(); }
-                E item = list[cursor.getPreviousIndex()];
+                E item = get(cursor.getPreviousIndex()); //currentIndex - 1?
                 cursor.leftShift();
                 state = ListIteratorState.PREVIOUS;
                 return item;
@@ -389,18 +401,16 @@ public class IUDoubleLinkedList<E> implements IndexedUnsortedList<E> {
                 }
                 state = ListIteratorState.NEITHER;
                 listIterModCount++;
-    
-    
             }
     
             //So this is actually the implementation XD
             @Override
-            public void set(E e) {
+            public void set(E element) {
                 throw new UnsupportedOperationException("Unimplemented method 'set'");
             }
     
             @Override
-            public void add(E e) {
+            public void add(E element) {
                 throw new UnsupportedOperationException("Unimplemented method 'add'");
             }
 
