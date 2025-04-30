@@ -150,8 +150,7 @@ public class IUDoubleLinkedList<E> implements IndexedUnsortedList<E> {
 
     @Override
     public ListIterator listIterator() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'listIterator'");
+        this(0);
     }
 
     @Override
@@ -195,6 +194,7 @@ public class IUDoubleLinkedList<E> implements IndexedUnsortedList<E> {
         private boolean canRemove;
 
         private ListIterator() {
+            //TODO: incorporate startingIndex logic
             previous = null;
             current = front;
             next = front.getNext();
