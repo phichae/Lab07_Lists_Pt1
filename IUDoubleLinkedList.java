@@ -354,6 +354,8 @@ public class IUDoubleLinkedList<E> implements IndexedUnsortedList<E> {
                 cursor.rightShift();
                 state = ListIteratorState.NEXT;
                 return item;
+
+                // indexOf(current.getElement())
     
             }
     
