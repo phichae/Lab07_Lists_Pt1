@@ -85,6 +85,7 @@ public class IUDoubleLinkedList<E> implements IndexedUnsortedList<E> {
 
     @Override
     public E remove(int index) {
+        throw new UnsupportedOperationException("Unimplemented method 'remove'");
         // // TODO Auto-generated method stub
         // throw new UnsupportedOperationException("Unimplemented method 'remove'");
 
@@ -146,20 +147,18 @@ public class IUDoubleLinkedList<E> implements IndexedUnsortedList<E> {
 
     @Override
     public Iterator iterator() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'iterator'");
+        return new DLLIterator();
     }
 
-    @Override
-    public ListIterator listIterator() {
-        this(0);
-    }
+	@Override
+	public ListIterator<E> listIterator() {
+		return new DLLListIterator();
+	}
 
-    @Override
-    public ListIterator listIterator(int startingIndex) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'listIterator'");
-    }
+	@Override
+	public ListIterator<E> listIterator(int startingIndex) {
+        return new DLLListIterator(startingIndex);
+	}
 
     //TODO: edit @watermelon2718
     private E removeElement(BidirectionalNode<E> previous, BidirectionalNode<E> current) {
@@ -181,6 +180,7 @@ public class IUDoubleLinkedList<E> implements IndexedUnsortedList<E> {
 		return result;
 	}
 
+//TODO: @watermelon2718 Pasted from Wk 12 Demo
     private E removeElement(int index) {
         //WHAT IF element DNE?
         if (index == NOT_FOUND) {throw new NoSuchElementException(); }
@@ -203,10 +203,74 @@ public class IUDoubleLinkedList<E> implements IndexedUnsortedList<E> {
         return result;
     }
 
+    //TODO: pasted from SLLIterator
+    	/** Iterator for IUSingleLinkedList */
+	private class DLLIterator implements Iterator<E> {
+		private BidirectionalNode<E> previous;
+		private BidirectionalNode<E> current;
+		private BidirectionalNode<E> next;
+		private int iterModCount;
+		
+		/** Creates a new iterator for the list */
+		public DLLIterator() {
+			previous = null;
+			current = null;
+			next = front;
+			iterModCount = modCount;
+		}
 
-//TODO: Pasted from WK 13 demo @watermelon2718
+		@Override
+		public boolean hasNext() {
+			if (iterModCount != modCount) {
+				throw new ConcurrentModificationException();
+			}
+			return next != null;
+		}
 
-// --------------------------- ITERATOR -------------------------------------------//
+		@Override
+		public E next() {
+			if (iterModCount != modCount) {
+				throw new ConcurrentModificationException();
+			}
+			if (!hasNext()) {
+				throw new NoSuchElementException();
+			}
+			previous = current;
+			current = next;
+			next = next.getNext();
+			return current.getElement();
+		}
+		
+		@Override
+		public void remove() {
+			if (iterModCount != modCount) {
+				throw new ConcurrentModificationException();
+			}
+			if (current == null) {
+				throw new IllegalStateException();
+			}
+
+			if(current == front) {
+				front = next;
+			} else {
+				previous.setNext(next);
+			}
+			
+			if (next == null) {
+				rear = previous;
+			}
+
+			current = null;
+			count--;
+			iterModCount++;
+			modCount++;
+		}
+	}
+
+
+
+// ------------------------------ ALL DLL LIST ITERATOR STUFF FROM HERE --------------------------------------------------------------//
+
 //Iterator - TODO: merge w/ ListIterator
     private class IteratorTemp implements Iterator<E> {
         private BidirectionalNode<E> previous;
@@ -218,7 +282,7 @@ public class IUDoubleLinkedList<E> implements IndexedUnsortedList<E> {
         // private int virtualIndex; // this represents what the zero-index value would be...
         private boolean canRemove;
 
-        private ListIterator() {
+        private IteratorTemp() {
             //TODO: incorporate startingIndex logic
             previous = null;
             current = front;
@@ -251,10 +315,12 @@ public class IUDoubleLinkedList<E> implements IndexedUnsortedList<E> {
 
         public boolean hasPrevious() {
             //TODO
+            return false;
         }
 
         public E previous() {
             //TODO
+            return current.getElement();
         }
 
         public void remove() {// TODO: needs to branch based on which direction we just moved the iterator
@@ -296,203 +362,206 @@ public class IUDoubleLinkedList<E> implements IndexedUnsortedList<E> {
     // --------------------------- LIST ITERATOR -------------------------------------------//
 
     //TODO: ListIterator logic
-        private class ListCursor {
-            private int virtualNextIndex;
-    
-            //TODO: what is this
-            public ListCursor(int nextVirtualIndex) {
-                if (nextVirtualIndex < 0 || nextVirtualIndex > count ) {throw new IndexOutOfBoundsException() ; }
-                virtualNextIndex = nextVirtualIndex;
-            }
-    
-            public int getNextIndex() {
-                return virtualNextIndex;
-            }
-    
-            public int getPreviousIndex() {
-                return virtualNextIndex - 1; // TODO: is this still the case? if my cursor sets on the current node
-            }
-    
-            // public int getNextIndex() {
-            //     return getActualIndexFromVirtual(getVirtualNextIndex());
-            // }
-    
-            // public int getPreviousIndex() {
-            //     return getActualIndexFromVirtual(getVirtualPreviousIndex()); //if you like eating your own dog food
-            // }
-    
-            public void rightShift() {
-                if (getNextIndex() == count) return;
-                virtualNextIndex++;
-            }
-    
-            public void leftShift() {
-                if (getPreviousIndex() == -1) return;
-                virtualNextIndex--;
-            }
-    
-            // private int getActualIndexFromVirtual(int virtualIndex) {
-            //     return (front + virtualIndex) % list.length; // cuz what if we have 100 elements, front = 98, virtualIndex = 4 ... INDEX OUT OF BOUNDS EXCEPTIONS!!!
-            // }
-    
+    private class ListCursor {
+        private int virtualNextIndex;
+
+        //TODO: what is this
+        public ListCursor(int nextVirtualIndex) {
+            if (nextVirtualIndex < 0 || nextVirtualIndex > count ) {throw new IndexOutOfBoundsException() ; }
+            virtualNextIndex = nextVirtualIndex;
         }
-    
-        private enum ListIteratorState{ PREVIOUS, NEXT, NEITHER }
-    
-        private class DoubleLinkedListIterator implements ListIterator<E> {
-            private BidirectionalNode<E> previous;
-            private BidirectionalNode<E> current;
-            private BidirectionalNode<E> next;
-    
-            private int currentIndex; // this is the actual index of the next element to be served
-            // private int virtualIndex; // this represents what the zero-index value would be...
-            // private boolean canRemove; //don't need bc state
-            private ListIteratorState state;
-            private int listIterModCount;
 
-            private ListCursor cursor;
+        public int getNextIndex() {
+            return virtualNextIndex;
+        }
+
+        public int getPreviousIndex() {
+            return virtualNextIndex - 1; // TODO: is this still the case? if my cursor sets on the current node
+        }
+
+        // public int getNextIndex() {
+        //     return getActualIndexFromVirtual(getVirtualNextIndex());
+        // }
+
+        // public int getPreviousIndex() {
+        //     return getActualIndexFromVirtual(getVirtualPreviousIndex()); //if you like eating your own dog food
+        // }
+
+        public void rightShift() {
+            if (getNextIndex() == count) return;
+            virtualNextIndex++;
+        }
+
+        public void leftShift() {
+            if (getPreviousIndex() == -1) return;
+            virtualNextIndex--;
+        }
+
+        // private int getActualIndexFromVirtual(int virtualIndex) {
+        //     return (front + virtualIndex) % list.length; // cuz what if we have 100 elements, front = 98, virtualIndex = 4 ... INDEX OUT OF BOUNDS EXCEPTIONS!!!
+        // }
+
+    }
     
-            public DoubleLinkedListIterator() {
-                this(0);
+    private enum ListIteratorState{ PREVIOUS, NEXT, NEITHER }
+    
+    private class DLLListIterator implements ListIterator<E> {
+        private BidirectionalNode<E> previous;
+        private BidirectionalNode<E> current;
+        private BidirectionalNode<E> next;
+
+        private int currentIndex; // this is the actual index of the next element to be served
+        // private int virtualIndex; // this represents what the zero-index value would be...
+        // private boolean canRemove; //don't need bc state
+        private ListIteratorState state;
+        private int listIterModCount;
+
+        private ListCursor cursor;
+
+        public DLLListIterator() {
+            this(0);
+        }
+
+        
+        public DLLListIterator(int index) {
+            //current = node at index...start at front and scroll to the right node
+            //TODO: should it be current or front?
+
+            //TODO: possibly put this logic in a helper method
+            current = front;
+            for(int i = 0; i < index; i ++) {
+                current = current.getNext();
             }
-    
+
+            currentIndex = index;
+            previous = current.getPrevious();
+            next = current.getNext();
+            state = ListIteratorState.NEITHER;
+            listIterModCount = modCount;
+
+            cursor = new ListCursor(index); //TODO: do I need this? 
+        }
+
+
+        //TODO
+        @Override
+        public boolean hasNext() {
+            if (listIterModCount != modCount) { throw new ConcurrentModificationException(); } // fail-fast
+            return currentIndex < count;
+            // return cursor.getVirtualNextIndex() < count;
+
+        }
+
+        @Override
+        public E next() {
+            if (!hasNext()) {throw new NoSuchElementException(); }
             
-            public DoubleLinkedListIterator(int index) {
-                //current = node at index...start at front and scroll to the right node
-                //TODO: should it be current or front?
+            E item = next.getElement();
+            // get(currentIndex + 1); // currentIndex + 1?
+            //was cursor.getNextIndex()
 
-                //TODO: possibly put this logic in a helper method
-                current = front;
-                for(int i = 0; i < index; i ++) {
-                    current = current.getNext();
-                }
+            //Right Shift
+            cursor.rightShift();
+            previous = current;
+            current = next;
+            next = next.getNext();
 
-                currentIndex = index;
-                previous = current.getPrevious();
-                next = current.getNext();
-                state = ListIteratorState.NEITHER;
-                listIterModCount = modCount;
+            state = ListIteratorState.NEXT;
+            return item;
+            // indexOf(current.getElement()) -- a way to get the index of the element in current
 
-                cursor = new ListCursor(index); //TODO: do I need this? 
-            }
-    
-    
-            //TODO
-            @Override
-            public boolean hasNext() {
-                if (listIterModCount != modCount) { throw new ConcurrentModificationException(); } // fail-fast
-                return currentIndex < count;
-                // return cursor.getVirtualNextIndex() < count;
-    
-            }
-    
-            @Override
-            public E next() {
-                if (!hasNext()) {throw new NoSuchElementException(); }
-                
-                E item = next.getElement();
-                // get(currentIndex + 1); // currentIndex + 1?
-                //was cursor.getNextIndex()
+        }
 
-                //Right Shift
-                cursor.rightShift();
-                previous = current;
-                current = next;
-                next = next.getNext();
+        @Override
+        public boolean hasPrevious() {
+            if (listIterModCount != modCount) { throw new ConcurrentModificationException(); } // fail-fast
+            return currentIndex > -1;
+        }
 
-                state = ListIteratorState.NEXT;
-                return item;
-                // indexOf(current.getElement()) -- a way to get the index of the element in current
-    
-            }
-    
-            @Override
-            public boolean hasPrevious() {
-                if (listIterModCount != modCount) { throw new ConcurrentModificationException(); } // fail-fast
-                return currentIndex > -1;
-            }
-    
-            @Override
-            public E previous() {
-                if (!hasPrevious()) {throw new NoSuchElementException(); }
-                E item = previous.getElement();
-                // E item = get(currentIndex - 1);
-                
-                //Left Shift
-                cursor.leftShift();
-                previous = previous.getPrevious();
-                next = current;
-                current = previous;
+        @Override
+        public E previous() {
+            if (!hasPrevious()) {throw new NoSuchElementException(); }
+            E item = previous.getElement();
+            // E item = get(currentIndex - 1);
+            
+            //Left Shift
+            cursor.leftShift();
+            previous = previous.getPrevious();
+            next = current;
+            current = previous;
 
-                state = ListIteratorState.PREVIOUS;
-                return item;
-            }
-    
-            @Override
-            public int nextIndex() {
-                if (listIterModCount != modCount) { throw new ConcurrentModificationException(); } // fail-fast
-                return cursor.getNextIndex();
-            }
-    
-            @Override
-            public int previousIndex() {
-                if (listIterModCount != modCount) { throw new ConcurrentModificationException(); } // fail-fast
-                return cursor.getNextIndex();
-            }
-    
-            //TODO
-            @Override
-            public void remove() {
-                if (listIterModCount != modCount) { throw new ConcurrentModificationException(); } // fail-fast
-                switch(state){
-                    case NEXT:
-                        removeElement(cursor.getPreviousIndex());
-                        cursor.leftShift(); 
-                        break;
-                    case PREVIOUS:
-                        removeElement(cursor.getNextIndex());
-                        break;
-                    default:
-                        throw new IllegalStateException();
-                }
-                state = ListIteratorState.NEITHER;
-                listIterModCount++;
-            }
-    
-            @Override
-            public void set(E element) { //TODO: sets the current?
-                current.setElement(element);
-                listIterModCount++;
-                //TODO: anything else?
-            }
-    
-            @Override
-            public void add(E element) {//TODO: where are we adding?
-                //TODO: do I need a ClassCastException?
+            state = ListIteratorState.PREVIOUS;
+            return item;
+        }
 
-                BidirectionalNode<E> node = new BidirectionalNode<E>(element);
+        @Override
+        public int nextIndex() {
+            if (listIterModCount != modCount) { throw new ConcurrentModificationException(); } // fail-fast
+            return cursor.getNextIndex();
+        }
 
-                //Branch logic: 
-                switch(state) {
-                    case NEXT:
-                    //insert before next = to RT of cursor
-                        node.setPrevious(current.getPrevious());
-                        current.setPrevious(node);
-                    case PREVIOUS:
-                        //insert after previous = to LT of cursor
-                        node.setNext(current.getNext());
-                        current.setNext(node);
-                    default:
-                        //TODO: what is the default case?
-                }
+        @Override
+        public int previousIndex() {
+            if (listIterModCount != modCount) { throw new ConcurrentModificationException(); } // fail-fast
+            return cursor.getNextIndex();
+        }
 
-                listIterModCount++;
+        //TODO
+        @Override
+        public void remove() {
+            if (listIterModCount != modCount) { throw new ConcurrentModificationException(); } // fail-fast
+            switch(state){
+                case NEXT:
+                    removeElement(cursor.getPreviousIndex());
+                    cursor.leftShift(); 
+                    break;
+                case PREVIOUS:
+                    removeElement(cursor.getNextIndex());
+                    break;
+                default:
+                    throw new IllegalStateException();
+            }
+            state = ListIteratorState.NEITHER;
+            listIterModCount++;
+        }
+
+        @Override
+        public void set(E element) { //TODO: sets the current?
+            current.setElement(element);
+            listIterModCount++;
+            //TODO: anything else?
+        }
+
+        @Override
+        public void add(E element) {//TODO: where are we adding?
+            //TODO: do I need a ClassCastException?
+
+            BidirectionalNode<E> node = new BidirectionalNode<E>(element);
+
+            //Branch logic: 
+            switch(state) {
+                case NEXT:
+                //insert before next = to RT of cursor
+                    node.setPrevious(current.getPrevious());
+                    current.setPrevious(node);
+                case PREVIOUS:
+                    //insert after previous = to LT of cursor
+                    node.setNext(current.getNext());
+                    current.setNext(node);
+                default:
+                    //TODO: what is the default case?
             }
 
-            private void rightShift() {
-                
-            }
+            listIterModCount++;
+        }
+
+        private void rightShift() {
+            
+        }
 
 
     }
+    
 }
+
+
