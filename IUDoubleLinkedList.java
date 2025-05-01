@@ -269,99 +269,10 @@ public class IUDoubleLinkedList<E> implements IndexedUnsortedList<E> {
 
 
 
-// ------------------------------ ALL DLL LIST ITERATOR STUFF FROM HERE --------------------------------------------------------------//
-
-//Iterator - TODO: merge w/ ListIterator
-    private class IteratorTemp implements Iterator<E> {
-        private BidirectionalNode<E> previous;
-		private BidirectionalNode<E> current;
-		private BidirectionalNode<E> next;
-
-        private int iterModCount;
-        private int currentIndex; // this is the actual index of the next element to be served
-        // private int virtualIndex; // this represents what the zero-index value would be...
-        private boolean canRemove;
-
-        private IteratorTemp() {
-            //TODO: incorporate startingIndex logic
-            previous = null;
-            current = front;
-            next = front.getNext();
-
-            iterModCount = modCount;
-            currentIndex = 0;
-            canRemove = false;
-        }
-
-        @Override
-        public boolean hasNext() {
-            if (iterModCount != modCount) { throw new ConcurrentModificationException(); } // fail-fast
-            return currentIndex < count;
-        }
-
-        @Override
-        public E next() {
-            if (!hasNext()) { throw new NoSuchElementException(); }
-            E item = get(currentIndex);
-            currentIndex++;
-            canRemove = true;
-            //array - TODO: @watermelon2718 delete
-            // E item = list[current];
-            // current = increment(current);
-            // virtualIndex++;
-            // canRemove = true;
-            return item;
-        }
-
-        public boolean hasPrevious() {
-            //TODO
-            return false;
-        }
-
-        public E previous() {
-            //TODO
-            return current.getElement();
-        }
-
-        public void remove() {// TODO: needs to branch based on which direction we just moved the iterator
-
-            if (iterModCount != modCount) { throw new ConcurrentModificationException(); } // fail-fast
-            if (!canRemove) { throw new IllegalStateException(); }
-
-            currentIndex--; // ???
-            
-            if(currentIndex == 0) {
-				front = next;
-			} else {
-				previous.setNext(next);
-			}
-			
-			if (next == null) {
-				rear = previous;
-			}
-
-			current = null;
-			count--;
-			iterModCount++;
-			modCount++;
-            canRemove = false;
-        }    
-
-        //TODO: do we need this?
-        public void set() {
-
-
-        }
-
-        //TODO: do we need this?
-        public void add(){
-
-        }
-    }
+// ------------------------------ DLL LIST ITERATOR ----------------------------------------------------------------------------------------//
 
     // --------------------------- LIST ITERATOR -------------------------------------------//
 
-    //TODO: ListIterator logic
     private class ListCursor {
         private int virtualNextIndex;
 
@@ -416,7 +327,7 @@ public class IUDoubleLinkedList<E> implements IndexedUnsortedList<E> {
         private ListIteratorState state;
         private int listIterModCount;
 
-        private ListCursor cursor;
+        private ListCursor cursor; // do I need this?
 
         public DLLListIterator() {
             this(0);
@@ -447,7 +358,7 @@ public class IUDoubleLinkedList<E> implements IndexedUnsortedList<E> {
         @Override
         public boolean hasNext() {
             if (listIterModCount != modCount) { throw new ConcurrentModificationException(); } // fail-fast
-            return currentIndex < count;
+            return currentIndex < count - 1;
             // return cursor.getVirtualNextIndex() < count;
 
         }
@@ -475,7 +386,7 @@ public class IUDoubleLinkedList<E> implements IndexedUnsortedList<E> {
         @Override
         public boolean hasPrevious() {
             if (listIterModCount != modCount) { throw new ConcurrentModificationException(); } // fail-fast
-            return currentIndex > -1;
+            return (currentIndex - 1) > -1;
         }
 
         @Override
@@ -526,16 +437,24 @@ public class IUDoubleLinkedList<E> implements IndexedUnsortedList<E> {
         }
 
         @Override
-        public void set(E element) { //TODO: sets the current?
-            current.setElement(element);
+        public void set(E element) { 
+            switch(state){
+                case NEXT:
+                    next.setElement(element);
+                    break;
+                case PREVIOUS:
+                    previous.setElement(element);
+                    break;
+                default:
+                    throw new IllegalStateException();
+            }
+            state = ListIteratorState.NEITHER; // do we need this?
             listIterModCount++;
-            //TODO: anything else?
+
         }
 
         @Override
-        public void add(E element) {//TODO: where are we adding?
-            //TODO: do I need a ClassCastException?
-
+        public void add(E element) {
             BidirectionalNode<E> node = new BidirectionalNode<E>(element);
 
             //Branch logic: 
@@ -544,15 +463,18 @@ public class IUDoubleLinkedList<E> implements IndexedUnsortedList<E> {
                 //insert before next = to RT of cursor
                     node.setPrevious(current.getPrevious());
                     current.setPrevious(node);
+                    break;
                 case PREVIOUS:
                     //insert after previous = to LT of cursor
                     node.setNext(current.getNext());
                     current.setNext(node);
+                    break;
                 default:
                     //TODO: what is the default case?
+                    throw new IllegalStateException();
             }
-
             listIterModCount++;
+            state = ListIteratorState.NEITHER;
         }
 
         private void rightShift() {
