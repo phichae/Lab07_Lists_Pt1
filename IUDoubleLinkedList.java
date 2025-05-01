@@ -274,20 +274,20 @@ public class IUDoubleLinkedList<E> implements IndexedUnsortedList<E> {
     // --------------------------- LIST ITERATOR -------------------------------------------//
 
     private class ListCursor {
-        private int virtualNextIndex;
+        private int virtualCurrentIndex;
 
         //TODO: what is this
-        public ListCursor(int nextVirtualIndex) {
-            if (nextVirtualIndex < 0 || nextVirtualIndex > count ) {throw new IndexOutOfBoundsException() ; }
-            virtualNextIndex = nextVirtualIndex;
+        public ListCursor(int currentIndex) {
+            if (currentIndex < 0 || currentIndex > count ) {throw new IndexOutOfBoundsException() ; }
+            virtualCurrentIndex = currentIndex;
         }
 
         public int getNextIndex() {
-            return virtualNextIndex;
+            return virtualCurrentIndex + 1;
         }
 
         public int getPreviousIndex() {
-            return virtualNextIndex - 1; // TODO: is this still the case? if my cursor sets on the current node
+            return virtualCurrentIndex - 1; // TODO: is this still the case? if my cursor sets on the current node
         }
 
         // public int getNextIndex() {
@@ -300,12 +300,12 @@ public class IUDoubleLinkedList<E> implements IndexedUnsortedList<E> {
 
         public void rightShift() {
             if (getNextIndex() == count) return;
-            virtualNextIndex++;
+            virtualCurrentIndex++;
         }
 
         public void leftShift() {
             if (getPreviousIndex() == -1) return;
-            virtualNextIndex--;
+            virtualCurrentIndex--;
         }
 
         // private int getActualIndexFromVirtual(int virtualIndex) {
@@ -321,9 +321,7 @@ public class IUDoubleLinkedList<E> implements IndexedUnsortedList<E> {
         private BidirectionalNode<E> current;
         private BidirectionalNode<E> next;
 
-        private int currentIndex; // this is the actual index of the next element to be served
-        // private int virtualIndex; // this represents what the zero-index value would be...
-        // private boolean canRemove; //don't need bc state
+        private int currentIndex;
         private ListIteratorState state;
         private int listIterModCount;
 
@@ -336,7 +334,7 @@ public class IUDoubleLinkedList<E> implements IndexedUnsortedList<E> {
         
         public DLLListIterator(int index) {
             //current = node at index...start at front and scroll to the right node
-            //TODO: should it be current or front?
+            //TODO: should the node at the given index be current or front?
 
             //TODO: possibly put this logic in a helper method
             current = front;
@@ -359,8 +357,6 @@ public class IUDoubleLinkedList<E> implements IndexedUnsortedList<E> {
         public boolean hasNext() {
             if (listIterModCount != modCount) { throw new ConcurrentModificationException(); } // fail-fast
             return currentIndex < count - 1;
-            // return cursor.getVirtualNextIndex() < count;
-
         }
 
         @Override
@@ -375,7 +371,7 @@ public class IUDoubleLinkedList<E> implements IndexedUnsortedList<E> {
             cursor.rightShift();
             previous = current;
             current = next;
-            next = next.getNext();
+            next = next.getNext(); // is it ok if it's null?
 
             state = ListIteratorState.NEXT;
             return item;
@@ -397,9 +393,9 @@ public class IUDoubleLinkedList<E> implements IndexedUnsortedList<E> {
             
             //Left Shift
             cursor.leftShift();
-            previous = previous.getPrevious();
             next = current;
             current = previous;
+            previous = previous.getPrevious();
 
             state = ListIteratorState.PREVIOUS;
             return item;
@@ -408,15 +404,16 @@ public class IUDoubleLinkedList<E> implements IndexedUnsortedList<E> {
         @Override
         public int nextIndex() {
             if (listIterModCount != modCount) { throw new ConcurrentModificationException(); } // fail-fast
-            return cursor.getNextIndex();
+            return currentIndex + 1;
         }
 
         @Override
         public int previousIndex() {
             if (listIterModCount != modCount) { throw new ConcurrentModificationException(); } // fail-fast
-            return cursor.getNextIndex();
+            return currentIndex - 1;
         }
 
+        // --------- @watermelon2718 reviewed through here
         //TODO
         @Override
         public void remove() {
