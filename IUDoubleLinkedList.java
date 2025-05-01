@@ -87,8 +87,10 @@ public class IUDoubleLinkedList<E> implements IndexedUnsortedList<E> {
     public E remove(int index) {
         // // TODO Auto-generated method stub
         // throw new UnsupportedOperationException("Unimplemented method 'remove'");
-        E element = (E)(new Object());
-        return element;
+
+        //from @watermelon2718...ignore this haha
+        // E element = (E)(new Object());
+        // return element;
     }
 
     @Override
@@ -178,6 +180,28 @@ public class IUDoubleLinkedList<E> implements IndexedUnsortedList<E> {
 
 		return result;
 	}
+
+    private E removeElement(int index) {
+        //WHAT IF element DNE?
+        if (index == NOT_FOUND) {throw new NoSuchElementException(); }
+        E result = this.list[index];
+
+//shift everything
+        int ltIndex = index, rtIndex = increment(index);
+        while (rtIndex < rear) { //b/c rear is pointing to a null element
+            list[ltIndex] = list[rtIndex];
+            ltIndex = increment(ltIndex);
+            rtIndex = increment(rtIndex);
+        }
+
+        rear = decrement(rear);
+        //gotta null out the last element
+        this.list[rear] = null;
+        count--;
+        modCount ++;
+
+        return result;
+    }
 
 
 //TODO: Pasted from WK 13 demo @watermelon2718
@@ -275,46 +299,47 @@ public class IUDoubleLinkedList<E> implements IndexedUnsortedList<E> {
         private class ListCursor {
             private int virtualNextIndex;
     
+            //TODO: what is this
             public ListCursor(int nextVirtualIndex) {
                 if (nextVirtualIndex < 0 || nextVirtualIndex > count ) {throw new IndexOutOfBoundsException() ; }
                 virtualNextIndex = nextVirtualIndex;
             }
     
-            public int getVirtualNextIndex() {
+            public int getNextIndex() {
                 return virtualNextIndex;
             }
     
-            public int getVirtualPreviousIndex() {
+            public int getPreviousIndex() {
                 return virtualNextIndex - 1;
             }
     
-            public int getNextIndex() {
-                return getActualIndexFromVirtual(getVirtualNextIndex());
-            }
+            // public int getNextIndex() {
+            //     return getActualIndexFromVirtual(getVirtualNextIndex());
+            // }
     
-            public int getPreviousIndex() {
-                return getActualIndexFromVirtual(getVirtualPreviousIndex()); //if you like eating your own dog food
-            }
+            // public int getPreviousIndex() {
+            //     return getActualIndexFromVirtual(getVirtualPreviousIndex()); //if you like eating your own dog food
+            // }
     
             public void rightShift() {
-                if (getVirtualNextIndex() == count) return;
+                if (getNextIndex() == count) return;
                 virtualNextIndex++;
             }
     
             public void leftShift() {
-                if (getVirtualPreviousIndex() == -1) return;
+                if (getPreviousIndex() == -1) return;
                 virtualNextIndex--;
             }
     
-            private int getActualIndexFromVirtual(int virtualIndex) {
-                return (front + virtualIndex) % list.length; // cuz what if we have 100 elements, front = 98, virtualIndex = 4 ... INDEX OUT OF BOUNDS EXCEPTIONS!!!
-            }
+            // private int getActualIndexFromVirtual(int virtualIndex) {
+            //     return (front + virtualIndex) % list.length; // cuz what if we have 100 elements, front = 98, virtualIndex = 4 ... INDEX OUT OF BOUNDS EXCEPTIONS!!!
+            // }
     
         }
     
         private enum ListIteratorState{ PREVIOUS, NEXT, NEITHER }
     
-        private class ListIterator implements ListIterator<E> {
+        private class DoubleLinkedListIterator implements ListIterator<E> {
             private BidirectionalNode<E> previous;
             private BidirectionalNode<E> current;
             private BidirectionalNode<E> next;
@@ -322,20 +347,33 @@ public class IUDoubleLinkedList<E> implements IndexedUnsortedList<E> {
             private int currentIndex; // this is the actual index of the next element to be served
             // private int virtualIndex; // this represents what the zero-index value would be...
             // private boolean canRemove; //don't need bc state
-
-            private ListCursor cursor;
             private ListIteratorState state;
             private int listIterModCount;
+
+            private ListCursor cursor;
     
-            public ListIterator() {
+            public DoubleLinkedListIterator() {
                 this(0);
             }
     
             
-            public ListIterator(int index) {
-                cursor = new ListCursor(index);
+            public DoubleLinkedListIterator(int index) {
+                //current = node at index...start at front and scroll to the right node
+                //TODO: should it be current or front?
+
+                //TODO: possibly put this logic in a helper method
+                current = front;
+                for(int i = 0; i < index; i ++) {
+                    current = current.getNext();
+                }
+
+                currentIndex = index;
+                previous = current.getPrevious();
+                next = current.getNext();
                 state = ListIteratorState.NEITHER;
                 listIterModCount = modCount;
+
+                cursor = new ListCursor(index); //TODO: do I need this? 
             }
     
     
@@ -343,33 +381,41 @@ public class IUDoubleLinkedList<E> implements IndexedUnsortedList<E> {
             @Override
             public boolean hasNext() {
                 if (listIterModCount != modCount) { throw new ConcurrentModificationException(); } // fail-fast
-                return cursor.getVirtualNextIndex() < count;
+                return currentIndex < count;
+                // return cursor.getVirtualNextIndex() < count;
     
             }
     
             @Override
             public E next() {
                 if (!hasNext()) {throw new NoSuchElementException(); }
-                E item = get(cursor.getNextIndex()); // currentIndex + 1?
+                
+                E item = next.getElement();
+                // get(currentIndex + 1); // currentIndex + 1?
+                //was cursor.getNextIndex()
+
+                //Right Shift
                 cursor.rightShift();
+                previous = current;
+                current = next;
+                next = next.getNext();
+
                 state = ListIteratorState.NEXT;
                 return item;
-
-                // indexOf(current.getElement())
+                // indexOf(current.getElement()) -- a way to get the index of the element in current
     
             }
     
-            //TODO
             @Override
             public boolean hasPrevious() {
                 if (listIterModCount != modCount) { throw new ConcurrentModificationException(); } // fail-fast
-                return cursor.getVirtualPreviousIndex() > -1;
+                return currentIndex > -1;
             }
     
             @Override
             public E previous() {
                 if (!hasPrevious()) {throw new NoSuchElementException(); }
-                E item = get(cursor.getPreviousIndex()); //currentIndex - 1?
+                E item = get(currentIndex - 1);
                 cursor.leftShift();
                 state = ListIteratorState.PREVIOUS;
                 return item;
@@ -378,15 +424,16 @@ public class IUDoubleLinkedList<E> implements IndexedUnsortedList<E> {
             @Override
             public int nextIndex() {
                 if (listIterModCount != modCount) { throw new ConcurrentModificationException(); } // fail-fast
-                return cursor.getVirtualNextIndex();
+                return cursor.getNextIndex();
             }
     
             @Override
             public int previousIndex() {
                 if (listIterModCount != modCount) { throw new ConcurrentModificationException(); } // fail-fast
-                return cursor.getVirtualPreviousIndex();
+                return cursor.getNextIndex();
             }
     
+            //TODO
             @Override
             public void remove() {
                 if (listIterModCount != modCount) { throw new ConcurrentModificationException(); } // fail-fast
@@ -405,15 +452,27 @@ public class IUDoubleLinkedList<E> implements IndexedUnsortedList<E> {
                 listIterModCount++;
             }
     
-            //So this is actually the implementation XD
             @Override
-            public void set(E element) {
-                throw new UnsupportedOperationException("Unimplemented method 'set'");
+            public void set(E element) { //TODO: sets the current?
+                current.setElement(element);
+                listIterModCount++;
+                //TODO: anything else?
             }
     
+            //TODO: more add methods?
             @Override
-            public void add(E element) {
-                throw new UnsupportedOperationException("Unimplemented method 'add'");
+            public void add(E element) {//TODO: where are we adding?
+                //TODO: do I need a ClassCastException?
+
+                //Branch logic: 
+                switch(state) {
+                    case NEXT:
+                        //insert before next = to RT of current
+                    case PREVIOUS:
+                        //insert after previous = to LT of current
+                    default:
+
+                }
             }
 
 
