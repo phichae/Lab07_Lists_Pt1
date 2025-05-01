@@ -310,7 +310,7 @@ public class IUDoubleLinkedList<E> implements IndexedUnsortedList<E> {
             }
     
             public int getPreviousIndex() {
-                return virtualNextIndex - 1;
+                return virtualNextIndex - 1; // TODO: is this still the case? if my cursor sets on the current node
             }
     
             // public int getNextIndex() {
@@ -415,8 +415,15 @@ public class IUDoubleLinkedList<E> implements IndexedUnsortedList<E> {
             @Override
             public E previous() {
                 if (!hasPrevious()) {throw new NoSuchElementException(); }
-                E item = get(currentIndex - 1);
+                E item = previous.getElement();
+                // E item = get(currentIndex - 1);
+                
+                //Left Shift
                 cursor.leftShift();
+                previous = previous.getPrevious();
+                next = current;
+                current = previous;
+
                 state = ListIteratorState.PREVIOUS;
                 return item;
             }
@@ -459,20 +466,31 @@ public class IUDoubleLinkedList<E> implements IndexedUnsortedList<E> {
                 //TODO: anything else?
             }
     
-            //TODO: more add methods?
             @Override
             public void add(E element) {//TODO: where are we adding?
                 //TODO: do I need a ClassCastException?
 
+                BidirectionalNode<E> node = new BidirectionalNode<E>(element);
+
                 //Branch logic: 
                 switch(state) {
                     case NEXT:
-                        //insert before next = to RT of current
+                    //insert before next = to RT of cursor
+                        node.setPrevious(current.getPrevious());
+                        current.setPrevious(node);
                     case PREVIOUS:
-                        //insert after previous = to LT of current
+                        //insert after previous = to LT of cursor
+                        node.setNext(current.getNext());
+                        current.setNext(node);
                     default:
-
+                        //TODO: what is the default case?
                 }
+
+                listIterModCount++;
+            }
+
+            private void rightShift() {
+                
             }
 
 
