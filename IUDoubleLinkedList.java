@@ -110,23 +110,42 @@ public class IUDoubleLinkedList<E> implements IndexedUnsortedList<E> {
 		return removeElement(previous, current);
 	}
 
-    @Override
-    public void set(int index, E element) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'set'");
-    }
+	@Override
+	public void set(int index, E element) {
+		// TODO 
+		if (index < 0 || index >= count) { throw new IndexOutOfBoundsException(); }
+		BidirectionalNode<E> current = front;
+		int i = 0;
+		while(i < index) {
+			current = current.getNext();
+			i++;
+		}
+		current.setElement(element);
+	}
 
-    @Override
-    public E get(int index) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'get'");
-    }
+	@Override
+	public E get(int index) {
+		if (index < 0 || index >= count) { throw new IndexOutOfBoundsException(); }
+		BidirectionalNode<E> current = front;
+		int i = 0;
+		while(i < index) {
+			current = current.getNext();
+			i++;
+		}
+		return current.getElement();
+	}
 
-    @Override
     public int indexOf(E element) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'indexOf'");
-    }
+		//TODO
+		BidirectionalNode<E> current = front;
+		for(int i = 0; i < count; i++) {
+			if (current.getElement().equals(element)) {
+				return i;
+    		}
+			current = current.getNext();
+		}
+		return -1;
+	}
 
     public E first() {
         if (isEmpty()) {
