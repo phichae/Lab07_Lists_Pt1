@@ -168,10 +168,20 @@ public class IUDoubleLinkedList<E> implements IndexedUnsortedList<E> {
         return count;
     }
 
-    public String toString() {
-        //TODO Ellyn-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'toString'");
-    }
+	@Override
+	public String toString() {
+		BidirectionalNode<E> current = front;
+		String result = "[";
+		for (int i = 0; i < count; i++) {
+			if (i > 0) {
+        			result += ", ";
+            		}
+			result += current.getElement();
+			current = current.getNext();
+		}
+		result += "]";
+		return result;
+	}
 
     @Override
     public Iterator<E> iterator() {
