@@ -227,10 +227,11 @@ public class IUDoubleLinkedList<E> implements IndexedUnsortedList<E> {
 		} else { // If the first element in the list
 			front = current.getNext();
 		}
-		// If the last element in the list
-		if (current.getNext() == null) {
-			rear = previous;
-		}
+        if (current.getNext() != null) {
+            current.getNext().setPrevious(previous);
+        } else { // If the last element in the list
+            rear = previous;
+     }
 		count--;
 		modCount++;
 
