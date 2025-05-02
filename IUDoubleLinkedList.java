@@ -429,6 +429,7 @@ public class IUDoubleLinkedList<E> implements IndexedUnsortedList<E> {
             previous = current;
             current = next;
             next = next.getNext(); // is it ok if it's null?
+            nextIndex++;
 
             state = ListIteratorState.NEXT;
             return item;
@@ -453,6 +454,7 @@ public class IUDoubleLinkedList<E> implements IndexedUnsortedList<E> {
             next = current;
             current = previous;
             previous = previous.getPrevious();
+            nextIndex--;
 
             state = ListIteratorState.PREVIOUS;
             return item;
