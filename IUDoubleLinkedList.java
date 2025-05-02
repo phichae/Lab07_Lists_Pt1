@@ -128,22 +128,34 @@ public class IUDoubleLinkedList<E> implements IndexedUnsortedList<E> {
         throw new UnsupportedOperationException("Unimplemented method 'indexOf'");
     }
 
-    @Override
     public E first() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'first'");
+        if (isEmpty()) {
+            throw new NoSuchElementException();
+        }
+        return front.getElement();
     }
 
     @Override
     public E last() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'last'");
+        if (isEmpty()) {
+            throw new NoSuchElementException();
+        }
+        return rear.getElement();
     }
 
     @Override
     public boolean contains(E target) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'contains'");
+        if (isEmpty()) {
+            return false;
+        }
+        BidirectionalNode<E> current = front;
+		while (current != null) {
+    		if (current.getElement().equals(target)) {
+        		return true;
+    		}
+    		current = current.getNext();
+		}
+		return false;
     }
 
     @Override
