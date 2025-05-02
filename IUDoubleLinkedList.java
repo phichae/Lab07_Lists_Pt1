@@ -66,27 +66,49 @@ public class IUDoubleLinkedList<E> implements IndexedUnsortedList<E> {
     }
 
     @Override
-    public E removeFirst() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'removeFirst'");
-    }
+	public E removeFirst() {
+		if (isEmpty()) { throw new NoSuchElementException(); }
+		return remove(0);
+		// return remove(front.getElement());
+	}
 
-    @Override
-    public E removeLast() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'removeLast'");
-    }
+	@Override
+	public E removeLast() {
+		if (isEmpty()) { throw new NoSuchElementException(); }
+		return remove(count - 1);
+		// return remove(rear.getElement());
+	}
 
-    @Override
-    public E remove(E element) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'remove'");
-    }
+	@Override
+	public E remove(E element) {
+		if (isEmpty()) {
+			throw new NoSuchElementException();
+		}
+		BidirectionalNode<E> current = front, previous = null;
+		while (current != null && !current.getElement().equals(element)) {
+			previous = current;
+			current = current.getNext();
+		}
+		// Matching element not found
+		if (current == null) {
+			throw new NoSuchElementException();
+		}
+		return removeElement(previous, current);	
+	}
 
-    @Override
-    public E remove(int index) {
-        throw new UnsupportedOperationException("Unimplemented method 'remove'");
-    }
+	@Override
+	public E remove(int index) {
+		// if (isEmpty()) { throw new NoSuchElementException(); }
+		if(index < 0 || index >= size()) { throw new IndexOutOfBoundsException(); }
+				
+		BidirectionalNode<E> current = front, previous = null;
+
+		for(int i = 0; i < index; i++) {
+			previous = current;
+			current = current.getNext();
+		}
+		return removeElement(previous, current);
+	}
 
     @Override
     public void set(int index, E element) {
