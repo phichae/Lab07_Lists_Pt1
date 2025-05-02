@@ -391,9 +391,6 @@ public class IUDoubleLinkedList<E> implements IndexedUnsortedList<E> {
 
         
         public DLLListIterator(int index) {
-            //current = node at index...start at front and scroll to the right node
-            //TODO: should the node at the given index be current or front?
-
             //TODO: possibly put this logic in a helper method
             next = front;
             for(int i = 0; i < index; i ++) {
