@@ -140,7 +140,7 @@ public class IUDoubleLinkedList<E> implements IndexedUnsortedList<E> {
 
     @Override
     public boolean isEmpty() {
-        return count == 0;
+        return size() == 0;
     }
 
     @Override
@@ -149,8 +149,18 @@ public class IUDoubleLinkedList<E> implements IndexedUnsortedList<E> {
     }
 
     public String toString() {
-        //TODO Ellyn-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'toString'");
+        //TODO Juan-review
+        BidirectionalNode<E> current = front;
+		String result = "[";
+		for (int i = 0; i < count; i++) {
+			if (i > 0) {
+        			result += ", ";
+            		}
+			result += current.getElement();
+			current = current.getNext();
+		}
+		result += "]";
+		return result;
     }
 
     @Override
