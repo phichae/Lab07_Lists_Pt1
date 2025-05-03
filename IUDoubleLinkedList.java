@@ -227,12 +227,14 @@ public class IUDoubleLinkedList<E> implements IndexedUnsortedList<E> {
 		// If not the first element in the list
 		if (previous != null) {
 			previous.setNext(current.getNext());
+            current = previous.getNext();
 		} else { // If the first element in the list
 			front = current.getNext();
 		}
 
         if (next != null) {
             next.setPrevious(previous);
+            current = next.getPrevious();
         } else { // If the last element in the list
             rear = previous;
         }
@@ -330,6 +332,8 @@ public class IUDoubleLinkedList<E> implements IndexedUnsortedList<E> {
         
         public DLLListIterator(int index) {
             //TODO: possibly put this logic in a helper method
+            if (index < 0 || index > size()) { throw new IndexOutOfBoundsException(); }
+
             next = front;
             for(int i = 0; i < index; i++) {
                 next = next.getNext();
@@ -368,8 +372,8 @@ public class IUDoubleLinkedList<E> implements IndexedUnsortedList<E> {
             //was cursor.getNextIndex()
 
             //Right Shift
-            previous = current;
             current = next;
+            previous = current;
             next = next.getNext(); // is it ok if it's null?
             nextIndex++;
 
@@ -387,7 +391,7 @@ public class IUDoubleLinkedList<E> implements IndexedUnsortedList<E> {
 
         @Override
         public E previous() {
-            if (!hasPrevious()) {throw new NoSuchElementException(); }
+            if (!hasPrevious()) { throw new NoSuchElementException(); }
             E item = previous.getElement();
             // E item = get(currentIndex - 1);
             
@@ -454,8 +458,12 @@ public class IUDoubleLinkedList<E> implements IndexedUnsortedList<E> {
             // BidirectionalNode<E> node = new BidirectionalNode<E>(element);
 
             //Adds to the LT of the cursor = before next
-            addAfter(element, previous.getElement());
-
+            
+            if (current == null) {
+                addToFront(element);
+            } else {
+                addAfter(element, current.getElement());
+            }
             
             listIterModCount++;
             state = ListIteratorState.NEITHER;
