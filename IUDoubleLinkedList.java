@@ -25,10 +25,11 @@ public class IUDoubleLinkedList<E> implements IndexedUnsortedList<E> {
 
     @Override
     public void add(E element) {
-        BidirectionalNode<E> newNode = new BidirectionalNode<>(element);
+        BidirectionalNode<E> newNode = new BidirectionalNode<E>(element);
         if(front == null) {
             front = rear = newNode;
         } else {
+            newNode.setPrevious(rear);
             rear.setNext(newNode);
             rear = newNode;
         }
@@ -58,8 +59,14 @@ public class IUDoubleLinkedList<E> implements IndexedUnsortedList<E> {
                 current = current.getNext();
             }
             newNode.setNext(current.getNext());
-            newNode.setPrevious(current.getPrevious());
+            newNode.setPrevious(current);
+            if (current.getNext() != null) {
+                current.getNext().setPrevious(newNode);
+            }
             current.setNext(newNode);
+            if (newNode.getNext() == null) {
+                rear = newNode;
+            }
         }
         count++;
         modCount++;
@@ -85,7 +92,7 @@ public class IUDoubleLinkedList<E> implements IndexedUnsortedList<E> {
 			throw new NoSuchElementException();
 		}
 		BidirectionalNode<E> current = front, previous = null, next = current.getNext();
-		while (current != null && !current.getElement().equals(element)) {
+		while (current != null && !current.getElement().equals(element) && next != null) {
 			previous = current;
 			current = next;
             next = next.getNext();
@@ -291,11 +298,16 @@ public class IUDoubleLinkedList<E> implements IndexedUnsortedList<E> {
 				throw new IllegalStateException();
 			}
 
-			if(current == front) {
-				front = next;
-			} else {
-				previous.setNext(next);
-			}
+			if (current == front) {
+                front = next;
+                if (front != null) front.setPrevious(null);
+            } else if (previous != null) {
+                previous.setNext(next);
+                if (next != null) next.setPrevious(previous);
+            }
+            if (next == null) {
+                rear = previous;
+            }
 			
 			if (next == null) {
 				rear = previous;
@@ -339,18 +351,19 @@ public class IUDoubleLinkedList<E> implements IndexedUnsortedList<E> {
                 next = next.getNext();
             }
 
+            previous = (next != null) ? next.getPrevious() : rear;
             nextIndex = index;
-            if (next != null) {
-                current = next.getPrevious();
-            } else {
-                current = null;
-            }
+            // if (next != null) {
+            //     current = next.getPrevious();
+            // } else {
+            //     current = null;
+            // }
 
-            if (current != null) {
-                previous = current.getPrevious();
-            } else {
-                previous = null;
-            }
+            // if (current != null) {
+            //     previous = current.getPrevious();
+            // } else {
+            //     previous = null;
+            // }
             state = ListIteratorState.NEITHER;
             listIterModCount = modCount;
         }
@@ -414,7 +427,7 @@ public class IUDoubleLinkedList<E> implements IndexedUnsortedList<E> {
         @Override
         public int previousIndex() {
             if (listIterModCount != modCount) { throw new ConcurrentModificationException(); } // fail-fast
-            return nextIndex - 2;
+            return nextIndex-1;
         }
 
         //TODO
@@ -424,10 +437,10 @@ public class IUDoubleLinkedList<E> implements IndexedUnsortedList<E> {
             switch(state){
                 case NEXT:
                     // removeElement(cursor.getPreviousIndex());
-                    IUDoubleLinkedList.this.remove(nextIndex);
+                    IUDoubleLinkedList.this.remove(nextIndex-1);
                     break;
                 case PREVIOUS:
-                    IUDoubleLinkedList.this.remove(nextIndex-2);
+                    IUDoubleLinkedList.this.remove(nextIndex);
                     break;
                 default:
                     throw new IllegalStateException();
