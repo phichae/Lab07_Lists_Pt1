@@ -453,10 +453,10 @@ public class IUDoubleLinkedList<E> implements IndexedUnsortedList<E> {
         public void set(E element) { 
             switch(state){
                 case NEXT:
-                    next.setElement(element);
+                    current.setElement(element);
                     break;
                 case PREVIOUS:
-                    previous.setElement(element);
+                    current.setElement(element);
                     break;
                 default:
                     throw new IllegalStateException();
