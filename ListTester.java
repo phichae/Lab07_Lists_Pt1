@@ -289,7 +289,11 @@ public class ListTester {
 		//List Iterator Scenarios
 		if (SUPPORTS_LIST_ITERATOR) {
 			// Place List Iterator Scenarios Here...
-			
+			// Scenario:66 
+			testEmptyList(A_listIterator1PreviousRemove, "A_listIterator1PreviousRemove");
+			// Scenario:71 
+			testTwoElementList(ABC_listIterator2PreviousRemove_AC, "ABC_listIterator2PreviousRemove_AC", LIST_AC, STRING_AC);
+
 		}
 
 
@@ -757,6 +761,27 @@ public class ListTester {
 		return list;
 	}
 	private Scenario<Integer> ABC_iteratorNextRemoveNextRemoveNextRemove_emptyList = () -> ABC_iteratorNextRemoveNextRemoveNextRemove_emptyList();
+
+
+	//List iterator test scenairos 
+	//Scenario:66 [A] -> list-iterator(1),previous(),remove() -> []
+	private IndexedUnsortedList<Integer> A_listIterator1PreviousRemove() {
+		IndexedUnsortedList<Integer> list = emptyList_addToFrontA_A(); 
+		list.previous();
+		list.remove();
+		return list;
+	}
+	private Scenario<Integer> A_listIterator1PreviousRemove = () -> A_listIterator1PreviousRemove();
+	
+	//Scenario:71 [A,B,C] -> list-iterator(2),previous(),remove() -> [A,C]
+	private IndexedUnsortedList<Integer> ABC_listIterator2PreviousRemove_AC() {
+		IndexedUnsortedList<Integer> list = AB_addAfterCB_ABC(); 
+		list.previous();
+		list.remove();
+		return list;
+	}
+	private Scenario<Integer> ABC_listIterator2PreviousRemove_AC = () -> ABC_listIterator2PreviousRemove_AC();
+
 	 
 	/////////////////////////////////
 	//XXX Tests for 0-element list
