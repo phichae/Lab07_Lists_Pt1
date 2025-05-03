@@ -767,17 +767,19 @@ public class ListTester {
 	//Scenario:66 [A] -> list-iterator(1),previous(),remove() -> []
 	private IndexedUnsortedList<Integer> A_listIterator1PreviousRemove() {
 		IndexedUnsortedList<Integer> list = emptyList_addToFrontA_A(); 
-		list.previous();
-		list.remove();
+		ListIterator<Integer> iterator = list.listIterator();
+		iterator.previous();
+		iterator.remove();
 		return list;
 	}
 	private Scenario<Integer> A_listIterator1PreviousRemove = () -> A_listIterator1PreviousRemove();
 	
 	//Scenario:71 [A,B,C] -> list-iterator(2),previous(),remove() -> [A,C]
 	private IndexedUnsortedList<Integer> ABC_listIterator2PreviousRemove_AC() {
-		IndexedUnsortedList<Integer> list = AB_addAfterCB_ABC(); 
-		list.previous();
-		list.remove();
+		IndexedUnsortedList<Integer> list = AB_addAfterCB_ABC();
+		ListIterator<Integer> iterator = list.listIterator();
+		iterator.previous();
+		iterator.remove();
 		return list;
 	}
 	private Scenario<Integer> ABC_listIterator2PreviousRemove_AC = () -> ABC_listIterator2PreviousRemove_AC();
