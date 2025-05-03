@@ -1196,7 +1196,7 @@ public class ListTester {
 				printTest(scenarioName + "_testListIter1", testListIter(scenario.build(), 1, Result.NoException));
 				printTest(scenarioName + "_testListIter2", testListIter(scenario.build(), 2, Result.NoException));
 				printTest(scenarioName + "_testListIter3", testListIter(scenario.build(), 3, Result.NoException));
-				printTest(scenarioName + "_testListIter4", testListIter(scenario.build(), 2, Result.IndexOutOfBounds));
+				printTest(scenarioName + "_testListIter4", testListIter(scenario.build(), 4, Result.IndexOutOfBounds));
 
 				printTest(scenarioName + "_testListIter0HasPrevious", testListIterHasPrevious(WrapIt.prep(scenario.build(), 0).getListIterator(), Result.False));
 				printTest(scenarioName + "_testListIter1HasPrevious", testListIterHasPrevious(WrapIt.prep(scenario.build(), 1).getListIterator(), Result.True));

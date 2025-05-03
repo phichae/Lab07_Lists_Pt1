@@ -26,13 +26,20 @@ public class IUDoubleLinkedList<E> implements IndexedUnsortedList<E> {
     @Override
     public void add(E element) {
         BidirectionalNode<E> newNode = new BidirectionalNode<E>(element);
+
         if(front == null) {
             front = rear = newNode;
         } else {
+
+            if (rear == null) {
+                rear = front;
+            }
+            
             newNode.setPrevious(rear);
             rear.setNext(newNode);
             rear = newNode;
         }
+
         count++;
         modCount++;
     }
@@ -232,15 +239,13 @@ public class IUDoubleLinkedList<E> implements IndexedUnsortedList<E> {
 		E result = current.getElement();
 		// If not the first element in the list
 		if (previous != null) {
-			previous.setNext(current.getNext());
-            current = previous.getNext();
+			previous.setNext(next);
 		} else { // If the first element in the list
-			front = current.getNext();
+			front = next;
 		}
 
         if (next != null) {
             next.setPrevious(previous);
-            current = next.getPrevious();
         } else { // If the last element in the list
             rear = previous;
         }
@@ -302,15 +307,13 @@ public class IUDoubleLinkedList<E> implements IndexedUnsortedList<E> {
                 if (front != null) front.setPrevious(null);
             } else if (previous != null) {
                 previous.setNext(next);
-                if (next != null) next.setPrevious(previous);
             }
-            if (next == null) {
+
+            if (next != null) {
+                next.setPrevious(previous);
+            } else {
                 rear = previous;
             }
-			
-			if (next == null) {
-				rear = previous;
-			}
 
 			current = null;
 			count--;
