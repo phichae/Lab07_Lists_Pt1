@@ -175,6 +175,10 @@ public class IUDoubleLinkedList<E> implements IndexedUnsortedList<E> {
         if (isEmpty()) {
             throw new NoSuchElementException();
         }
+        //this works
+        // return get(count - 1);
+
+        //for some reason, rear is null in the single element list
         return rear.getElement();
     }
 
@@ -453,6 +457,7 @@ public class IUDoubleLinkedList<E> implements IndexedUnsortedList<E> {
 
         @Override
         public void set(E element) { 
+            if (listIterModCount != modCount) { throw new ConcurrentModificationException(); } // fail-fast
             switch(state){
                 case NEXT:
                     current.setElement(element);
@@ -470,6 +475,7 @@ public class IUDoubleLinkedList<E> implements IndexedUnsortedList<E> {
 
         @Override
         public void add(E element) {
+            if (listIterModCount != modCount) { throw new ConcurrentModificationException(); } // fail-fast
             // BidirectionalNode<E> node = new BidirectionalNode<E>(element);
 
             //Adds to the LT of the cursor = before next
