@@ -289,6 +289,10 @@ public class ListTester {
 		//List Iterator Scenarios
 		if (SUPPORTS_LIST_ITERATOR) {
 			// Place List Iterator Scenarios Here...
+			// Scenario: 57
+			testSingleElementList(AB_listIteratorNextRemove_A, "AB_listIteratorNextRemove_A", LIST_A, STRING_A);
+			// Scenario: 60
+			testTwoElementList(ABC_listIteratorNextRemove_AC, "ABC_listIteratorNextRemove_AC", LIST_AC, STRING_AC);
 		}
 
 
@@ -756,7 +760,27 @@ public class ListTester {
 		return list;
 	}
 	private Scenario<Integer> ABC_iteratorNextRemoveNextRemoveNextRemove_emptyList = () -> ABC_iteratorNextRemoveNextRemoveNextRemove_emptyList();
-	 
+	
+	// Scenario #57
+	// private <Integer> AB_listIteratorNextRemove_A() {
+	// 	<Integer> list = A_addAfterAC_AC();
+	// 	Iterator<Integer> iterator = list.iterator();
+	// 	iterator.next();
+	// 	iterator.remove();
+	// 	return list;
+	// }
+	// private Scenario<Integer> AB_listIteratorNextRemove_A = () -> AB_listIteratorNextRemove_A();
+	
+	// Scenario #60
+	// private <Integer> ABC_listIteratorNextRemove_AC() {
+	// 	<Integer> list = AB_addAfterBC_ABC();
+	// 	Iterator<Integer> iterator = list.iterator();
+	// 	iterator.next();
+	// 	iterator.remove();
+	// 	return list;
+	// }
+	// private Scenario<Integer> ABC_listIteratorNextRemove_AC = () -> ABC_listIteratorNextRemove_AC();
+
 	/////////////////////////////////
 	//XXX Tests for 0-element list
 	/////////////////////////////////
@@ -1041,9 +1065,16 @@ public class ListTester {
 				// printTest(scenarioName + "_testListIter0SetX", testListIterSet(WrapIt.prep(scenario.build(), 0).getListIterator(), ELEMENT_X, Result.IllegalState));
 				// printTest(scenarioName + "_testListIter0Remove", testListIterRemove(WrapIt.prep(scenario.build(), 0).getListIterator(), Result.IllegalState));
 				// printTest(scenarioName + "_testListIter0NextSetX", testListIterSet(WrapIt.prep(scenario.build(), 0).next().getListIterator(), ELEMENT_X, Result.NoException));
-				// printTest(scenarioName + "_testListIter0NextRemove", testListIterRemove(WrapIt.prep(scenario.build(), 0).next().getListIterator(), Result.NoException));
-				// printTest(scenarioName + "_testListIter1PreviousSetX", testListIterSet(WrapIt.prep(scenario.build(), 1).previous().getListIterator(), ELEMENT_X, Result.NoException));
-				// printTest(scenarioName + "_testListIter1PreviousRemove", testListIterRemove(WrapIt.prep(scenario.build(), 1).previous().getListIterator(), Result.NoException));
+				
+				// MD Tests 31-38
+				printTest(scenarioName + "_testListIter1NextSetX", testListIterSet(WrapIt.prep(scenario.build(), 1).next().getListIterator(), ELEMENT_X, Result.NoException));
+				printTest(scenarioName + "_testListIter0NextRemove", testListIterRemove(WrapIt.prep(scenario.build(), 0).next().getListIterator(), Result.NoException));
+				printTest(scenarioName + "_testListIter1NextRemove", testListIterRemove(WrapIt.prep(scenario.build(), 1).next().getListIterator(), Result.NoException));
+				printTest(scenarioName + "_testListIter1PreviousSetX", testListIterSet(WrapIt.prep(scenario.build(), 1).previous().getListIterator(), ELEMENT_X, Result.NoException));
+				printTest(scenarioName + "_testListIter2PreviousSetX", testListIterSet(WrapIt.prep(scenario.build(), 2).previous().getListIterator(), ELEMENT_X, Result.NoException));
+				printTest(scenarioName + "_testListIter1PreviousRemove", testListIterRemove(WrapIt.prep(scenario.build(), 1).previous().getListIterator(), Result.NoException));
+				printTest(scenarioName + "_testListIter2PreviousRemove", testListIterRemove(WrapIt.prep(scenario.build(), 2).previous().getListIterator(), Result.NoException));
+
 			} else {
 				// printTest(scenarioName + "_testListIter", testListIter(scenario.build(), Result.UnsupportedOperation));
 				// printTest(scenarioName + "_testListIter0", testListIter(scenario.build(), 0, Result.UnsupportedOperation));
@@ -1200,20 +1231,39 @@ public class ListTester {
 				// printTest(scenarioName + "_testListIter1HasNext", testListIterHasNext(WrapIt.prep(scenario.build(), 1).getListIterator(), Result.False));
 				// printTest(scenarioName + "_testListIter0Previous", testListIterPrevious(WrapIt.prep(scenario.build(), 0).getListIterator(), null, Result.NoSuchElement));
 				// printTest(scenarioName + "_testListIter1Previous", testListIterPrevious(WrapIt.prep(scenario.build(), 1).getListIterator(), contents[0], Result.MatchingValue));
-				// printTest(scenarioName + "_testListIter0Next", testListIterNext(WrapIt.prep(scenario.build(), 0).getListIterator(), contents[0], Result.MatchingValue));
-				// printTest(scenarioName + "_testListIter1Next", testListIterNext(WrapIt.prep(scenario.build(), 1).getListIterator(), null, Result.NoSuchElement));
-				// printTest(scenarioName + "_testListIter0AddX", testListIterAdd(WrapIt.prep(scenario.build(), 0).getListIterator(), ELEMENT_X, Result.NoException));
-				// printTest(scenarioName + "_testListIter1AddX", testListIterAdd(WrapIt.prep(scenario.build(), 1).getListIterator(), ELEMENT_X, Result.NoException));
-				// printTest(scenarioName + "_testListIter0NextIndex", testListIterNextIndex(WrapIt.prep(scenario.build(), 0).getListIterator(), 0, Result.MatchingValue));
-				// printTest(scenarioName + "_testListIter1NextIndex", testListIterNextIndex(WrapIt.prep(scenario.build(), 1).getListIterator(), 1, Result.MatchingValue));
-				// printTest(scenarioName + "_testListIter0PreviousIndex", testListIterPreviousIndex(WrapIt.prep(scenario.build(), 0).getListIterator(), -1, Result.MatchingValue));
-				// printTest(scenarioName + "_testListIter1PreviousIndex", testListIterPreviousIndex(WrapIt.prep(scenario.build(), 1).getListIterator(), 0, Result.MatchingValue));
-				// printTest(scenarioName + "_testListIter0SetX", testListIterSet(WrapIt.prep(scenario.build(), 0).getListIterator(), ELEMENT_X, Result.IllegalState));
-				// printTest(scenarioName + "_testListIter0Remove", testListIterRemove(WrapIt.prep(scenario.build(), 0).getListIterator(), Result.IllegalState));
-				// printTest(scenarioName + "_testListIter0NextSetX", testListIterSet(WrapIt.prep(scenario.build(), 0).next().getListIterator(), ELEMENT_X, Result.NoException));
-				// printTest(scenarioName + "_testListIter0NextRemove", testListIterRemove(WrapIt.prep(scenario.build(), 0).next().getListIterator(), Result.NoException));
-				// printTest(scenarioName + "_testListIter1PreviousSetX", testListIterSet(WrapIt.prep(scenario.build(), 1).previous().getListIterator(), ELEMENT_X, Result.NoException));
-				// printTest(scenarioName + "_testListIter1PreviousRemove", testListIterRemove(WrapIt.prep(scenario.build(), 1).previous().getListIterator(), Result.NoException));
+				
+				// MD Tests 24-39
+				printTest(scenarioName + "_testListIter2Next", testListIterNext(WrapIt.prep(scenario.build(), 2).getListIterator(), contents[2], Result.MatchingValue));
+				printTest(scenarioName + "_testListIter3Next", testListIterNext(WrapIt.prep(scenario.build(), 3).getListIterator(), null, Result.NoSuchElement));
+				printTest(scenarioName + "_testListIter0AddX", testListIterAdd(WrapIt.prep(scenario.build(), 0).getListIterator(), ELEMENT_X, Result.NoException));
+				printTest(scenarioName + "_testListIter1AddX", testListIterAdd(WrapIt.prep(scenario.build(), 1).getListIterator(), ELEMENT_X, Result.NoException));
+				printTest(scenarioName + "_testListIter2AddX", testListIterAdd(WrapIt.prep(scenario.build(), 2).getListIterator(), ELEMENT_X, Result.NoException));
+				printTest(scenarioName + "_testListIter3AddX", testListIterAdd(WrapIt.prep(scenario.build(), 3).getListIterator(), ELEMENT_X, Result.NoException));
+				printTest(scenarioName + "_testListIter0NextIndex", testListIterNextIndex(WrapIt.prep(scenario.build(), 0).getListIterator(), 0, Result.MatchingValue));
+				printTest(scenarioName + "_testListIter1NextIndex", testListIterNextIndex(WrapIt.prep(scenario.build(), 1).getListIterator(), 1, Result.MatchingValue));
+				printTest(scenarioName + "_testListIter2NextIndex", testListIterNextIndex(WrapIt.prep(scenario.build(), 2).getListIterator(), 2, Result.MatchingValue));
+				printTest(scenarioName + "_testListIter3NextIndex", testListIterNextIndex(WrapIt.prep(scenario.build(), 3).getListIterator(), 3, Result.MatchingValue));
+				printTest(scenarioName + "_testListIter0PreviousIndex", testListIterPreviousIndex(WrapIt.prep(scenario.build(), 0).getListIterator(), -1, Result.MatchingValue));
+				printTest(scenarioName + "_testListIter1PreviousIndex", testListIterPreviousIndex(WrapIt.prep(scenario.build(), 1).getListIterator(), 0, Result.MatchingValue));
+				printTest(scenarioName + "_testListIter2PreviousIndex", testListIterPreviousIndex(WrapIt.prep(scenario.build(), 2).getListIterator(), 1, Result.MatchingValue));
+				printTest(scenarioName + "_testListIter3PreviousIndex", testListIterPreviousIndex(WrapIt.prep(scenario.build(), 3).getListIterator(), 2, Result.MatchingValue));
+				printTest(scenarioName + "_testListIter0SetX", testListIterSet(WrapIt.prep(scenario.build(), 0).getListIterator(), ELEMENT_X, Result.IllegalState));
+				printTest(scenarioName + "_testListIter0Remove", testListIterRemove(WrapIt.prep(scenario.build(), 0).getListIterator(), Result.IllegalState));
+				
+				// MD Tests 40-52
+				printTest(scenarioName + "_testListIter0NextSetX", testListIterSet(WrapIt.prep(scenario.build(), 0).next().getListIterator(), ELEMENT_X, Result.NoException));
+				printTest(scenarioName + "_testListIter1NextSetX", testListIterSet(WrapIt.prep(scenario.build(), 1).next().getListIterator(), ELEMENT_X, Result.NoException));
+				printTest(scenarioName + "_testListIter2NextSetX", testListIterSet(WrapIt.prep(scenario.build(), 2).next().getListIterator(), ELEMENT_X, Result.NoException));
+				printTest(scenarioName + "_testListIter0NextRemove", testListIterRemove(WrapIt.prep(scenario.build(), 0).next().getListIterator(), Result.NoException));
+				printTest(scenarioName + "_testListIter1NextRemove", testListIterRemove(WrapIt.prep(scenario.build(), 1).next().getListIterator(), Result.NoException));
+				printTest(scenarioName + "_testListIter2NextRemove", testListIterRemove(WrapIt.prep(scenario.build(), 2).next().getListIterator(), Result.NoException));
+				printTest(scenarioName + "_testListIter1PreviousSetX", testListIterSet(WrapIt.prep(scenario.build(), 1).previous().getListIterator(), ELEMENT_X, Result.NoException));
+				printTest(scenarioName + "_testListIter2PreviousSetX", testListIterSet(WrapIt.prep(scenario.build(), 2).previous().getListIterator(), ELEMENT_X, Result.NoException));
+				printTest(scenarioName + "_testListIter3PreviousSetX", testListIterSet(WrapIt.prep(scenario.build(), 3).previous().getListIterator(), ELEMENT_X, Result.NoException));
+				printTest(scenarioName + "_testListIter1PreviousRemove", testListIterRemove(WrapIt.prep(scenario.build(), 1).previous().getListIterator(), Result.NoException));
+				printTest(scenarioName + "_testListIter2PreviousRemove", testListIterRemove(WrapIt.prep(scenario.build(), 2).previous().getListIterator(), Result.NoException));
+				printTest(scenarioName + "_testListIter3PreviousRemove", testListIterRemove(WrapIt.prep(scenario.build(), 3).previous().getListIterator(), Result.NoException));
+
 			} else {
 				// printTest(scenarioName + "_testListIter", testListIter(scenario.build(), Result.UnsupportedOperation));
 				// printTest(scenarioName + "_testListIter0", testListIter(scenario.build(), 0, Result.UnsupportedOperation));
