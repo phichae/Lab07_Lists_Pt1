@@ -470,6 +470,7 @@ public class IUDoubleLinkedList<E> implements IndexedUnsortedList<E> {
                     throw new IllegalStateException();
             }
             state = ListIteratorState.NEITHER; // do we need this?
+            modCount++;
             listIterModCount++;
 
         }
