@@ -288,7 +288,8 @@ public class ListTester {
 
 		//List Iterator Scenarios
 		if (SUPPORTS_LIST_ITERATOR) {
-			// Place List Iterator Scenarios Here...
+			//Scenario: 96
+			testThreeElementList(ABC_iteratorNextSetD_ADC, "ABC_iteratorNextSetD_ADC", LIST_ADC, STRING_ADC);
 		}
 
 
@@ -757,6 +758,20 @@ public class ListTester {
 	}
 	private Scenario<Integer> ABC_iteratorNextRemoveNextRemoveNextRemove_emptyList = () -> ABC_iteratorNextRemoveNextRemoveNextRemove_emptyList();
 	 
+
+	//LIST ITERATOR SCENARIOS:
+	/**Scenario # 96: [A,B,C] -> list-iterator(1),next(),set(D) -> [A,D,C]
+	 */
+	private IndexedUnsortedList<Integer> ABC_iteratorNextSetD_ADC() {
+		IndexedUnsortedList<Integer> list = AB_addAfterCB_ABC();
+		ListIterator<Integer> listIterator = list.listIterator();
+		listIterator.next();
+		listIterator.set(ELEMENT_D);
+		return list;
+	}
+	private Scenario<Integer> ABC_iteratorNextSetD_ADC = () -> ABC_iteratorNextSetD_ADC();
+
+
 	/////////////////////////////////
 	//XXX Tests for 0-element list
 	/////////////////////////////////
