@@ -91,18 +91,17 @@ public class IUDoubleLinkedList<E> implements IndexedUnsortedList<E> {
 		if (isEmpty()) {
 			throw new NoSuchElementException();
 		}
-		BidirectionalNode<E> current = front, previous = null, next = current.getNext();
-		while (current != null && !current.getElement().equals(element) && next != null) {
+		BidirectionalNode<E> current = front, previous = null;
+		while (current != null) {
+            if (current.getElement().equals(element)) {
+                BidirectionalNode<E> next = current.getNext();
+                return removeElement(previous, current, next);
+            }
 			previous = current;
-			current = next;
-            next = next.getNext();
-
+			current = current.getNext();
+            // next = next.getNext();
 		}
-		// Matching element not found
-		if (current == null) {
-			throw new NoSuchElementException();
-		}
-		return removeElement(previous, current, next);	
+		throw new NoSuchElementException();
 	}
 
 	@Override
