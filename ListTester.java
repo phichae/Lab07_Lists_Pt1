@@ -786,7 +786,7 @@ public class ListTester {
 	//Scenario:66 [A] -> list-iterator(1),previous(),remove() -> []
 	private IndexedUnsortedList<Integer> A_listIterator1PreviousRemove() {
 		IndexedUnsortedList<Integer> list = emptyList_addToFrontA_A(); 
-		ListIterator<Integer> iterator = list.listIterator();
+		ListIterator<Integer> iterator = list.listIterator(1);
 		iterator.previous();
 		iterator.remove();
 		return list;
@@ -796,7 +796,7 @@ public class ListTester {
 	//Scenario:71 [A,B,C] -> list-iterator(2),previous(),remove() -> [A,C]
 	private IndexedUnsortedList<Integer> ABC_listIterator2PreviousRemove_AC() {
 		IndexedUnsortedList<Integer> list = AB_addAfterCB_ABC();
-		ListIterator<Integer> iterator = list.listIterator();
+		ListIterator<Integer> iterator = list.listIterator(2);
 		iterator.previous();
 		iterator.remove();
 		return list;
@@ -817,7 +817,7 @@ public class ListTester {
 	//Scenario:90 [A,B] -> list-iterator(2),previous,add() -> [A,C,B]
 	private IndexedUnsortedList<Integer> AB_listIterator2PreviousAdd_ACB() {
 		IndexedUnsortedList<Integer> list = A_addToRearB_AB();
-		ListIterator<Integer> iterator = list.listIterator();
+		ListIterator<Integer> iterator = list.listIterator(2);
 		iterator.previous();
 		iterator.add(ELEMENT_C);
 		return list;
