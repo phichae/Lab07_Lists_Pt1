@@ -297,17 +297,21 @@ public class ListTester {
  			// Scenario:66 
 			testEmptyList(A_listIterator1PreviousRemove, "A_listIterator1PreviousRemove");
      
-      // Scenario:71 
+      		// Scenario:71 
 			testTwoElementList(ABC_listIterator2PreviousRemove_AC, "ABC_listIterator2PreviousRemove_AC", LIST_AC, STRING_AC);
       
-      // Scenario:87
-			testThreeElementList(, STRING_ADC, LIST_ABD, STRING_ABD);
+      		// Scenario:87
+			testThreeElementList(AB_listIterator0NextAdd_ABC, "AB_listIterator0NextAdd_ABC", LIST_ABC, STRING_ABC);
+
+			//Scenario: 90
+			testThreeElementList(AB_listIterator2PreviousAdd_ACB, "AB_listIterator2PreviousAdd_ACB", LIST_ACB, STRING_ACB);
       
-      //Scenario: 96
+     		 //Scenario: 96
 			testThreeElementList(ABC_listIterator1NextSetD_ADC, "ABC_iteratorNextSetD_ADC", LIST_ADC, STRING_ADC);
 
 			//Scenario: 99
 			testThreeElementList(ABC_listIterator2PreviousSetD_ADC, "ABC_listIterator2PreviousSetD_ADC", LIST_ADC, STRING_ADC);
+			
 
 		}
 
@@ -865,7 +869,7 @@ public class ListTester {
 		listIterator.set(ELEMENT_D);
 		return list;
 	}
-	private Scenario<Integer> ABC_listIterator2PreviousSetD_ADC = () -> ABC_listIterator1NextSetD_ADC();
+	private Scenario<Integer> ABC_listIterator2PreviousSetD_ADC = () -> ABC_listIterator2PreviousSetD_ADC();
 
 
 
@@ -1148,7 +1152,7 @@ public class ListTester {
 				printTest(scenarioName + "_testListIter0Next", testListIterNext(WrapIt.prep(scenario.build(), 0).getListIterator(), contents[0], Result.MatchingValue));
 				//TODO: Review "contents" and "scenario.build, 1" not sure what that means lol
 				printTest(scenarioName + "_testListIter1Next", testListIterNext(WrapIt.prep(scenario.build(), 1).getListIterator(), contents[1], Result.MatchingValue)); 
-				printTest(scenarioName + "_testListIter2Next", testListIterNext(WrapIt.prep(scenario.build(), 2).getListIterator(), null, Result.Result.NoSuchElement)); 
+				printTest(scenarioName + "_testListIter2Next", testListIterNext(WrapIt.prep(scenario.build(), 2).getListIterator(), null, Result.NoSuchElement)); 
 				printTest(scenarioName + "_testListIter0AddX", testListIterAdd(WrapIt.prep(scenario.build(), 0).getListIterator(), ELEMENT_X, Result.NoException));
 				printTest(scenarioName + "_testListIter1AddX", testListIterAdd(WrapIt.prep(scenario.build(), 1).getListIterator(), ELEMENT_X, Result.NoException));
 				printTest(scenarioName + "_testListIter2AddX", testListIterAdd(WrapIt.prep(scenario.build(), 2).getListIterator(), ELEMENT_X, Result.NoException));
