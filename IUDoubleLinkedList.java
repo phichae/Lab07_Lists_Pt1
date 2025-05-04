@@ -297,9 +297,16 @@ public class IUDoubleLinkedList<E> implements IndexedUnsortedList<E> {
 			if (!hasNext()) {
 				throw new NoSuchElementException();
 			}
-			previous = current;
-			current = next;
-			next = next.getNext();
+
+            if (current == null) {
+                current = next;
+                next = next.getNext();                
+            } else {
+                previous = current;
+                current = next;
+                next = next.getNext();
+            }
+
 			return current.getElement();
 		}
 		
