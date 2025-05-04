@@ -56,8 +56,11 @@ public class IUDoubleLinkedList<E> implements IndexedUnsortedList<E> {
         if (index < 0 || index > size()) { throw new IndexOutOfBoundsException(); }
         if (index == 0) {
             newNode.setNext(front);
+            if (front != null) {
+                front.setPrevious(newNode);
+            }
             front = newNode;
-            if (isEmpty()) {
+            if (front.getNext() == null) {  
                 rear = newNode;
             }
         } else {
