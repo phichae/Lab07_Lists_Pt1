@@ -180,6 +180,7 @@ public class IUDoubleLinkedList<E> implements IndexedUnsortedList<E> {
         // return get(count - 1);
 
         //for some reason, rear is null in the single element list
+
         return rear.getElement();
     }
 
@@ -494,7 +495,6 @@ public class IUDoubleLinkedList<E> implements IndexedUnsortedList<E> {
 
 
     }
+
     
 }
-
-
