@@ -491,6 +491,7 @@ public class IUDoubleLinkedList<E> implements IndexedUnsortedList<E> {
                 addToFront(element);
             } else {
                 addAfter(element, current.getElement());
+                //was current.getElement
             }
             
             listIterModCount++;
