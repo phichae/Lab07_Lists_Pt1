@@ -300,11 +300,15 @@ public class ListTester {
       // Scenario:71 
 			testTwoElementList(ABC_listIterator2PreviousRemove_AC, "ABC_listIterator2PreviousRemove_AC", LIST_AC, STRING_AC);
       
-			//Scenario: 96
+      // Scenario:87
+			testThreeElementList(, STRING_ADC, LIST_ABD, STRING_ABD);
+      
+      //Scenario: 96
 			testThreeElementList(ABC_listIterator1NextSetD_ADC, "ABC_iteratorNextSetD_ADC", LIST_ADC, STRING_ADC);
 
 			//Scenario: 99
 			testThreeElementList(ABC_listIterator2PreviousSetD_ADC, "ABC_listIterator2PreviousSetD_ADC", LIST_ADC, STRING_ADC);
+
 		}
 
 
@@ -795,6 +799,26 @@ public class ListTester {
 	}
 	private Scenario<Integer> ABC_listIterator2PreviousRemove_AC = () -> ABC_listIterator2PreviousRemove_AC();
 
+	//Scenario:87 [A,B] -> list-iterator(0),next(),add() -> [A,B,C]
+	private IndexedUnsortedList<Integer> AB_listIterator0NextAdd_ABC() {
+		IndexedUnsortedList<Integer> list = A_addToRearB_AB();
+		ListIterator<Integer> iterator = list.listIterator();
+		iterator.next();
+		iterator.add(ELEMENT_C);
+		return list;
+	}
+	private Scenario<Integer> AB_listIterator0NextAdd_ABC = () -> AB_listIterator0NextAdd_ABC();
+
+
+	//Scenario:90 [A,B] -> list-iterator(2),previous,add() -> [A,C,B]
+	private IndexedUnsortedList<Integer> AB_listIterator2PreviousAdd_ACB() {
+		IndexedUnsortedList<Integer> list = A_addToRearB_AB();
+		ListIterator<Integer> iterator = list.listIterator();
+		iterator.previous();
+		iterator.add(ELEMENT_C);
+		return list;
+	}
+	private Scenario<Integer> AB_listIterator2PreviousAdd_ACB = () -> AB_listIterator2PreviousAdd_ACB();
 	 
 
 	//LIST ITERATOR SCENARIOS:

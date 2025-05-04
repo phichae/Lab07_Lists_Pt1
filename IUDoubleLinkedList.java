@@ -201,13 +201,14 @@ public class IUDoubleLinkedList<E> implements IndexedUnsortedList<E> {
 
     @Override
     public boolean isEmpty() {
-        return count == 0;
+        return size() == 0;
     }
 
     @Override
     public int size() {
         return count;
     }
+
 
 	@Override
 	public String toString() {
