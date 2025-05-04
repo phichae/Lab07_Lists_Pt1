@@ -486,11 +486,10 @@ public class IUDoubleLinkedList<E> implements IndexedUnsortedList<E> {
             // BidirectionalNode<E> node = new BidirectionalNode<E>(element);
 
             //Adds to the LT of the cursor = before next
-            
             if (current == null) {
                 addToFront(element);
             } else {
-                addAfter(element, current.getElement());
+                addAfter(element, previous.getElement());
                 //was current.getElement
             }
             
