@@ -64,9 +64,9 @@ public class Sort {
 	 *            The list to be sorted, implements IndexedUnsortedList interface 
 	 */
 	private static <E extends Comparable<E>> void quicksort(IndexedUnsortedList<E> list) {
-		if (list.size() == 0 || list.size() == 1) { return; } // base case ig
+		if (list.size() <= 1) { return; } // base case ig
 		//loop thru items, sort into 2 buckets
-		E element = list.first();
+		E partition = list.first();
 		Iterator<E> iter = list.iterator();
 		IndexedUnsortedList<E> smaller = new WrappedDLL<E>();
 		IndexedUnsortedList<E> larger = new WrappedDLL<E>();
@@ -79,16 +79,23 @@ public class Sort {
 		//remove all the elements, comparing/adding to the appropriate list
 		for (int i = 0; i < list.size(); i ++) {
 			E next = iter.next();
-			if (next.compareTo(element) > 0) {
-				larger.add(element);
+			if (next.compareTo(partition) > 0) {
+				larger.add(partition);
 			} else {
-				smaller.add(element);
+				smaller.add(partition);
 			}
 			iter.remove(); 
 		}
 
-		//TODO: String lists together
+		for (E e : smaller) {
+			list.add(partition);
+		}
 
+		list.add(partition);
+
+		for (E e : larger) {
+			list.add(partition);
+		}
 
 		quicksort(smaller);
 		quicksort(larger);
