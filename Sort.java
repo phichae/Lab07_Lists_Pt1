@@ -65,18 +65,13 @@ public class Sort {
 	 */
 	private static <E extends Comparable<E>> void quicksort(IndexedUnsortedList<E> list) {
 		if (list.size() <= 1) { return; } // base case ig
-		//loop thru items, sort into 2 buckets
 		E partition = list.first();
 		Iterator<E> iter = list.iterator();
 		IndexedUnsortedList<E> smaller = new WrappedDLL<E>();
 		IndexedUnsortedList<E> larger = new WrappedDLL<E>();
 
-		//
-		// for (E e : list) {
-			
-		// }
+		// while (smaller.size() > 1 && larger.size() > 1) {
 
-		//remove all the elements, comparing/adding to the appropriate list
 		for (int i = 0; i < list.size(); i ++) {
 			E next = iter.next();
 			if (next.compareTo(partition) > 0) {
@@ -87,20 +82,62 @@ public class Sort {
 			iter.remove(); 
 		}
 
+		quicksort(smaller);
+		quicksort(larger);
+		
+
 		for (E e : smaller) {
-			list.add(partition);
+			list.add(e);
 		}
 
 		list.add(partition);
 
 		for (E e : larger) {
-			list.add(partition);
+			list.add(e);
 		}
 
-		quicksort(smaller);
-		quicksort(larger);
-		//
+
+		//foreach solution - no iter exposed :(
+		// for (E element : list) {
+		// 	if (element.compareTo(partition) > 0) {
+		// 		larger.add(element);
+		// 	} else {
+		// 		smaller.add(element);
+		// 	}
+		// 	list.remove(element);
+		// }
+		
 	}
+
+	// private static <E extends Comparable<E>> IndexedUnsortedList<E> partition(IndexedUnsortedList<E> list) {
+	// 	//loop thru items, sort into 2 buckets
+		
+		
+		
+	// 	//remove all the elements, comparing/adding to the appropriate list
+	// 	for (int i = 0; i < list.size(); i ++) {
+	// 		E next = iter.next();
+	// 		iter.remove(); 
+
+	// 		if (next.compareTo(partition) > 0) {
+	// 			larger.add(partition);
+	// 		} else {
+	// 			smaller.add(partition);
+	// 		}
+	// 	}
+
+	// 	for (E e : smaller) {
+	// 		list.add(partition);
+	// 	}
+
+	// 	list.add(partition);
+
+	// 	for (E e : larger) {
+	// 		list.add(partition);
+	// 	}
+
+	// 	return list;
+	// }
 		
 	/**
 	 * Quicksort algorithm to sort objects in a list 
