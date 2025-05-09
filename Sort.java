@@ -65,19 +65,18 @@ public class Sort {
 	 */
 	private static <E extends Comparable<E>> void quicksort(IndexedUnsortedList<E> list) {
 		if (list.size() <= 1) { return; } // base case ig
-		E partition = list.first();
+		E partition = list.removeFirst();
 		Iterator<E> iter = list.iterator();
 		IndexedUnsortedList<E> smaller = new WrappedDLL<E>();
 		IndexedUnsortedList<E> larger = new WrappedDLL<E>();
 
-		// while (smaller.size() > 1 && larger.size() > 1) {
-
-		for (int i = 0; i < list.size(); i ++) {
+		int size = list.size();
+		for (int i = 0; i < size; i ++) {
 			E next = iter.next();
 			if (next.compareTo(partition) > 0) {
-				larger.add(partition);
+				larger.add(next);
 			} else {
-				smaller.add(partition);
+				smaller.add(next);
 			}
 			iter.remove(); 
 		}
@@ -95,49 +94,8 @@ public class Sort {
 		for (E e : larger) {
 			list.add(e);
 		}
-
-
-		//foreach solution - no iter exposed :(
-		// for (E element : list) {
-		// 	if (element.compareTo(partition) > 0) {
-		// 		larger.add(element);
-		// 	} else {
-		// 		smaller.add(element);
-		// 	}
-		// 	list.remove(element);
-		// }
 		
 	}
-
-	// private static <E extends Comparable<E>> IndexedUnsortedList<E> partition(IndexedUnsortedList<E> list) {
-	// 	//loop thru items, sort into 2 buckets
-		
-		
-		
-	// 	//remove all the elements, comparing/adding to the appropriate list
-	// 	for (int i = 0; i < list.size(); i ++) {
-	// 		E next = iter.next();
-	// 		iter.remove(); 
-
-	// 		if (next.compareTo(partition) > 0) {
-	// 			larger.add(partition);
-	// 		} else {
-	// 			smaller.add(partition);
-	// 		}
-	// 	}
-
-	// 	for (E e : smaller) {
-	// 		list.add(partition);
-	// 	}
-
-	// 	list.add(partition);
-
-	// 	for (E e : larger) {
-	// 		list.add(partition);
-	// 	}
-
-	// 	return list;
-	// }
 		
 	/**
 	 * Quicksort algorithm to sort objects in a list 
@@ -153,7 +111,35 @@ public class Sort {
 	 *            The Comparator used
 	 */
 	private static <E> void quicksort(IndexedUnsortedList<E> list, Comparator<E> c) {
-		// TODO: Implement recursive quicksort algorithm using Comparator
+		if (list.size() <= 1) { return; } // base case ig
+		E partition = list.removeFirst();
+		Iterator<E> iter = list.iterator();
+		IndexedUnsortedList<E> smaller = new WrappedDLL<E>();
+		IndexedUnsortedList<E> larger = new WrappedDLL<E>();
+
+		int size = list.size();
+		for (int i = 0; i < size; i ++) {
+			E next = iter.next();
+			if (c.compare(next, partition) > 0) {
+				larger.add(next);
+			} else {
+				smaller.add(next);
+			}
+			iter.remove(); 
+		}
+
+		quicksort(smaller, c);
+		quicksort(larger, c);
+		
+		for (E e : smaller) {
+			list.add(e);
+		}
+
+		list.add(partition);
+
+		for (E e : larger) {
+			list.add(e);
+		}
 
 	}
 	
